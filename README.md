@@ -1,21 +1,20 @@
-# Emacs configuration and some migrate documentation
+# GNU Emacs, gnus, emacsclient configuration and documentation
 
 ## Create source folder and copy config file
 mkdir ~/.emacs.d && cp emacs ~/.emacs
 
-## Copy emacsclient wrapper script for emacs-server usage
-cp ec /usr/local/bin
+## Copy emacsclient wrapper script for local emacs-server usage
+cp emacsclient/emacsclient_local /usr/local/bin/ec
 
-OR
-
-cp ec /bin
-
-## vim-compared basic operations doc
-vim2emacs_doc/vim2emacs_doc.html
+## Copy emacsclient wrapper script for remote emacs-server usage by SSH (edit script with ssh credentials)
+cp emacsclient/emacsclient_remote /usr/local/bin/ec
 
 ## Gnus email settings example
-cp gnus ~/.gnus
+cp gnus_mail/gnus ~/.gnus
 
-cp authinfo ~/.authinfo && chmod 0600 ~/.authinfo
+cp gnus_mail/authinfo ~/.authinfo && chmod 0600 ~/.authinfo
 
-Edit files with your secret info
+Edit ~/.gnus and ~/.authinfo with your secret info.
+
+## vim-compared basic operations doc
+vim2emacs/vim2emacs.html
