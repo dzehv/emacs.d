@@ -159,6 +159,10 @@
 (setq cperl-indent-subs-specially nil)
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 
+(setq cperl-extra-newline-before-brace nil
+      cperl-brace-offset -4
+      cperl-merge-trailing-else nil)
+
 ;; Packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
