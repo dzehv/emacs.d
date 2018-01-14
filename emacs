@@ -23,7 +23,7 @@
       kept-old-versions 5    ; and how many of the old
       )
 
-;; Path for Emacs lisp librares
+;; Path for Emacs lisp librares to load
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (setq load-path
@@ -174,8 +174,25 @@
       cperl-brace-offset -4
       cperl-merge-trailing-else nil)
 
-;; CPerl completion
-;(load "perl-completion")
+;; Packages repo settings
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; List the packages to install
+(setq package-list '(auto-complete anything))
+;; Activate installed packages
+(package-initialize)
+;; Fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+;; Auto complete mode
 (add-hook 'cperl-mode-hook
            (lambda ()
              (when (require 'auto-complete nil t) ; no error whatever auto-complete.el is not installed.
@@ -184,10 +201,12 @@
                (setq ac-sources
                      '(ac-source-perl-completion)))))
 
-;; Packages repo settings
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+;; CPerl advanced auto complete
+(load "perl-completion") ; To be placed in ~/.emacs.d/lisp/perl-completion.el
+(add-hook 'cperl-mode-hook
+          (lambda()
+            (when (require 'perl-completion nil t)
+              (perl-completion-mode t))))
 
 ;; Groovy settings
 (add-hook 'groovy-mode-hook
@@ -212,7 +231,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (auto-complete anything iedit php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
