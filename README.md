@@ -3,6 +3,9 @@
 ## Create source folder and copy config file
 mkdir ~/.emacs.d && cp emacs ~/.emacs
 
+## Copy elisp libs if you need
+cp -r lisp/ ~/.emacs.d/
+
 ## Copy emacsclient wrapper script for local emacs-server usage
 cp emacsclient/emacsclient_local /usr/local/bin/ec
 

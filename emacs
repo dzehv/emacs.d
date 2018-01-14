@@ -23,6 +23,17 @@
       kept-old-versions 5    ; and how many of the old
       )
 
+;; Path for Emacs lisp librares
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(let ((default-directory  "~/.emacs.d/lisp/"))
+  (setq load-path
+        (append
+         (let ((load-path  (copy-sequence load-path))) ;; Shadow
+           (append 
+            (copy-sequence (normal-top-level-add-to-load-path '(".")))
+            (normal-top-level-add-subdirs-to-load-path)))
+         load-path)))
+
 ;; OS X and Win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
@@ -162,6 +173,16 @@
 (setq cperl-extra-newline-before-brace nil
       cperl-brace-offset -4
       cperl-merge-trailing-else nil)
+
+;; CPerl completion
+;(load "perl-completion")
+(add-hook 'cperl-mode-hook
+           (lambda ()
+             (when (require 'auto-complete nil t) ; no error whatever auto-complete.el is not installed.
+               (auto-complete-mode t)
+               (make-variable-buffer-local 'ac-sources)
+               (setq ac-sources
+                     '(ac-source-perl-completion)))))
 
 ;; Packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
