@@ -34,6 +34,10 @@
             (normal-top-level-add-subdirs-to-load-path)))
          load-path)))
 
+;; Auto install lib
+(when (require 'auto-install nil t)
+  (setq auto-install-directory "~/.emacs.d/auto-install/"))
+
 ;; OS X and Win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
@@ -202,7 +206,6 @@
                      '(ac-source-perl-completion)))))
 
 ;; CPerl advanced auto complete
-(load "perl-completion") ; To be placed in ~/.emacs.d/lisp/perl-completion.el
 (add-hook 'cperl-mode-hook
           (lambda()
             (when (require 'perl-completion nil t)
@@ -231,7 +234,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (auto-complete anything iedit php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
