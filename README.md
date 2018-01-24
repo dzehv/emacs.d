@@ -6,6 +6,9 @@ mkdir ~/.emacs.d && cp emacs ~/.emacs
 ## Copy elisp libs directory
 cp -r lisp/ ~/.emacs.d/
 
+## Copy fonts directory
+mkdir ~/.fonts && cp -r fonts/ ~/.fonts/
+
 ## Copy emacsclient wrapper script for local emacs-server usage
 cp emacsclient/emacsclient_local /usr/local/bin/ec
 

@@ -60,11 +60,20 @@
   (setq w32-lwindow-modifier 'super)
   (setq w32-rwindow-modifier 'super)))
 
+;; Set font
+;; (set-frame-font "Menlo:pixelsize=16")
+(when (member "Menlo" (font-family-list))
+  (set-face-attribute 'default nil :font "Menlo:pixelsize=16"))
+
+;; Set font if emacs running in daemon mode
+;; (add-to-list 'default-frame-alist
+             ;; (cons 'font "Menlo:pixelsize=16"))
+
 ;; Emacs window size on start
-(add-to-list 'default-frame-alist '(left . 0))
-(add-to-list 'default-frame-alist '(top . 0))
-(add-to-list 'default-frame-alist '(height . 50))
-(add-to-list 'default-frame-alist '(width . 180))
+;; (add-to-list 'default-frame-alist '(left . 0))
+;; (add-to-list 'default-frame-alist '(top . 0))
+;; (add-to-list 'default-frame-alist '(height . 50))
+;; (add-to-list 'default-frame-alist '(width . 180))
 
 ;; Display the name of the current buffer in the title bar
 (setq frame-title-format "GNU Emacs: %b")
@@ -234,7 +243,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
