@@ -6,6 +6,16 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
+;; Separate emacs graphical and terminal mode configurations template
+;; (if (display-graphic-p)
+;;     (progn
+;;     ;; if graphic
+;;       (your)
+;;       (code))
+;;     ;; else (optional)
+;;     (your)
+;;     (code))
+
 (require 'server)
 (setq server-name "server" ; name of the server
       server-host "localhost" ; server ip
