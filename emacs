@@ -96,6 +96,7 @@
 (setq org-agenda-files (list "~/.emacs.d/org/work.org"
                              "~/.emacs.d/org/home.org"))
 (setq org-log-done t)
+(setq org-support-shift-select t)
 
 ;; Disable GUI components
 (tooltip-mode      -1)
