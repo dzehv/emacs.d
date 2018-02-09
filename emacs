@@ -75,6 +75,9 @@
 (when (member "Menlo" (font-family-list))
   (set-face-attribute 'default nil :font "Menlo:pixelsize=16"))
 
+;; Navigation
+;; (global-hl-line-mode 1) ; highlight current line
+
 ;; Set font if emacs running in daemon mode
 ;; (add-to-list 'default-frame-alist
              ;; (cons 'font "Menlo:pixelsize=16"))
@@ -97,6 +100,13 @@
                              "~/.emacs.d/org/home.org"))
 (setq org-log-done t)
 (setq org-support-shift-select t)
+(setq org-todo-keywords
+      ;; With cycle type
+      ;; '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+      ;; With key tagged
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
+        (sequence "|" "CANCELED(c)")))
 
 ;; Disable GUI components
 (tooltip-mode      -1)
@@ -167,6 +177,9 @@
 (setq ido-enable-flex-matching t)
 (setq ido-file-extensions-order '(".org" ".txt" ".py" ".pl" ".pm" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf" ".conf" ".groovy"))
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
+
+;; Iswitch
+;; (iswitchb-mode 1)
 
 ;; Imenu autocomplete
 (require 'imenu)
