@@ -7,7 +7,7 @@ mkdir ~/.emacs.d && cp emacs ~/.emacs
 cp -r lisp/ ~/.emacs.d/
 
 ## Copy fonts directory
-mkdir ~/.fonts && cp -r fonts/ ~/.fonts/
+cp -r fonts ~/.fonts
 
 ## Copy emacsclient wrapper script for local emacs-server usage
 cp emacsclient/emacsclient_local /usr/local/bin/ec
@@ -21,6 +21,10 @@ cp gnus_mail/gnus ~/.gnus
 cp gnus_mail/authinfo ~/.authinfo && chmod 0600 ~/.authinfo
 
 Edit ~/.gnus and ~/.authinfo with your secret info.
+
+## Set default editor to no-window emacs
+
+echo export EDITOR=\"emacs -nw\" >> ~/.bashrc
 
 ## vim-compared basic operations doc
 vim2emacs/vim2emacs.html

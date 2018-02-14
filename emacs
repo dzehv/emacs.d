@@ -16,13 +16,19 @@
 ;;     (your)
 ;;     (code))
 
-(require 'server)
-(setq server-name "server" ; name of the server
-      server-host "localhost" ; server ip
-      server-socket-dir "~/.emacs.d/server"
-      server-use-tcp nil
-      server-port 9999)
-(server-start) ; comment out when using 'emacs --daemon'
+;; Run server mode only for GUI session
+;; No window mode should be used for local operations with $EDITOR
+;; Set with: export EDITOR="emacs -nw"
+(if (display-graphic-p)
+    (progn
+      (require 'server)
+      (setq server-name "server" ; name of the server
+            server-host "localhost" ; server ip
+            server-socket-dir "~/.emacs.d/server"
+            server-use-tcp nil
+            server-port 9999)
+      (server-start) ; comment out when using 'emacs --daemon'
+      ))
 
 ;; Backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
@@ -38,7 +44,7 @@
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (setq load-path
         (append
-         (let ((load-path  (copy-sequence load-path))) ;; Shadow
+         (let ((load-path (copy-sequence load-path))) ;; Shadow
            (append 
             (copy-sequence (normal-top-level-add-to-load-path '(".")))
             (normal-top-level-add-subdirs-to-load-path)))
