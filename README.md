@@ -1,4 +1,4 @@
-# GNU Emacs, gnus, emacsclient configuration and documentation
+# GNU Emacs, gnus, emacsclient configuration and some migration notes
 
 ## Create source folder and copy config file
 mkdir ~/.emacs.d && cp emacs ~/.emacs
@@ -23,6 +23,8 @@ cp gnus_mail/authinfo ~/.authinfo && chmod 0600 ~/.authinfo
 Edit ~/.gnus and ~/.authinfo with your secret info.
 
 ## Set default editor to no-window emacs
+
+### WARNING: Use of no-window emacs needs to redefine modifier keys for specified terminal, unexpected reactions otherwise
 
 echo export EDITOR=\"emacs -nw\" >> ~/.bashrc
 

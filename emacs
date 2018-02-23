@@ -18,7 +18,6 @@
 
 ;; Run server mode only for GUI session
 ;; No window mode should be used for local operations with $EDITOR
-;; Set with: export EDITOR="emacs -nw"
 (if (display-graphic-p)
     (progn
       (require 'server)
@@ -107,6 +106,7 @@
 (setq org-log-done t)
 (setq org-support-shift-select t)
 (setq org-todo-keywords
+      ;; Change of these options requires full emacs restart
       ;; With cycle type
       ;; '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
       ;; With key tagged
@@ -289,7 +289,7 @@
 (put 'downcase-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
 
-;; Functions defun
+;; Functions defun below
 
 ;; Create empty buffer
 (defun xah-new-empty-buffer ()
