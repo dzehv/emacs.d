@@ -154,18 +154,6 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-;; Some custom useful keybindings
-(global-set-key (kbd "C-?") 'help-command)
-(global-set-key (kbd "M-?") 'mark-paragraph)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-(global-set-key (kbd "M-/") 'comment-line) ;; emacs25+
-(global-set-key (kbd "C-M-/") 'comment-region)
-(global-set-key (kbd "C-M-?") 'uncomment-region)
-(global-set-key (kbd "s-r") 'revert-buffer)
-(global-set-key (kbd "s-.") 'xah-new-empty-buffer)
-(global-set-key (kbd "s-j") 'json-reformat-region)
-
 ;; Tramp bindings
 (cond
  ((eq system-type 'darwin)
@@ -289,6 +277,18 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
+
+;; Some custom useful keybindings
+(global-set-key (kbd "C-?") 'help-command)
+(global-set-key (kbd "M-?") 'mark-paragraph)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key (kbd "M-/") 'comment-line) ;; emacs25+
+(global-set-key (kbd "C-M-/") 'comment-region)
+(global-set-key (kbd "C-M-?") 'uncomment-region)
+(global-set-key (kbd "s-r") 'revert-buffer)
+(global-set-key (kbd "s-.") 'xah-new-empty-buffer)
+(global-set-key (kbd "s-j") 'json-reformat-region)
 
 ;; Functions defun below
 
