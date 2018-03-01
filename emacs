@@ -164,6 +164,7 @@
 (global-set-key (kbd "C-M-?") 'uncomment-region)
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
+(global-set-key (kbd "s-j") 'json-reformat-region)
 
 ;; Tramp bindings
 (cond
@@ -223,7 +224,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; List the packages to install
-(setq package-list '(auto-complete anything))
+(setq package-list '(auto-complete anything json-reformat))
 ;; Activate installed packages
 (package-initialize)
 ;; Fetch the list of packages available 
@@ -273,7 +274,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (json-reformat javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
