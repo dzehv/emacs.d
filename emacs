@@ -212,7 +212,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; List the packages to install
-(setq package-list '(auto-complete anything json-reformat))
+(setq package-list '(auto-complete anything json-reformat helm))
 ;; Activate installed packages
 (package-initialize)
 ;; Fetch the list of packages available 
@@ -262,7 +262,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (json-reformat javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (helm json-reformat javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -289,6 +289,21 @@
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
 (global-set-key (kbd "s-j") 'json-reformat-region)
+
+;; helm bindings
+(require 'helm-config)
+
+(with-eval-after-load 'helm
+  (define-key helm-map (kbd "C-c p") 'ignore)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+  (define-key helm-map (kbd "C-z")  'helm-select-action))
+
+(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+(global-set-key (kbd "C-x r b") 'helm-bookmarks)
+(global-set-key (kbd "C-x m") 'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;; Functions defun below
 
