@@ -49,7 +49,9 @@
       (server-start) ; comment out when using 'emacs --daemon'
       )
   ;; else
-  (require 'xterm-extras) ;; Allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
+  (when (string-match "^xterm" (getenv "TERM")) ;; Allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
+    (require 'xterm-extras)
+    (xterm-extra-keys))
   )
 
 ;; Auto install lib
