@@ -16,19 +16,6 @@
 ;;     (your)
 ;;     (code))
 
-;; Run server mode only for GUI session
-;; No window mode should be used for local operations with $EDITOR
-(if (display-graphic-p)
-    (progn
-      (require 'server)
-      (setq server-name "server" ; name of the server
-            server-host "localhost" ; server ip
-            server-socket-dir "~/.emacs.d/server"
-            server-use-tcp nil
-            server-port 9999)
-      (server-start) ; comment out when using 'emacs --daemon'
-      ))
-
 ;; Backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
@@ -48,6 +35,22 @@
             (copy-sequence (normal-top-level-add-to-load-path '(".")))
             (normal-top-level-add-subdirs-to-load-path)))
          load-path)))
+
+;; Run server mode only for GUI session
+;; No window mode should be used for local operations with $EDITOR
+(if (display-graphic-p)
+    (progn
+      (require 'server)
+      (setq server-name "server" ; name of the server
+            server-host "localhost" ; server ip
+            server-socket-dir "~/.emacs.d/server"
+            server-use-tcp nil
+            server-port 9999)
+      (server-start) ; comment out when using 'emacs --daemon'
+      )
+  ;; else
+  (require 'xterm-extras) ;; Allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
+  )
 
 ;; Auto install lib
 (when (require 'auto-install nil t)
