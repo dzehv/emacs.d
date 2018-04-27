@@ -333,6 +333,22 @@
     (funcall (and initial-major-mode))
     (setq buffer-offer-save t)))
 
+;; ansi-term line and char modes
+;; In the line mode ansi term buffer acts more like a normal text-buffer
+(require 'term)
+(defun jnm/term-toggle-mode ()
+  "Toggles term between line mode and char mode"
+  (interactive)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
+
+(define-key term-mode-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+(define-key term-mode-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+
+(define-key term-raw-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+(define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+
 ;; ansi-term yank
 (defun my-term-mode-hook ()
   (define-key term-raw-map (kbd "C-y") 'term-paste)
