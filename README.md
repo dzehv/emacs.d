@@ -45,3 +45,8 @@ echo export EDITOR=\"emacs -nw\" >> ~/.bashrc
 ec vim2emacs/vim2emacs.html
 M-x shr-render-buffer
 ```
+
+### To compile .tex files, install
+```
+texlive-full
+```
