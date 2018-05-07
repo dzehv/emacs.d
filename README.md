@@ -47,6 +47,12 @@ M-x shr-render-buffer
 ```
 
 ### To compile .tex files, install
+Basic:
+```
+texlive
+```
+
+With extras:
 ```
 texlive-full
 ```

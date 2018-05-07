@@ -322,6 +322,9 @@
 ;; (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 ;; (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 
+;; Include latex configuration
+(load-file "~/.emacs.d/lisp/latex.el")
+
 ;; Functions defun below
 
 ;; Create empty buffer
