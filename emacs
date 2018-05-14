@@ -132,7 +132,19 @@
 ;; Disable Git backend to speed up sshfs file load among other things
 ;; Bypass tramp vc-registered errors (hangings on remote volume editing)
 ;; The default list is (RCS CVS SVN SCCS Bzr Git Hg Mtn Arch)
-(setq vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
+;; (setq vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
+
+;; To disable all vc checking
+;; (setq vc-handled-backends nil)
+
+;; Disable vc in tramp mode
+(setq auto-revert-check-vc-info t)
+
+(defun my-disable-auto-revert-vc-in-tramp ()
+  (when (and buffer-file-name (file-remote-p buffer-file-name))
+    (setq-local auto-revert-check-vc-info nil)))
+
+(add-hook 'find-file-hook #'my-disable-auto-revert-vc-in-tramp)
 
 ;; Nightmare mode (disables arrow keys)
 (global-unset-key (kbd "<left>"))
