@@ -137,14 +137,11 @@
 ;; To disable all vc checking
 ;; (setq vc-handled-backends nil)
 
-;; Disable vc in tramp mode
-(setq auto-revert-check-vc-info t)
-
-(defun my-disable-auto-revert-vc-in-tramp ()
-  (when (and buffer-file-name (file-remote-p buffer-file-name))
-    (setq-local auto-revert-check-vc-info nil)))
-
-(add-hook 'find-file-hook #'my-disable-auto-revert-vc-in-tramp)
+;; Disable tramp version control to avoid delays
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
 
 ;; Nightmare mode (disables arrow keys)
 (global-unset-key (kbd "<left>"))
