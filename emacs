@@ -309,6 +309,7 @@
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
 (global-set-key (kbd "s-j") 'json-reformat-region)
+(global-set-key (kbd "s-g") 'goto-percent)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
@@ -370,3 +371,9 @@
       (term-send-raw-string "\C-k")
       (kill-line))))
 (add-hook 'term-mode-hook 'my-term-mode-hook)
+
+;; Goto specified percent of buffer
+(defun goto-percent (percent)
+  "Goto PERCENT of buffer."
+  (interactive "nGoto percent: ")
+  (goto-char (/ (* percent (point-max)) 100)))
