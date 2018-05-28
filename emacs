@@ -336,6 +336,9 @@
 ;; Include latex configuration
 (load-file "~/.emacs.d/lisp/latex.el")
 
+;; Auto conf mode for Dockerfile
+(add-to-list 'auto-mode-alist '("Dockerfile" . conf-mode))
+
 ;; Functions defun below
 
 ;; Create empty buffer
