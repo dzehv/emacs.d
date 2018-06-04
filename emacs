@@ -223,13 +223,17 @@
 ;; Packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa-stable" . "http://stable.melpa.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; To update package lists: M-x package-refresh-contents RET
 
 ;; List the packages to install
 (setq package-list '(
                      auto-complete
                      anything
                      json-reformat
+                     magit
                      ;; helm
                      ;; helm-swoop
                      ))
@@ -282,7 +286,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rust-mode lua-mode json-reformat javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (magit rust-mode lua-mode json-reformat javap-mode anything auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -312,6 +316,8 @@
 (global-set-key (kbd "s-g") 'goto-percent)
 (global-set-key (kbd "s-b m") 'rename-file-and-buffer)
 (global-set-key (kbd "s-d u") 'dos2unix)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
