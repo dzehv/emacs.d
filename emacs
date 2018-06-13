@@ -415,3 +415,10 @@
   "Not exactly but it's easier to remember"
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
+
+;; Kill matching buffers with no ask (no binding for now, just call directly)
+(defun kill-matching-buffers-just-do-it ()
+  "Kill buffers whose names match REGEXP, without asking."
+  (interactive)
+  (cl-letf (((symbol-function 'kill-buffer-ask) #'kill-buffer))
+    (call-interactively #'kill-matching-buffers)))
