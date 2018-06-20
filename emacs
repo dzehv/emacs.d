@@ -90,7 +90,7 @@
 
 ;; Set font if emacs running in daemon mode
 ;; (add-to-list 'default-frame-alist
-             ;; (cons 'font "Menlo:pixelsize=16"))
+;; (cons 'font "Menlo:pixelsize=16"))
 
 ;; Emacs window size on start
 ;; (add-to-list 'default-frame-alist '(left . 0))
@@ -324,6 +324,7 @@
 (global-set-key (kbd "s-d u") 'dos2unix)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(global-set-key (kbd "C-x C-r") 'sudo-edit)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
@@ -422,3 +423,16 @@
   (interactive)
   (cl-letf (((symbol-function 'kill-buffer-ask) #'kill-buffer))
     (call-interactively #'kill-matching-buffers)))
+
+;; Sudo edit file or reload current buffer with sudo (set to C-x C-r)
+(defun sudo-edit (&optional arg)
+  "Edit currently visited file as root.
+
+With a prefix ARG prompt for a file to visit.
+Will also prompt for a file to visit if current
+buffer is not visiting a file."
+  (interactive "P")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:"
+                         (ido-read-file-name "Find file(as root): ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
