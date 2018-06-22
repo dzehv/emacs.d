@@ -321,6 +321,7 @@
 (global-set-key (kbd "s-j") 'json-reformat-region)
 (global-set-key (kbd "s-g") 'goto-percent)
 (global-set-key (kbd "s-b m") 'rename-file-and-buffer)
+(global-set-key (kbd "s-k m") 'kill-matching-buffers-just-do-it)
 (global-set-key (kbd "s-d u") 'dos2unix)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
@@ -417,7 +418,7 @@
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
-;; Kill matching buffers with no ask (no binding for now, just call directly)
+;; Kill matching buffers with no ask
 (defun kill-matching-buffers-just-do-it ()
   "Kill buffers whose names match REGEXP, without asking."
   (interactive)
