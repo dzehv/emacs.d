@@ -40,6 +40,16 @@ Edit ~/.gnus and ~/.authinfo with your secret info.
 echo export EDITOR=\"emacs -nw\" >> ~/.bashrc
 ```
 
+### Minimal configuration for no-window usage
+```
+cp emacs-nw ~/.emacs-nw
+```
+
+### Launch with min conf
+```
+emacs -nw -l ~/.emacs-nw
+```
+
 ### vim-compared basic operations doc, also described some pretty features
 ```
 ec vim2emacs/vim2emacs.html
