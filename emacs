@@ -16,6 +16,9 @@
 ;;     (your)
 ;;     (code))
 
+;; Confirm exit
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 ;; Backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
