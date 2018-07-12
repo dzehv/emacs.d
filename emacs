@@ -358,6 +358,13 @@
 ;; Auto conf mode for Dockerfile
 (add-to-list 'auto-mode-alist '("Dockerfile" . conf-mode))
 
+;; Spell checking settings
+(add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
+;; (dolist (hook '(text-mode-hook))
+  ;; (add-hook hook (lambda () (flyspell-mode 1))))
+;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  ;; (add-hook hook (lambda () (flyspell-mode -1))))
+
 ;; Functions defun below
 
 ;; Create empty buffer
@@ -439,7 +446,7 @@ buffer is not visiting a file."
   (interactive "P")
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:"
-                         (ido-read-file-name "Find file(as root): ")))
+                         (ido-read-file-name "Find file (as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; As it says...
