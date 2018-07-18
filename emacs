@@ -354,11 +354,7 @@
 ;; (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 ;; (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 
-;; Include latex configuration
-(load-file "~/.emacs.d/lisp/latex.el")
-
 ;; Comment tags settings
-(load-file "~/.emacs.d/lisp/comment-tags.el")
 (autoload 'comment-tags-mode "comment-tags-mode")
 (setq comment-tags-keymap-prefix (kbd "C-c t"))
 (with-eval-after-load "comment-tags"
@@ -389,7 +385,8 @@
 ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   ;; (add-hook hook (lambda () (flyspell-mode -1))))
 
-;; Functions defun below
+
+;; FUNCTIONS defun below
 
 ;; Create empty buffer
 (defun xah-new-empty-buffer ()
@@ -505,3 +502,17 @@ vi style of % jumping to matching brace."
         ;; Now, try to succeed from inside of a bracket
         ((looking-at "\\s)") (forward-char) (backward-sexp arg))
         ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
+
+;; Load all elisp files from specified dir
+(defun my-load-all-in-directory (dir)
+  "`load' all elisp libraries in directory DIR which are not already loaded."
+  (interactive "D")
+  (let ((libraries-loaded (mapcar #'file-name-sans-extension
+                                  (delq nil (mapcar #'car load-history)))))
+    (dolist (file (directory-files dir t ".+\\.elc?$"))
+      (let ((library (file-name-sans-extension file)))
+        (unless (member library libraries-loaded)
+          (load library nil t)
+          (push library libraries-loaded))))))
+
+(my-load-all-in-directory "~/.emacs.d/lisp/")
