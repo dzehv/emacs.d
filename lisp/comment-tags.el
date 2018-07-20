@@ -63,6 +63,7 @@
     "KLUDGE"
     "XXX"
     "INFO"
+    "NOTE"
     "DONE")
   "Keywords to highlight and track."
   :group 'comment-tags
@@ -105,6 +106,7 @@
     ("KLUDGE" . ,(list :inherit 'warning))
     ("XXX" . ,(list :inherit 'underline :weight 'bold))
     ("INFO" . ,(list :inherit 'underline :weight 'bold))
+    ("NOTE" . ,(list :inherit 'success :weight 'bold))
     ("DONE" . ,(list :inherit 'success :weight 'bold)))
   "Faces for different keywords."
   :group 'comment-tags

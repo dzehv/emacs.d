@@ -367,6 +367,7 @@
           ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
           ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
           ("INFO" . ,(list :weight 'bold :foreground "#F7EAC8"))
+          ("NOTE" . ,(list :weight 'bold :foreground "#1FDA9A"))
           ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
   (setq comment-tags-comment-start-only t
         comment-tags-require-colon t
