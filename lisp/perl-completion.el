@@ -432,7 +432,7 @@ directory is added to PERL5LIB when invoke completion commands."
       (define-key map (kbd "C-RET") 'plcmp-cmd-smart-complete)
       (define-key map (kbd "C-<return>") 'plcmp-cmd-smart-complete)
       (define-key map (kbd "C-M-i") 'plcmp-cmd-smart-complete)
-      (define-key map (kbd "C-c a") 'plcmp-cmd-complete-arrays)
+      ;; (define-key map (kbd "C-c a") 'plcmp-cmd-complete-arrays) ; Disable to prevent conflict with Org Agenda's binding
       (define-key map (kbd "C-c i") 'plcmp-cmd-complete-modules)
       (define-key map (kbd "C-c v") 'plcmp-cmd-complete-variables)
       (define-key map (kbd "C-c f") 'plcmp-cmd-complete-functions)

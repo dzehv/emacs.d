@@ -53,6 +53,7 @@ emacs -nw -l ~/.emacs-nw
 ### vim-compared basic operations doc, also described some pretty features
 ```
 ec vim2emacs/vim2emacs.html
+M-: (require 'shr)
 M-x shr-render-buffer
 ```
 
