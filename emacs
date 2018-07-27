@@ -243,6 +243,7 @@
                      anything
                      json-reformat
                      magit
+                     multiple-cursors
                      ;; helm
                      ;; helm-swoop
                      ))
@@ -384,8 +385,14 @@
 ;; (dolist (hook '(text-mode-hook))
   ;; (add-hook hook (lambda () (flyspell-mode 1))))
 ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-  ;; (add-hook hook (lambda () (flyspell-mode -1))))
+;; (add-hook hook (lambda () (flyspell-mode -1))))
 
+;; Multiple cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; FUNCTIONS defun below
 
