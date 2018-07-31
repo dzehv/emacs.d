@@ -104,6 +104,66 @@
 ;; Display the name of the current buffer in the title bar
 (setq frame-title-format "GNU Emacs: %b")
 
+;; Ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(autoload 'ibuffer "ibuffer" "List buffers." t)
+
+;; Ibuffer: Use human readable Size column instead of original one
+(define-ibuffer-column size-h
+  (:name "Size" :inline nil)
+  (cond
+   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+   ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+   (t (format "%8d" (buffer-size)))))
+
+;; Ibuffer: Modify the default ibuffer-formats
+(setq ibuffer-formats
+      '((mark modified read-only " "
+              (name 18 18 :left :elide)
+              " "
+              (size-h 9 -1 :right)
+              " "
+              (mode 16 16 :left :elide)
+              " "
+              filename-and-process)))
+
+;; Ibuffer Gnus-style grouping
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("perl" (mode . cperl-mode))
+               ("org" (or
+                       (name . "\\.org$")
+                       (name . "\\*Org")
+                       (mode . org-mode)))
+               ("emacs" (or
+                         (name . "^\\.emacs$")
+                         (name . "^\\.emacs\\.el$")
+                         (name . "^\\*GNU Emacs\\*$")
+                         (name . "^\\*WoMan-Log\\*$")
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Messages\\*$")))
+               ("dired" (mode . dired-mode))
+               ;; ("erc" (mode . erc-mode))
+               ("tramp" (name . "^\\*tramp"))
+               ("planner" (or
+                           (name . "^\\*Calendar\\*$")
+                           (name . "^diary$")
+                           (mode . muse-mode)))
+               ("gnus" (or
+                        (mode . message-mode)
+                        (mode . bbdb-mode)
+                        (mode . mail-mode)
+                        (mode . gnus-group-mode)
+                        (mode . gnus-summary-mode)
+                        (mode . gnus-article-mode)
+                        (name . "^\\.bbdb$")
+                        (name . "^\\.newsrc-dribble")))))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-switch-to-saved-filter-groups "default")))
+
 ;; Org mode settings
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
