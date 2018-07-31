@@ -136,6 +136,13 @@
                        (name . "\\.org$")
                        (name . "\\*Org")
                        (mode . org-mode)))
+               ("conf" (or
+                        (mode . conf-mode)
+                        (mode . conf-space-mode)))
+               ("shell" (or
+                         (mode . term-mode)
+                         (mode . shell-mode)
+                         (mode . eshell-mode)))
                ("emacs" (or
                          (name . "^\\.emacs$")
                          (name . "^\\.emacs\\.el$")
@@ -146,6 +153,9 @@
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
                ("tramp" (name . "^\\*tramp"))
+               ("magit" (or
+                        (name . "^\\*?magit")
+                        (name . "^magit[-:]")))
                ("planner" (or
                            (name . "^\\*Calendar\\*$")
                            (name . "^diary$")
@@ -169,6 +179,9 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-cb" 'org-iswitchb)
+(setq org-startup-truncated t) ; no lines wrap
 (setq org-agenda-files (list "~/.emacs.d/org/work.org"
                              "~/.emacs.d/org/home.org"))
 (setq org-log-done t)
@@ -180,6 +193,7 @@
       ;; With key tagged
       '((sequence "TODO(t)" "|" "DONE(d)")
         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
+        (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "CANCELED(c)")))
 
 ;; Disable GUI components
