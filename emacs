@@ -16,9 +16,6 @@
 ;;     (your)
 ;;     (code))
 
-;; Confirm exit
-(setq confirm-kill-emacs 'yes-or-no-p)
-
 ;; Backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
@@ -50,6 +47,8 @@
             server-use-tcp nil
             server-port 9999)
       (server-start) ; comment out when using 'emacs --daemon'
+      ;; Confirm exit
+      (setq confirm-kill-emacs 'yes-or-no-p)
       )
   ;; else
   (when (string-match "^xterm" (getenv "TERM")) ;; Allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
