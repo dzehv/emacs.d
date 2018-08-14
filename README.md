@@ -50,6 +50,8 @@ cp emacs-nw ~/.emacs-nw
 emacs -nw -l ~/.emacs-nw
 ```
 
+It can be used both configurations. emacs-nw will not use whole configuration if ~/.emacs-nw exists
+
 ### vim-compared basic operations doc, also described some pretty features
 ```
 ec vim2emacs/vim2emacs.html

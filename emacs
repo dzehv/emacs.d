@@ -48,13 +48,18 @@
             server-port 9999)
       (server-start) ; comment out when using 'emacs --daemon'
       ;; Confirm exit
-      (setq confirm-kill-emacs 'yes-or-no-p)
-      )
+      (setq confirm-kill-emacs 'yes-or-no-p))
   ;; else
   (when (string-match "^xterm" (getenv "TERM")) ;; Allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
     (require 'xterm-extras)
     (xterm-extra-keys))
-  )
+  ;; Load minimal emacs configuration for nw mode
+  (setq emacs-nw-conf "~/.emacs-nw")
+  (if (file-exists-p emacs-nw-conf)
+      (progn (load-file emacs-nw-conf)
+             ;; Don't init other configuration of this file if ~/.emacs-nw exists
+             (with-current-buffer " *load*"
+               (goto-char (point-max))))))
 
 ;; Auto install lib
 (when (require 'auto-install nil t)
