@@ -153,7 +153,8 @@
                          (name . "^\\*GNU Emacs\\*$")
                          (name . "^\\*WoMan-Log\\*$")
                          (name . "^\\*scratch\\*$")
-                         (name . "^\\*Messages\\*$")))
+                         (name . "^\\*Messages\\*$")
+                         (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
                ("tramp" (name . "^\\*tramp"))
@@ -414,6 +415,7 @@
 (global-set-key (kbd "C-x %") 'forward-or-backward-sexp)
 (global-set-key (kbd "s-x k") 'xah-close-current-buffer)
 (global-set-key (kbd "C-S-t") 'xah-open-last-closed) ; control+shift+t
+(global-set-key (kbd "s-w d") 'wdired-change-to-wdired-mode)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
