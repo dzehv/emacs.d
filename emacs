@@ -160,6 +160,7 @@
                ("magit" (or
                         (name . "^\\*?magit")
                         (name . "^magit[-:]")))
+               ("help" (mode . help-mode))
                ("planner" (or
                            (name . "^\\*Calendar\\*$")
                            (name . "^diary$")
