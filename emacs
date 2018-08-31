@@ -111,6 +111,8 @@
 ;; Ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
+(setq ibuffer-show-empty-filter-groups nil)
+(setq ibuffer-expert t)
 
 ;; Ibuffer: Use human readable Size column instead of original one
 (define-ibuffer-column size-h
@@ -178,6 +180,7 @@
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
+            (ibuffer-auto-mode 1)
             (ibuffer-switch-to-saved-filter-groups "default")))
 
 ;; Org mode settings
