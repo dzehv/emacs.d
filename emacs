@@ -205,6 +205,37 @@
         (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "CANCELED(c)")))
 
+;; Org capture at point
+(defun org-capture-at-point ()
+  "Insert an org capture template at point."
+  (interactive)
+  (org-capture 0))
+
+(global-set-key (kbd "\C-cc") #'org-capture-at-point)
+
+;; Org capture templates
+(setq org-capture-templates
+      '(("t" "TODO" entry (file "~/.emacs.d/org/work.org")
+         "* TODO %? %^G \n  %U" :empty-lines 0)
+        ("s" "Scheduled TODO" entry (file+headline "~/.emacs.d/org/work.org" "HEADLINE")
+         "* TODO %? %^G \nSCHEDULED: %^t\n  %U" :empty-lines 0)
+        ("d" "Deadline" entry (file+headline "~/.emacs.d/org/work.org" "HEADLINE")
+         "* TODO %? %^G \n  DEADLINE: %^t" :empty-lines 0)
+        ("p" "Priority" entry (file+headline "~/.emacs.d/org/work.org" "HEADLINE")
+         "* TODO [#A] %? %^G \n  SCHEDULED: %^t")
+        ("a" "Appointment" entry (file+headline "~/.emacs.d/org/work.org" "HEADLINE")
+         "* %? %^G \n  %^t")
+        ("l" "Link" entry (file+headline "~/.emacs.d/org/work.org" "HEADLINE")
+         "* TODO %a %? %^G\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
+        ("n" "Note" entry (file+headline "~/.emacs.d/org/work.org" "HEADLINE")
+         "* %? %^G\n%U" :empty-lines 0)
+        ("j" "Journal" entry (file+datetree "~/.emacs.d/org/home.org")
+         "* %? %^G\nEntered on %U\n")))
+
+;; Shortcut to capture entry
+(define-key global-map "\C-ct"
+  (lambda () (interactive) (org-capture nil "t")))
+
 ;; Disable GUI components
 (tooltip-mode      -1)
 (menu-bar-mode     -1) ;; Disable graphical menu
