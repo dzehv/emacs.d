@@ -200,7 +200,7 @@
       ;; With cycle type
       ;; '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
       ;; With key tagged
-      '((sequence "TODO(t)" "|" "DONE(d)")
+      '((sequence "TODO(t)" "IN PROGRESS(p)" "|" "DONE(d)")
         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
         (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "CANCELED(c)")))
