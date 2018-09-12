@@ -451,6 +451,7 @@
 (global-set-key (kbd "C-S-t") 'xah-open-last-closed) ; control+shift+t
 (global-set-key (kbd "s-w d") 'wdired-change-to-wdired-mode)
 (global-set-key (kbd "s-k l") 'kill-matching-lines)
+(global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
@@ -744,3 +745,20 @@ even beep.)"
   (unless (and buffer-read-only kill-read-only-ok)
     ;; Delete lines or make the "Buffer is read-only" error.
     (flush-lines regexp rstart rend interactive)))
+
+;; Kill by regex matching buffers filenames
+(defun yba-kill-buffers-regexp (regexp)
+  "Kill buffers related to a file, whose filename match against the regexp."
+  (interactive "sRegexp? ")
+  (let ((count-killed-buffers
+         (length (mapcar
+                  #'kill-buffer
+                  (remove-if-not
+                   (lambda (x)
+                     (and
+                      (buffer-file-name x)
+                      (string-match regexp (buffer-file-name x))))
+                   (buffer-list))))))
+    (if (zerop count-killed-buffers)
+        (message "No buffer matches. ")
+      (message "A result of %i buffers has been killed. " count-killed-buffers))))
