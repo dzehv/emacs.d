@@ -33,6 +33,11 @@ cp gnus_mail/authinfo ~/.authinfo && chmod 0600 ~/.authinfo
 
 Edit ~/.gnus and ~/.authinfo with your secret info.
 
+```
+sed -i 's/<FULL_NAME>/My Pretty Name/g; s/<EMAIL_ADDRESS>/my.email@gmail.com/g' ~/.gnus
+sed -i 's/<USER>/my_email_login/g; s/<PASSWORD>/my_email_password/g' ~/.authinfo
+```
+
 ### Set default editor to no-window emacs
 
 #### WARNING: Use of no-window emacs needs to use lossless kbd input extensions for specified terminal, unexpected reactions otherwise
