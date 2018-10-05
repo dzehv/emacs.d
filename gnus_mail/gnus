@@ -5,8 +5,6 @@
 (setq user-mail-address "<EMAIL_ADDRESS>"
       user-full-name "<FULL_NAME>")
 
-(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
-
 (setq gnus-select-method
       '(nnimap "gmail"
                (nnimap-address "imap.gmail.com") ; it could also be imap.googlemail.com if that's your server.
@@ -28,6 +26,31 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-stream-type 'ssl
       smtpmail-smtp-service 465)
+
+;; Topic mode at gnus startup
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+;; Encoding settings
+(setq gnus-default-charset 'koi8-r)
+(setq gnus-default-posting-charset 'koi8-r)
+(setq gnus-group-charset-alist '((".*" koi8-r)))
+(setq gnus-group-posting-charset-alist
+      '((message-this-is-mail koi8-r t)
+        (message-this-is-news koi8-r t)))
+(setq message-default-charset 'koi8-r)
+(setq mime-default-charset 'koi8-r)
+(put-charset-property 'cyrillic-iso8859-5
+                      'preferred-coding-system 'koi8-r)
+
+(setq rfc2047-encode-message-header t)
+(setq message-default-charset 'koi8-r)
+(setq rfc2047-header-encoding-alist
+      '(("Newsgroups" . B)
+        ("From" . B)
+        ("X-Comment-To" . B)
+        ("Message-ID" . B)
+        ("Subject" . B)
+        (t . B)))
 
 ;; Sort groups by score and then reverse arrival order
 (setq gnus-thread-sort-functions
