@@ -28,3 +28,19 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-stream-type 'ssl
       smtpmail-smtp-service 465)
+
+;; Sort groups by score and then reverse arrival order
+(setq gnus-thread-sort-functions
+      '((not gnus-thread-sort-by-number)
+        gnus-thread-sort-by-score))
+
+;; Sort by reverse score, then by subject, and finally by number
+;; (setq gnus-thread-sort-functions
+      ;; '(gnus-thread-sort-by-number
+        ;; gnus-thread-sort-by-subject
+        ;; (not gnus-thread-sort-by-total-score)))
+
+;; Sort an unthreaded summary display by subject
+;; (setq gnus-article-sort-functions
+      ;; '(gnus-article-sort-by-number
+        ;; gnus-article-sort-by-subject))
