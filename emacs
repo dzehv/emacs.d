@@ -156,6 +156,7 @@
                          (name . "^\\*WoMan-Log\\*$")
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")
+                         (name . "^\\*Quail Completions\\*$")
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
