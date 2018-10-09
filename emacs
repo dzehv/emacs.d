@@ -608,6 +608,13 @@ buffer is not visiting a file."
                          (ido-read-file-name "Find file (as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+;; Another one sudo find file func
+(defun sudo-find-file (file-name)
+  "Like find file, but opens the file as root."
+  (interactive "FSudo Find File: ")
+  (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+    (find-file tramp-file-name)))
+
 ;; As it says...
 (defun delete-file-and-buffer ()
   "Kills current buffer and deletes file it is visiting."
