@@ -157,6 +157,7 @@
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")
                          (name . "^\\*Quail Completions\\*$")
+                         (name . "^\\*ielm\\*$")
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
