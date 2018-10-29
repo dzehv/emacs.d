@@ -158,6 +158,7 @@
                          (name . "^\\*Messages\\*$")
                          (name . "^\\*Quail Completions\\*$")
                          (name . "^\\*ielm\\*$")
+                         (name . "^\\*vc\\*$")
                          (mode . debugger-mode)
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
