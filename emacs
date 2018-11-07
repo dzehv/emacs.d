@@ -456,6 +456,7 @@
 (global-set-key (kbd "s-w d") 'wdired-change-to-wdired-mode)
 (global-set-key (kbd "s-k l") 'kill-matching-lines)
 (global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
+(global-set-key (kbd "s-R a") 'revert-all-file-buffers)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
@@ -783,3 +784,26 @@ even beep.)"
     (if (zerop count-killed-buffers)
         (message "No buffer matches. ")
       (message "A result of %i buffers has been killed. " count-killed-buffers))))
+
+(defun revert-all-file-buffers ()
+  "Refresh all open file buffers without confirmation.
+Buffers in modified (not yet saved) state in emacs will not be reverted. They
+will be reverted though if they were modified outside emacs.
+Buffers visiting files which do not exist any more or are no longer readable
+will be killed."
+  (interactive)
+  (dolist (buf (buffer-list))
+    (let ((filename (buffer-file-name buf)))
+      ;; Revert only buffers containing files, which are not modified;
+      ;; do not try to revert non-file buffers like *Messages*.
+      (when (and filename
+                 (not (buffer-modified-p buf)))
+        (if (file-readable-p filename)
+            ;; If the file exists and is readable, revert the buffer.
+            (with-current-buffer buf
+              (revert-buffer :ignore-auto :noconfirm :preserve-modes))
+          ;; Otherwise, kill the buffer.
+          (let (kill-buffer-query-functions) ; No query done when killing buffer
+            (kill-buffer buf)
+            (message "Killed non-existing/unreadable file buffer: %s" filename))))))
+  (message "Finished reverting buffers containing unmodified files."))
