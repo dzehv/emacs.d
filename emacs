@@ -358,10 +358,10 @@
 ;; List the packages to install
 (setq package-list '(
                      auto-complete
-                     ;; anything
                      json-reformat
                      magit
                      multiple-cursors
+                     markdown-mode
                      ;; helm
                      ;; helm-swoop
                      ))
