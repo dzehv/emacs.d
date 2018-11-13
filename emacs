@@ -172,6 +172,16 @@
                            (name . "^\\*Calendar\\*$")
                            (name . "^diary$")
                            (mode . muse-mode)))
+               ("latex" (or
+                         (name . "\\.tex$")
+                         (name . "\\.cls$")
+                         (name . "\\.clo$")
+                         (name . "\\.bib$")
+                         (name . "\\.bst$")
+                         (name . "\\.bbx$")
+                         (name . "\\.cbx$")
+                         (mode . latex-mode)
+                         (mode . tex-shell)))
                ("gnus" (or
                         (mode . message-mode)
                         (mode . bbdb-mode)
