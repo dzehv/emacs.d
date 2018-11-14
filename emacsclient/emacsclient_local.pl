@@ -2,6 +2,7 @@
 
 # Use this script as your EDITOR to allow editing local files with emacsclient.
 # Works by connecting to the local Emacs-server and opens file in new buffer.
+# Allows to jump to line and column numbers
 
 use strict;
 use warnings;

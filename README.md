@@ -17,7 +17,12 @@ cp -r fonts ~/.fonts
 
 ### Copy emacsclient wrapper script for local emacs-server usage
 ```
-cp emacsclient/emacsclient_local /usr/local/bin/ec
+cp emacsclient/emacsclient_local.sh /usr/local/bin/ec
+```
+or
+
+```
+cp emacsclient/emacsclient_local.pl /usr/local/bin/ec
 ```
 
 ### Copy emacsclient wrapper script for remote emacs-server usage by SSH (edit script with ssh credentials)
