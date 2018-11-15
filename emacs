@@ -817,3 +817,22 @@ will be killed."
             (kill-buffer buf)
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
   (message "Finished reverting buffers containing unmodified files."))
+
+;; Emacs 25+ does not use defadvice anymore.
+;; Should be used without ido (if configured)
+;; Type C-x C-f C-f file:line
+(defun find-file--line-number (orig-fun filename &optional wildcards)
+  "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
+  (save-match-data
+    (let* ((matched (string-match "^\\(.*\\):\\([0-9]+\\):?$" filename))
+           (line-number (and matched
+                             (match-string 2 filename)
+                             (string-to-number (match-string 2 filename))))
+           (filename (if matched (match-string 1 filename) filename)))
+      (apply orig-fun (list filename wildcards))
+      (when line-number
+        ;; goto-line is for interactive use
+        (goto-char (point-min))
+        (forward-line (1- line-number))))))
+
+(advice-add 'find-file :around #'find-file--line-number)
