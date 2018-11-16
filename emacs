@@ -141,6 +141,7 @@
                ("org" (or
                        (name . "\\.org$")
                        (name . "\\*Org")
+                       (mode . org-agenda-mode)
                        (mode . org-mode)))
                ("conf" (or
                         (mode . conf-mode)
@@ -172,6 +173,10 @@
                            (name . "^\\*Calendar\\*$")
                            (name . "^diary$")
                            (mode . muse-mode)))
+               ("calc" (or
+                        (mode . calc-mode)
+                        (mode . calculator-mode)
+                        (mode . calc-trail-mode)))
                ("latex" (or
                          (name . "\\.tex$")
                          (name . "\\.cls$")
