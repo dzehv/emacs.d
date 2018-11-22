@@ -152,6 +152,7 @@
                          (mode . eshell-mode)))
                ("emacs" (or
                          (name . "^\\.emacs$")
+                         (name . "^\\.emacs-nw$")
                          (name . "^\\.emacs\\.el$")
                          (name . "^\\*GNU Emacs\\*$")
                          (name . "^\\*WoMan-Log\\*$")
@@ -173,6 +174,9 @@
                            (name . "^\\*Calendar\\*$")
                            (name . "^diary$")
                            (mode . muse-mode)))
+               ("browse" (or
+                          (name . "^\\*eww\\*$")
+                          (mode . eww-mode)))
                ("calc" (or
                         (mode . calc-mode)
                         (mode . calculator-mode)
@@ -350,17 +354,17 @@
 ;; CPerl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-indent-level 4
-          cperl-close-paren-offset -4
-          cperl-continued-statement-offset 4
-          cperl-indent-parens-as-block t
-          cperl-tab-always-indent t)
-
-(setq cperl-indent-subs-specially nil)
-(add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
-
-(setq cperl-extra-newline-before-brace nil
-      cperl-brace-offset -4
+      cperl-close-paren-offset -4
+      cperl-continued-statement-offset 4
+      cperl-indent-parens-as-block t
+      cperl-tab-always-indent t
+      cperl-indent-subs-specially nil
+      cperl-extra-newline-before-brace nil
+      ;; cperl-brace-offset -4
       cperl-merge-trailing-else nil)
+
+(add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
+(add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
 
 ;; Packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
