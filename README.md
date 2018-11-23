@@ -47,12 +47,36 @@ sed -i 's/<USER>/my_email_login/g; s/<PASSWORD>/my_email_password/g' ~/.authinfo
 
 #### WARNING: Use of no-window emacs needs to use lossless kbd input extensions for specified terminal, unexpected reactions otherwise
 ```
-echo export EDITOR=\"emacs -nw\" >> ~/.bashrc
+echo export EDITOR=\"emacs -nw\" >> [~/.[bash|zsh]rc | ~/.profile]
 ```
 
 ### Minimal configuration for no-window usage
 ```
 cp emacs-nw ~/.emacs-nw
+```
+
+### Install to update-alternatives for editor
+
+Create a script that starts emacs with -nw flag, e.g. /usr/local/bin/emacs-nw
+``` bash
+#!/bin/sh
+
+emacs -nw "$@"
+```
+
+Install it with update-alternatives --install
+``` bash
+sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/emacs-nw 2
+```
+
+Configure editor to be your new script
+``` bash
+sudo update-alternatives --set editor /usr/local/bin/emacs-nw
+```
+
+Or select another time
+``` bash
+sudo update-alternatives --config editor
 ```
 
 ### Launch with min conf
