@@ -137,7 +137,38 @@
 ;; Ibuffer Gnus-style grouping
 (setq ibuffer-saved-filter-groups
       (quote (("default"
-               ("perl" (mode . cperl-mode))
+               ("programming" (or
+                               (mode . c-mode)
+                               (mode . c++-mode)
+                               (mode . go-mode)
+                               (mode . java-mode)
+                               (mode . groovy-mode)
+                               (mode . js-mode)
+                               (mode . lisp-mode)
+                               (mode . python-mode)
+                               (mode . ruby-mode)
+                               (mode . rust-mode)
+                               (mode . php-mode)
+                               (mode . css-mode)
+                               (mode . html-mode)
+                               (mode . csharp-mode)
+                               (mode . lua-mode)
+                               (mode . swift-mode)
+                               (mode . objc-mode)
+                               (mode . scala-mode)
+                               (mode . erlang-mode)
+                               (mode . coffee-mode)
+                               (mode . typescript-mode)
+                               (mode . sql-mode)
+                               (mode . visual-basic-mode)
+                               (mode . vba-mode)
+                               (mode . matlab-mode)
+                               (mode . asm-mode)
+                               (mode . haskell-mode)
+                               (mode . sh-mode)
+                               (mode . shell-script-mode)
+                               (mode . perl-mode)
+                               (mode . cperl-mode)))
                ("org" (or
                        (name . "\\.org$")
                        (name . "\\*Org")
@@ -162,6 +193,7 @@
                          (name . "^\\*ielm\\*$")
                          (name . "^\\*vc\\*$")
                          (name . "^\\*Backtrace\\*$")
+                         (mode . emacs-lisp-mode)
                          (mode . messages-buffer-mode)
                          (mode . lisp-interaction-mode)
                          (mode . debugger-mode)
@@ -526,6 +558,9 @@
 
 ;; Auto conf mode for Dockerfile
 (add-to-list 'auto-mode-alist '("Dockerfile" . conf-mode))
+
+;; Custom emacs-nw conf file 2 emacs lisp mode
+(add-to-list 'auto-mode-alist '("\\.emacs-nw\\'" . emacs-lisp-mode))
 
 ;; Spell checking settings
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
