@@ -518,6 +518,7 @@
 (global-set-key (kbd "s-k l") 'kill-matching-lines)
 (global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
 (global-set-key (kbd "s-R a") 'revert-all-file-buffers)
+(global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
@@ -890,3 +891,13 @@ will be killed."
         (forward-line (1- line-number))))))
 
 (advice-add 'find-file :around #'find-file--line-number)
+
+(defun close-ibuffer-filtered-group (group-name)
+  "Close buffers of specified ibuffer filter group."
+  (interactive "sGroup name: ")
+  (ibuffer)
+  (ibuffer-jump-to-filter-group group-name)
+  (ibuffer-mark-forward 0 0 0)
+  (ibuffer-do-delete)
+  (switch-to-prev-buffer)
+  (message "Killed buffers from group %s" group-name))
