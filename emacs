@@ -193,11 +193,15 @@
                          (name . "^\\*ielm\\*$")
                          (name . "^\\*vc\\*$")
                          (name . "^\\*Backtrace\\*$")
+                         (name . "^\\*ediff-diff\\*$")
+                         (name . "^\\*ediff-errors\\*$")
                          (mode . emacs-lisp-mode)
                          (mode . messages-buffer-mode)
                          (mode . lisp-interaction-mode)
                          (mode . debugger-mode)
                          (mode . inferior-emacs-lisp-mode)
+                         (mode . ediff-mode)
+                         (mode . ediff-meta-mode)
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
@@ -205,7 +209,9 @@
                ("magit" (or
                         (name . "^\\*?magit")
                         (name . "^magit[-:]")))
-               ("help" (mode . help-mode))
+               ("help" (or
+                        (mode . Info-mode)
+                        (mode . help-mode)))
                ("planner" (or
                            (name . "^\\*Calendar\\*$")
                            (name . "^diary$")
