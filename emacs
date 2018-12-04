@@ -22,8 +22,7 @@
       version-control t      ; Use version numbers on backups
       delete-old-versions t  ; Automatically delete excess backups
       kept-new-versions 20   ; how many of the newest versions to keep
-      kept-old-versions 5    ; and how many of the old
-      )
+      kept-old-versions 5)   ; and how many of the old
 
 ;; Path for Emacs lisp librares to load
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -70,17 +69,10 @@
  ((eq system-type 'darwin)
   ;(setq mac-pass-command-to-system nil) ; Disable OS commands by modifier keys
   ;(set-keyboard-coding-system nil)
-  ;(setq ns-alternate-modifier 'super)
-  ;(setq ns-right-alternate-modifier 'none)
-  ;(setq ns-command-modifier 'meta)
-  ;(setq ns-right-command-modifier 'left)
-  ;(setq ns-control-modifier 'control)
-  ;(setq ns-right-control-modifier 'left)
-  ;(setq ns-function-modifier 'hyper)
-  (setq mac-command-modifier 'meta) ; sets the Command key to Meta
+  (setq mac-command-modifier 'meta)    ; sets the Command key to Meta
   (setq mac-control-modifier 'control) ; sets the Control key to Control
-  (setq ns-function-modifier 'hyper) ; set Mac's Fn key to Hyper
-  (setq mac-option-modifier 'super)) ; sets the Option key to Super
+  (setq ns-function-modifier 'hyper)   ; set Mac's Fn key to Hyper
+  (setq mac-option-modifier 'super))   ; sets the Option key to Super
  ((eq system-type 'windows-nt)
   (setq w32-pass-lwindow-to-system nil)
   (setq w32-pass-rwindow-to-system nil)
@@ -92,21 +84,15 @@
 (when (member "Menlo" (font-family-list))
   (set-face-attribute 'default nil :font "Menlo:pixelsize=16"))
 
-;; Navigation
-;; (global-hl-line-mode 1) ; highlight current line
-
 ;; Set font if emacs running in daemon mode
 ;; (add-to-list 'default-frame-alist
 ;; (cons 'font "Menlo:pixelsize=16"))
 
-;; Emacs window size on start
-;; (add-to-list 'default-frame-alist '(left . 0))
-;; (add-to-list 'default-frame-alist '(top . 0))
-;; (add-to-list 'default-frame-alist '(height . 50))
-;; (add-to-list 'default-frame-alist '(width . 180))
+;; Navigation
+;; (global-hl-line-mode 1) ; highlight current line
 
 ;; Display the name of the current buffer in the title bar
-(setq frame-title-format "GNU Emacs: %b")
+(setq frame-title-format "Emacs: %b")
 
 ;; Ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -372,7 +358,7 @@
 (ido-everywhere t)
 (setq ido-vitrual-buffers t)
 (setq ido-enable-flex-matching t)
-(setq ido-file-extensions-order '(".org" ".txt" ".py" ".pl" ".pm" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf" ".conf" ".groovy"))
+(setq ido-file-extensions-order '(".org" ".txt" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
 
 ;; Iswitch
@@ -402,7 +388,6 @@
       cperl-tab-always-indent t
       cperl-indent-subs-specially nil
       cperl-extra-newline-before-brace nil
-      ;; cperl-brace-offset -4
       cperl-merge-trailing-else nil)
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
@@ -414,18 +399,17 @@
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; To update package lists: M-x package-refresh-contents RET
+;; To update package lists: M-x package-refresh-contents <RET>
 
 ;; List the packages to install
 (setq package-list '(
+                     ;; helm
+                     ;; helm-swoop
                      auto-complete
                      json-reformat
                      magit
                      multiple-cursors
-                     markdown-mode
-                     ;; helm
-                     ;; helm-swoop
-                     ))
+                     markdown-mode))
 ;; Activate installed packages
 (package-initialize)
 ;; Fetch the list of packages available 
@@ -468,6 +452,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -490,35 +475,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
-
-;; Some custom useful keybindings
-(global-set-key (kbd "C-?") 'help-command)
-(global-set-key (kbd "M-?") 'mark-paragraph)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-(global-set-key (kbd "M-/") 'comment-line) ;; emacs25+
-(global-set-key (kbd "C-M-/") 'comment-region)
-(global-set-key (kbd "C-M-?") 'uncomment-region)
-(global-set-key (kbd "s-r") 'revert-buffer)
-(global-set-key (kbd "s-.") 'xah-new-empty-buffer)
-(global-set-key (kbd "s-j") 'json-reformat-region)
-(global-set-key (kbd "s-g") 'goto-percent)
-(global-set-key (kbd "s-b m") 'rename-file-and-buffer)
-(global-set-key (kbd "s-k m") 'kill-matching-buffers-just-do-it)
-(global-set-key (kbd "s-d u") 'dos2unix)
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-(global-set-key (kbd "C-x C-r") 'sudo-edit)
-(global-set-key (kbd "C-c D") 'delete-file-and-buffer)
-(global-set-key (kbd "C-%") 'goto-match-paren)
-(global-set-key (kbd "C-x %") 'forward-or-backward-sexp)
-(global-set-key (kbd "s-x k") 'xah-close-current-buffer)
-(global-set-key (kbd "C-S-t") 'xah-open-last-closed) ; control+shift+t
-(global-set-key (kbd "s-w d") 'wdired-change-to-wdired-mode)
-(global-set-key (kbd "s-k l") 'kill-matching-lines)
-(global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
-(global-set-key (kbd "s-R a") 'revert-all-file-buffers)
-(global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
 
 ;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
 ;; (require 'helm)
@@ -576,7 +532,7 @@
 ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
 ;; (add-hook hook (lambda () (flyspell-mode -1))))
 
-;; Multiple cursors
+;; Multiple cursors settings
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -585,13 +541,40 @@
 
 ;; Markdown mode settings
 (autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
+  "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (autoload 'gfm-mode "markdown-mode"
-   "Major mode for editing GitHub Flavored Markdown files" t)
+  "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+;; Some custom useful keybindings
+(global-set-key (kbd "C-?") 'help-command)
+(global-set-key (kbd "M-?") 'mark-paragraph)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key (kbd "M-/") 'comment-line)
+(global-set-key (kbd "C-M-/") 'comment-region)
+(global-set-key (kbd "C-M-?") 'uncomment-region)
+(global-set-key (kbd "s-r") 'revert-buffer)
+(global-set-key (kbd "s-.") 'xah-new-empty-buffer)
+(global-set-key (kbd "s-j") 'json-reformat-region)
+(global-set-key (kbd "s-g") 'goto-percent)
+(global-set-key (kbd "s-b m") 'rename-file-and-buffer)
+(global-set-key (kbd "s-k m") 'kill-matching-buffers-just-do-it)
+(global-set-key (kbd "s-d u") 'dos2unix)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(global-set-key (kbd "C-x C-r") 'sudo-edit)
+(global-set-key (kbd "C-c D") 'delete-file-and-buffer)
+(global-set-key (kbd "C-%") 'goto-match-paren)
+(global-set-key (kbd "C-x %") 'forward-or-backward-sexp)
+(global-set-key (kbd "s-w d") 'wdired-change-to-wdired-mode)
+(global-set-key (kbd "s-k l") 'kill-matching-lines)
+(global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
+(global-set-key (kbd "s-R a") 'revert-all-file-buffers)
+(global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
 
 ;; FUNCTIONS defun below
 
@@ -730,84 +713,6 @@ vi style of % jumping to matching brace."
           (push library libraries-loaded))))))
 
 (my-load-all-in-directory "~/.emacs.d/lisp/")
-
-;; Xah open last closed buffer functions
-(defvar xah-recently-closed-buffers nil "alist of recently closed buffers. Each element is (buffer name, file path). The max number to track is controlled by the variable `xah-recently-closed-buffers-max'.")
-(defvar xah-recently-closed-buffers-max 40 "The maximum length for `xah-recently-closed-buffers'.")
-
-(defun xah-close-current-buffer ()
-  "Close the current buffer.
-
-Similar to `kill-buffer', with the following addition:
-
-• Prompt user to save if the buffer has been modified even if the buffer is not associated with a file.
-• If the buffer is editing a source file in an org-mode file, prompt the user to save before closing.
-• If the buffer is a file, add the path to the list `xah-recently-closed-buffers'.
-• If it is the minibuffer, exit the minibuffer
-
-URL `http://ergoemacs.org/emacs/elisp_close_buffer_open_last_closed.html'
-Version 2016-06-19"
-  (interactive)
-  (let ($emacs-buff-p
-        ($org-p (string-match "^*Org Src" (buffer-name))))
-
-    (setq $emacs-buff-p (if (string-match "^*" (buffer-name)) t nil))
-
-    (if (string= major-mode "minibuffer-inactive-mode")
-        (minibuffer-keyboard-quit) ; if the buffer is minibuffer
-      (progn
-        ;; offer to save buffers that are non-empty and modified, even for non-file visiting buffer. (because kill-buffer does not offer to save buffers that are not associated with files)
-        (when (and (buffer-modified-p)
-                   (not $emacs-buff-p)
-                   (not (string-equal major-mode "dired-mode"))
-                   (if (equal (buffer-file-name) nil)
-                       (if (string-equal "" (save-restriction (widen) (buffer-string))) nil t)
-                     t))
-          (if (y-or-n-p (format "Buffer %s modified; Do you want to save? " (buffer-name)))
-              (save-buffer)
-            (set-buffer-modified-p nil)))
-        (when (and (buffer-modified-p)
-                   $org-p)
-          (if (y-or-n-p (format "Buffer %s modified; Do you want to save? " (buffer-name)))
-              (org-edit-src-save)
-            (set-buffer-modified-p nil)))
-
-        ;; save to a list of closed buffer
-        (when (buffer-file-name)
-          (setq xah-recently-closed-buffers
-                (cons (cons (buffer-name) (buffer-file-name)) xah-recently-closed-buffers))
-          (when (> (length xah-recently-closed-buffers) xah-recently-closed-buffers-max)
-            (setq xah-recently-closed-buffers (butlast xah-recently-closed-buffers 1))))
-
-        ;; close
-        (kill-buffer (current-buffer))))))
-
-(defun xah-open-last-closed ()
-  "Open the last closed file.
-URL `http://ergoemacs.org/emacs/elisp_close_buffer_open_last_closed.html'
-Version 2016-06-19"
-  (interactive)
-  (if (> (length xah-recently-closed-buffers) 0)
-      (find-file (cdr (pop xah-recently-closed-buffers)))
-    (progn (message "No recently close buffer in this session."))))
-
-(defun xah-open-recently-closed ()
-  "Open recently closed file.
-Prompt for a choice.
-URL `http://ergoemacs.org/emacs/elisp_close_buffer_open_last_closed.html'
-Version 2016-06-19"
-  (interactive)
-  (find-file (ido-completing-read "open:" (mapcar (lambda (f) (cdr f)) xah-recently-closed-buffers))))
-
-(defun xah-list-recently-closed ()
-  "List recently closed file.
-URL `http://ergoemacs.org/emacs/elisp_close_buffer_open_last_closed.html'
-Version 2016-06-19"
-  (interactive)
-  (let (($buf (generate-new-buffer "*recently closed*")))
-    (switch-to-buffer $buf)
-    (mapc (lambda ($f) (insert (cdr $f) "\n"))
-          xah-recently-closed-buffers)))
 
 ;; Kill lines matching by regex
 (defun kill-matching-lines (regexp &optional rstart rend interactive)
