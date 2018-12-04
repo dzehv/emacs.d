@@ -8,10 +8,16 @@
 OPTIND=1 # Reset in case getopts has been used previously in the shell.
 
 LINE=''
+COLUMN=''
 
-while getopts "l:" opt; do
-    case "$opt" in
+while getopts "l:c:" opt; do
+    case $opt in
         l) LINE=$OPTARG
+           ;;
+        c) COLUMN=$OPTARG
+           ;;
+        *) echo "No reasonable options found!"
+           exit 1
            ;;
     esac
 done
@@ -22,7 +28,9 @@ shift $((OPTIND-1))
 
 LINE_ARG=''
 
-if [ $LINE ]; then
+if [ $LINE ] && [ $COLUMN ]; then
+    LINE_ARG="+$LINE:$COLUMN"
+elif [ $LINE ]; then
     LINE_ARG="+$LINE"
 fi
 

@@ -27,7 +27,7 @@ cp emacsclient/emacsclient_local.pl /usr/local/bin/ec
 
 ### Copy emacsclient wrapper script for remote emacs-server usage by SSH (edit script with ssh credentials)
 ```
-cp emacsclient/emacsclient_remote /usr/local/bin/ec
+cp emacsclient/emacsclient_remote.sh /usr/local/bin/ec
 ```
 
 ### Gnus email settings example
