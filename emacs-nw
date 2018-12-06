@@ -1,4 +1,4 @@
-;; No window minimal configuration
+;; Emacs no window minimal configuration
 
 ;; OS X and Win modifier keys bindings
 (cond
@@ -76,7 +76,7 @@
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
 
 ;; Bindings
-(global-set-key (kbd "M-/") 'comment-line) ;; emacs25+
+(global-set-key (kbd "M-/") 'comment-line)
 (global-set-key (kbd "C-M-/") 'comment-region)
 (global-set-key (kbd "C-M-?") 'uncomment-region)
 
