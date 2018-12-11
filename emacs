@@ -162,6 +162,7 @@
                        (mode . org-mode)))
                ("conf" (or
                         (mode . conf-mode)
+                        (mode . conf-unix-mode)
                         (mode . conf-space-mode)))
                ("shell" (or
                          (mode . term-mode)
