@@ -193,9 +193,14 @@
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
                ("tramp" (name . "^\\*tramp"))
+               ("markdown" (or
+                            (name . "\\.md$")
+                            (mode . markdown-mode)
+                            (mode . gfm-mode)
+                            (mode . gfm-view-mode)))
                ("magit" (or
-                        (name . "^\\*?magit")
-                        (name . "^magit[-:]")))
+                         (name . "^\\*?magit")
+                         (name . "^magit[-:]")))
                ("help" (or
                         (mode . Info-mode)
                         (mode . help-mode)))
@@ -805,7 +810,7 @@ will be killed."
   (ibuffer-jump-to-filter-group group-name)
   (ibuffer-mark-forward 0 0 0)
   (ibuffer-do-delete)
-  (switch-to-prev-buffer)
+  ;; (switch-to-prev-buffer)
   (message "Killed buffers from group %s" group-name))
 
 ;; Launch and restart Emacs with Elisp
