@@ -131,6 +131,7 @@
                                (mode . groovy-mode)
                                (mode . js-mode)
                                (mode . lisp-mode)
+                               (mode . rainbow-mode)
                                (mode . python-mode)
                                (mode . ruby-mode)
                                (mode . rust-mode)
@@ -415,6 +416,7 @@
                      json-reformat
                      magit
                      multiple-cursors
+                     rainbow-delimiters
                      markdown-mode))
 ;; Activate installed packages
 (package-initialize)
@@ -466,7 +468,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -554,6 +556,9 @@
 (autoload 'gfm-mode "markdown-mode"
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+;; Rainbow delimiters hook
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;; Some custom useful keybindings
 (global-set-key (kbd "C-?") 'help-command)
