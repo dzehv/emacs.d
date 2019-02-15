@@ -1,27 +1,31 @@
 # GNU Emacs, gnus, emacsclient configuration and some migration notes
 
 ### Create source folder and copy config file
-```
+
+``` bash
 mkdir ~/.emacs.d && cp emacs ~/.emacs
 ```
 
 ### Copy elisp libs dir
-```
+
+``` bash
 cp -r lisp/ ~/.emacs.d/
 ```
 
 ### Copy fonts directory
-```
+
+``` bash
 cp -r fonts ~/.fonts
 ```
 
 ### Copy emacsclient wrapper script for local emacs-server usage
-```
+
+``` bash
 cp emacsclient/emacsclient_local.sh /usr/local/bin/ec
 ```
 or
 
-```
+``` bash
 cp emacsclient/emacsclient_local.pl /usr/local/bin/ec
 ```
 
@@ -31,14 +35,15 @@ cp emacsclient/emacsclient_remote.sh /usr/local/bin/ec
 ```
 
 ### Gnus email settings example
-```
+
+``` bash
 cp gnus_mail/gnus ~/.gnus
 cp gnus_mail/authinfo ~/.authinfo && chmod 0600 ~/.authinfo
 ```
 
 Edit ~/.gnus and ~/.authinfo with your secret info.
 
-```
+``` bash
 sed -i 's/<FULL_NAME>/My Pretty Name/g; s/<EMAIL_ADDRESS>/my.email@gmail.com/g' ~/.gnus
 sed -i 's/<USER>/my_email_login/g; s/<PASSWORD>/my_email_password/g' ~/.authinfo
 ```
@@ -46,12 +51,13 @@ sed -i 's/<USER>/my_email_login/g; s/<PASSWORD>/my_email_password/g' ~/.authinfo
 ### Set default editor to no-window emacs
 
 #### WARNING: Use of no-window emacs needs to use lossless kbd input extensions for specified terminal, unexpected reactions otherwise
-```
+
+```bash
 echo export EDITOR=\"emacs -nw\" >> [~/.[bash|zsh]rc | ~/.profile]
 ```
 
 ### Minimal configuration for no-window usage
-```
+``` bash
 cp emacs-nw ~/.emacs-nw
 ```
 
@@ -80,13 +86,14 @@ sudo update-alternatives --config editor
 ```
 
 ### Launch with min conf
-```
+``` bash
 emacs -nw -l ~/.emacs-nw
 ```
 
 It can be used both configurations. emacs-nw will not use whole configuration if ~/.emacs-nw exists
 
 ### vim-compared basic operations doc, also described some pretty features
+
 ```
 ec vim2emacs/vim2emacs.html
 M-: (require 'shr)
@@ -94,6 +101,7 @@ M-x shr-render-buffer
 ```
 
 ### To compile .tex files, install
+
 Basic:
 ```
 texlive
@@ -102,4 +110,10 @@ texlive
 With extras:
 ```
 texlive-full
+```
+
+### EMMS: The Emacs Multimedia System
+
+``` bash
+apt install emms vorbis-tools
 ```
