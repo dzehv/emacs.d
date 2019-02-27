@@ -30,7 +30,7 @@
   (setq load-path
         (append
          (let ((load-path (copy-sequence load-path))) ;; Shadow
-           (append 
+           (append
             (copy-sequence (normal-top-level-add-to-load-path '(".")))
             (normal-top-level-add-subdirs-to-load-path)))
          load-path)))
@@ -396,10 +396,15 @@
       cperl-tab-always-indent t
       cperl-indent-subs-specially nil
       cperl-extra-newline-before-brace nil
+      ;; cperl-invalid-face nil
+      ;; cperl-invalid-face (quote off)
       cperl-merge-trailing-else nil)
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
+
+;; Show trailing whitespace
+(setq-default show-trailing-whitespace t)
 
 ;; Packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -421,7 +426,7 @@
                      markdown-mode))
 ;; Activate installed packages
 (package-initialize)
-;; Fetch the list of packages available 
+;; Fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
