@@ -304,6 +304,7 @@
 (setq use-dialog-box nil) ;; No graphic dialogs and windows
 (setq redisplay-dont-pause t)  ;; Better buffer renrering
 (setq ring-bell-function 'ignore) ;; Disable sound signals
+(column-number-mode 1) ;; Show cursor position within line
 
 ;; Disable Git backend to speed up sshfs file load among other things
 ;; Bypass tramp vc-registered errors (hangings on remote volume editing)

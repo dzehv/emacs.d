@@ -37,6 +37,8 @@
 (require 'mouse)
 (xterm-mouse-mode t)
 
+(column-number-mode 1) ;; Show cursor position within line
+
 ;; Ido mode settings
 (require 'ido)
 (ido-mode t)
