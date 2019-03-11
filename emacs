@@ -502,11 +502,11 @@
 ;; (require 'helm-swoop)
 
 ;; (with-eval-after-load 'helm
-  ;; (define-key helm-map (kbd "C-c p") 'ignore)
-  ;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-  ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-  ;; (define-key helm-find-files-map (kbd "C-<backspace>") 'helm-find-files-up-one-level)
-  ;; (define-key helm-map (kbd "C-z")  'helm-select-action))
+;; (define-key helm-map (kbd "C-c p") 'ignore)
+;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+;; (define-key helm-find-files-map (kbd "C-<backspace>") 'helm-find-files-up-one-level)
+;; (define-key helm-map (kbd "C-z")  'helm-select-action))
 
 ;; (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 ;; (global-set-key (kbd "C-x r b") 'helm-bookmarks)
@@ -548,7 +548,7 @@
 ;; Spell checking settings
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 ;; (dolist (hook '(text-mode-hook))
-  ;; (add-hook hook (lambda () (flyspell-mode 1))))
+;; (add-hook hook (lambda () (flyspell-mode 1))))
 ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
 ;; (add-hook hook (lambda () (flyspell-mode -1))))
 
@@ -610,6 +610,7 @@
 (global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
 (global-set-key (kbd "s-R a") 'revert-all-file-buffers)
 (global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
+(global-set-key (kbd "s-u p") 'unfill-paragraph)
 
 ;; FUNCTIONS defun below
 
@@ -859,3 +860,13 @@ will be killed."
                                       #'launch-separate-emacs-under-x
                                     #'launch-separate-emacs-in-terminal)))))
     (save-buffers-kill-emacs)))
+
+;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+;; After usage spaces can be removed with Query replace
+(defun unfill-paragraph (&optional region)
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
