@@ -185,6 +185,8 @@
                          (name . "^\\*ediff-diff\\*$")
                          (name . "^\\*ediff-errors\\*$")
                          (mode . emacs-lisp-mode)
+                         (mode . package-menu-mode)
+                         (mode . compilation-mode)
                          (mode . messages-buffer-mode)
                          (mode . lisp-interaction-mode)
                          (mode . debugger-mode)
