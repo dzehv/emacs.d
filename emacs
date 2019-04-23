@@ -593,15 +593,15 @@
 
 ;; EMMS: The Emacs Multimedia System
 ;; https://wikemacs.org/wiki/Media_player
-(require 'emms-setup)
-(emms-all)
-(emms-default-players)
+(when (require 'emms-setup nil t)
+  (emms-all)
+  (emms-default-players)
 
-(define-emms-simple-player mplayer '(file url)
-  (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
-                ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
-                ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-  "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
+  (define-emms-simple-player mplayer '(file url)
+    (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+                  ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
+                  ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
+    "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
 
 ;; Some custom useful keybindings
 (global-set-key (kbd "C-?") 'help-command)
