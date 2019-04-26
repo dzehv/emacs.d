@@ -138,6 +138,7 @@
                         (mode . php-mode)
                         (mode . css-mode)
                         (mode . html-mode)
+                        (mode . mhtml-mode)
                         (mode . csharp-mode)
                         (mode . lua-mode)
                         (mode . swift-mode)
