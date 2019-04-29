@@ -486,6 +486,13 @@
       nxml-attribute-indent 4
       nxml-slash-auto-complete-flag t)
 
+;; Python settings
+(add-hook 'python-mode-hook 'auto-complete-mode)
+(add-to-list 'auto-mode-alist '("\\.jython\\'" . python-mode))
+;; (add-hook 'python-mode-hook 'jedi:ac-setup)
+;; (setq-default py-shell-name "ipython")
+;; (setq-default py-which-bufname "IPython")
+
 ;; Tidy settings
 (setq whitespace-line 0)
 (setq tab-width 4)
@@ -511,7 +518,6 @@
 ;; Hilight parent brackets
 (show-paren-mode 1)
 
-;; (add-to-list 'auto-mode-alist '("\\.jython\\'" . python-mode))
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
