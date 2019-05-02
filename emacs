@@ -488,6 +488,12 @@
 
 ;; Python settings
 (add-hook 'python-mode-hook 'auto-complete-mode)
+(add-hook 'python-mode-hook
+          (function (lambda ()
+                      (setq indent-tabs-mode nil
+                            tab-width 4))))
+(setq python-indent-guess-indent-offset t)
+(setq python-indent-guess-indent-offset-verbose nil)
 (add-to-list 'auto-mode-alist '("\\.jython\\'" . python-mode))
 ;; (add-hook 'python-mode-hook 'jedi:ac-setup)
 ;; (setq-default py-shell-name "ipython")
