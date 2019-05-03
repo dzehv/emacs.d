@@ -92,6 +92,17 @@ emacs -nw -l ~/.emacs-nw
 
 It can be used both configurations. emacs-nw will not use whole configuration if ~/.emacs-nw exists
 
+### Python mode additional settings
+
+``` bash
+pip3 install -U jedi virtualenv
+```
+
+``` bash
+M-x package-install <RET> jedi <RET>
+M-x jedi:install-server
+```
+
 ### vim-compared basic operations doc, also described some pretty features
 
 ```

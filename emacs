@@ -444,6 +444,7 @@
                      magit
                      multiple-cursors
                      rainbow-delimiters
+                     jedi
                      markdown-mode))
 ;; Activate installed packages
 (package-initialize)
@@ -495,9 +496,11 @@
 (setq python-indent-guess-indent-offset t)
 (setq python-indent-guess-indent-offset-verbose nil)
 (add-to-list 'auto-mode-alist '("\\.jython\\'" . python-mode))
-;; (add-hook 'python-mode-hook 'jedi:ac-setup)
-;; (setq-default py-shell-name "ipython")
-;; (setq-default py-which-bufname "IPython")
+(add-hook 'python-mode-hook 'jedi:ac-setup)
+(setq-default py-shell-name "ipython"
+              python-shell-interpreter "ipython"
+              py-which-bufname "IPython"
+              python-shell-interpreter-args "-i")
 
 ;; Tidy settings
 (setq whitespace-line 0)
@@ -513,7 +516,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
