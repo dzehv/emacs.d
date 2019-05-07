@@ -185,6 +185,7 @@
                          (name . "^\\*Backtrace\\*$")
                          (name . "^\\*ediff-diff\\*$")
                          (name . "^\\*ediff-errors\\*$")
+                         (name . "^\\*epc con 3\\*$")
                          (mode . emacs-lisp-mode)
                          (mode . package-menu-mode)
                          (mode . compilation-mode)
