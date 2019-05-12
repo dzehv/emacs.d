@@ -185,7 +185,6 @@
                          (name . "^\\*Backtrace\\*$")
                          (name . "^\\*ediff-diff\\*$")
                          (name . "^\\*ediff-errors\\*$")
-                         (name . "^\\*epc con 3\\*$")
                          (mode . emacs-lisp-mode)
                          (mode . package-menu-mode)
                          (mode . compilation-mode)
@@ -502,6 +501,13 @@
               python-shell-interpreter "ipython"
               py-which-bufname "IPython"
               python-shell-interpreter-args "-i")
+
+;; Py epc con <N> buffers hack
+(defadvice epc:make-procbuf (around foo activate)
+  ad-do-it
+  (with-current-buffer ad-return-value
+    (rename-buffer (concat " " (buffer-name)))
+    (setq ad-return-value (buffer-name))))
 
 ;; Tidy settings
 (setq whitespace-line 0)
