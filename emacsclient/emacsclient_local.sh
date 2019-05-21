@@ -35,7 +35,7 @@ elif [ $LINE ]; then
 fi
 
 if [ $LINE_ARG ]; then
-    emacsclient -n -s ~/.emacs.d/server/server $LINE_ARG $1
+    emacsclient -n -s ~/.emacs.d/server/server $LINE_ARG "$1"
 else
-    emacsclient -n -s ~/.emacs.d/server/server $@
+    emacsclient -n -s ~/.emacs.d/server/server "$@"
 fi
