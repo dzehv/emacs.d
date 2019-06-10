@@ -262,7 +262,7 @@
       ;; With cycle type
       ;; '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
       ;; With key tagged
-      '((sequence "TODO(t)" "IN PROGRESS(p)" "|" "DONE(d)")
+      '((sequence "TODO(t)" "IN PROGRESS(p)" "|" "PROLONGED(l)" "DONE(d)")
         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
         (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "MOVED(m)" "CANCELED(c)")))
