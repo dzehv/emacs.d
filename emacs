@@ -890,7 +890,9 @@ will be killed."
   (suspend-emacs "fg ; emacs -nw"))
 
 (defun launch-separate-emacs-under-x ()
-  (call-process "sh" nil nil nil "-c" "emacs &"))
+  (if (eq system-type 'darwin)
+      (call-process "/Applications/Emacs.app/Contents/MacOS/Emacs")
+    (call-process "sh" nil nil nil "-c" "emacs &")))
 
 (defun restart-emacs ()
   (interactive)
