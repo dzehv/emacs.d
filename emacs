@@ -1,12 +1,12 @@
-;; Emacs main configuration file
+;; emacs main configuration file
 
-;; Added by Package.el.  This must come before configurations of
+;; added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
-;; Separate emacs graphical and terminal mode configurations template
+;; separate emacs graphical and terminal mode configurations template
 ;; (if (display-graphic-p)
 ;;     (progn
 ;;     ;; if graphic
@@ -16,7 +16,7 @@
 ;;     (your)
 ;;     (code))
 
-;; Backup settings
+;; backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
@@ -24,7 +24,7 @@
       kept-new-versions 20   ; how many of the newest versions to keep
       kept-old-versions 5)   ; and how many of the old
 
-;; Path for Emacs lisp librares to load
+;; path for emacs lisp librares to load
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (setq load-path
@@ -35,8 +35,8 @@
             (normal-top-level-add-subdirs-to-load-path)))
          load-path)))
 
-;; Run server mode only for GUI session
-;; No window mode should be used for local operations with $EDITOR
+;; run server mode only for GUI session
+;; no window mode should be used for local operations with $EDITOR
 (if (display-graphic-p)
     (progn
       (require 'server)
@@ -46,29 +46,30 @@
             server-use-tcp nil
             server-port 9999)
       (server-start) ; comment out when using 'emacs --daemon'
-      ;; Confirm exit
+      ;; confirm exit
       (setq confirm-kill-emacs 'yes-or-no-p))
   ;; else
-  (when (string-match "^xterm" (getenv "TERM")) ;; Allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
+  ;; allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
+  (when (string-match "^xterm" (getenv "TERM"))
     (require 'xterm-extras)
     (xterm-extra-keys))
-  ;; Load minimal emacs configuration for nw mode
+  ;; load minimal emacs configuration for nw mode
   (setq emacs-nw-conf "~/.emacs-nw")
   (if (file-exists-p emacs-nw-conf)
       (progn (load-file emacs-nw-conf)
-             ;; Don't init other configuration of this file if ~/.emacs-nw exists
+             ;; don't init other configuration of this file if ~/.emacs-nw exists
              (with-current-buffer " *load*"
                (goto-char (point-max))))))
 
-;; Auto install lib
+;; auto install lib
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/auto-install/"))
 
 ;; OS X and Win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
-  ;(setq mac-pass-command-to-system nil) ; Disable OS commands by modifier keys
-  ;(set-keyboard-coding-system nil)
+  ; (setq mac-pass-command-to-system nil) ; disable OS commands by modifier keys
+  ; (set-keyboard-coding-system nil)
   (setq mac-command-modifier 'meta)    ; sets the Command key to Meta
   (setq mac-control-modifier 'control) ; sets the Control key to Control
   (setq ns-function-modifier 'hyper)   ; set Mac's Fn key to Hyper
@@ -79,28 +80,33 @@
   (setq w32-lwindow-modifier 'super)
   (setq w32-rwindow-modifier 'super)))
 
-;; Set font
+;; set font
 ;; (set-frame-font "Menlo:pixelsize=16")
 (when (member "Menlo" (font-family-list))
   (set-face-attribute 'default nil :font "Menlo:pixelsize=16"))
 
-;; Set font if emacs running in daemon mode
+;; set font if emacs running in daemon mode
 ;; (add-to-list 'default-frame-alist
 ;; (cons 'font "Menlo:pixelsize=16"))
 
-;; Navigation
+;; navigation
 ;; (global-hl-line-mode 1) ; highlight current line
 
-;; Display the name of the current buffer in the title bar
+;; display the name of the current buffer in the title bar
 (setq frame-title-format "Emacs: %b")
 
-;; Ibuffer
+;; frame colors
+;; (add-to-list 'default-frame-alist '(foreground-color . "white"))
+(add-to-list 'default-frame-alist '(background-color . "white smoke"))
+;; (add-to-list 'default-frame-alist '(cursor-color . "coral"))
+
+;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 (setq ibuffer-show-empty-filter-groups nil)
 (setq ibuffer-expert t)
 
-;; Ibuffer: Use human readable Size column instead of original one
+;; ibuffer: Use human readable Size column instead of original one
 (define-ibuffer-column size-h
   (:name "Size" :inline nil)
   (cond
@@ -109,7 +115,7 @@
    ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
    (t (format "%8d" (buffer-size)))))
 
-;; Ibuffer: Modify the default ibuffer-formats
+;; ibuffer: modify the default ibuffer-formats
 (setq ibuffer-formats
       '((mark modified read-only " "
               (name 18 18 :left :elide)
@@ -120,7 +126,7 @@
               " "
               filename-and-process)))
 
-;; Ibuffer Gnus-style grouping
+;; ibuffer gnus-style grouping
 (setq ibuffer-saved-filter-groups
       (quote (("default"
                ("prog" (or
@@ -245,7 +251,7 @@
             (ibuffer-auto-mode 1)
             (ibuffer-switch-to-saved-filter-groups "default")))
 
-;; Org mode settings
+;; org mode settings
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
@@ -258,16 +264,16 @@
 (setq org-log-done t)
 (setq org-support-shift-select t)
 (setq org-todo-keywords
-      ;; Change of these options requires full emacs restart
-      ;; With cycle type
+      ;; change of these options requires full emacs restart
+      ;; with cycle type
       ;; '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
-      ;; With key tagged
+      ;; with key tagged
       '((sequence "TODO(t)" "IN PROGRESS(p)" "|" "PROLONGED(l)" "DONE(d)")
         (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
         (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "MOVED(m)" "CANCELED(c)")))
 
-;; Org capture at point
+;; org capture at point
 (defun org-capture-at-point ()
   "Insert an org capture template at point."
   (interactive)
@@ -275,7 +281,7 @@
 
 (global-set-key (kbd "\C-cc") #'org-capture-at-point)
 
-;; Org capture templates
+;; org capture templates
 (setq org-capture-templates
       '(("t" "TODO" entry (file "~/.emacs.d/org/work.org")
          "* TODO %? %^G \n  %U" :empty-lines 0)
@@ -294,11 +300,11 @@
         ("j" "Journal" entry (file+datetree "~/.emacs.d/org/home.org")
          "* %? %^G\nEntered on %U\n")))
 
-;; Shortcut to capture entry
+;; shortcut to capture entry
 (define-key global-map "\C-ct"
   (lambda () (interactive) (org-capture nil "t")))
 
-;; Disable GUI components
+;; disable GUI components
 (tooltip-mode      -1)
 (menu-bar-mode     -1) ;; Disable graphical menu
 (tool-bar-mode     -1) ;; disable tool-bar
@@ -309,21 +315,21 @@
 (setq ring-bell-function 'ignore) ;; Disable sound signals
 (column-number-mode 1) ;; Show cursor position within line
 
-;; Disable Git backend to speed up sshfs file load among other things
-;; Bypass tramp vc-registered errors (hangings on remote volume editing)
-;; The default list is (RCS CVS SVN SCCS Bzr Git Hg Mtn Arch)
+;; disable Git backend to speed up sshfs file load among other things
+;; bypass tramp vc-registered errors (hangings on remote volume editing)
+;; the default list is (RCS CVS SVN SCCS Bzr Git Hg Mtn Arch)
 ;; (setq vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Mtn Arch)))
 
-;; To disable all vc checking
+;; to disable all vc checking
 ;; (setq vc-handled-backends nil)
 
-;; Disable tramp version control to avoid delays
+;; disable tramp version control to avoid delays
 (setq vc-ignore-dir-regexp
       (format "\\(%s\\)\\|\\(%s\\)"
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
 
-;; Nightmare mode (disables arrow keys)
+;; nightmare mode (disables arrow keys)
 (global-unset-key (kbd "<left>"))
 (global-unset-key (kbd "<right>"))
 (global-unset-key (kbd "<up>"))
@@ -337,24 +343,24 @@
 (global-unset-key (kbd "<M-up>"))
 (global-unset-key (kbd "<M-down>"))
 
-;; Resize splitted windows binds
+;; resize splitted windows binds
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
 (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
 
-;; Enable mouse in no-window mode
+;; enable mouse in no-window mode
 (require 'mouse)
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
 
-;; Mouse settings
+;; mouse settings
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 2))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-;; Tramp bindings
+;; tramp bindings
 (cond
  ((eq system-type 'darwin)
   (global-set-key (kbd "s-\S-c") (lambda () (interactive) 'tramp-cleanup-all-connections))
@@ -363,7 +369,7 @@
   (global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
   (global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)))
 
-;; Ido mode settings
+;; ido mode settings
 (require 'ido)
 (ido-mode t)
 (icomplete-mode t)
@@ -373,16 +379,16 @@
 (setq ido-file-extensions-order '(".org" ".txt" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
 
-;; Iswitch
+;; iswitch
 ;; (iswitchb-mode 1)
 
-;; Imenu autocomplete
+;; imenu autocomplete
 (require 'imenu)
 (setq imenu-auto-rescan      t) ;; auto update list of elisp functions
 (setq imenu-use-popup-menu nil) ;; imenu dialogs only in mini-buffer
 ;;(global-set-key (kbd "<f6>") 'imenu) ;; call imenu by F6
 
-;; Linum mode
+;; linum mode
 (require 'linum)
 (add-hook 'nlinum-mode-hook
           (lambda ()
@@ -391,7 +397,7 @@
                            (count-lines (point-min) (point-max)))))))
 (global-linum-mode)
 
-;; CPerl mode settings
+;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-indent-level 4
       cperl-close-paren-offset -4
@@ -407,14 +413,14 @@
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
 
-;; Go mode settings
+;; golang mode settings
 (defun auto-complete-for-go ()
   (auto-complete-mode 1))
 (add-hook 'go-mode-hook 'auto-complete-for-go)
 (with-eval-after-load 'go-mode
   (require 'go-autocomplete))
 
-;; Go fmt settings
+;; go fmt settings
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
@@ -423,18 +429,18 @@
             (setq standard-indent 4)
             (setq indent-tabs-mode nil)))
 
-;; Show trailing whitespace
+;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
-;; Packages repo settings
+;; packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; To update package lists: M-x package-refresh-contents <RET>
+;; to update package lists: M-x package-refresh-contents <RET>
 
-;; List the packages to install
+;; list the packages to install
 (setq package-list '(
                      ;; helm
                      ;; helm-swoop
@@ -446,18 +452,18 @@
                      rainbow-delimiters
                      jedi
                      markdown-mode))
-;; Activate installed packages
+;; activate installed packages
 (package-initialize)
-;; Fetch the list of packages available
+;; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; Install the missing packages
+;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
-;; Auto complete mode
+;; auto complete mode
 (add-hook 'cperl-mode-hook
           (lambda ()
             (when (require 'auto-complete nil t) ; no error whatever auto-complete.el is not installed.
@@ -466,19 +472,19 @@
               (setq ac-sources
                     '(ac-source-perl-completion)))))
 
-;; CPerl advanced auto complete
+;; cperl advanced auto complete
 (add-hook 'cperl-mode-hook
           (lambda()
             (when (require 'perl-completion nil t)
               (perl-completion-mode t))))
 
-;; Groovy settings
+;; groovy settings
 (add-hook 'groovy-mode-hook
           (lambda()
             (auto-complete t)
             (setq tab-width 4)))
 
-;; Yaml
+;; yaml
 (add-hook 'yaml-mode-hook
           (lambda ()
             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
@@ -487,7 +493,7 @@
       nxml-attribute-indent 4
       nxml-slash-auto-complete-flag t)
 
-;; Python settings
+;; python settings
 (add-hook 'python-mode-hook 'auto-complete-mode)
 (add-hook 'python-mode-hook
           (function (lambda ()
@@ -502,14 +508,14 @@
               py-which-bufname "IPython"
               python-shell-interpreter-args "-i")
 
-;; Py epc con <N> buffers hack
+;; py epc con <N> buffers hack
 (defadvice epc:make-procbuf (around foo activate)
   ad-do-it
   (with-current-buffer ad-return-value
     (rename-buffer (concat " " (buffer-name)))
     (setq ad-return-value (buffer-name))))
 
-;; Tidy settings
+;; tidy settings
 (setq whitespace-line 0)
 (setq tab-width 4)
 (setq-default indent-tabs-mode nil)
@@ -531,7 +537,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Hilight parent brackets
+;; hilight parent brackets
 (show-paren-mode 1)
 
 (put 'upcase-region 'disabled nil)
@@ -554,12 +560,12 @@
 ;; (global-set-key (kbd "C-x r b") 'helm-bookmarks)
 ;; (global-set-key (kbd "C-x m") 'helm-M-x)
 ;; (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-;; (global-set-key (kbd "C-x C-f") 'helm-find-files) ;; Leave commented if ido is preferable
+;; (global-set-key (kbd "C-x C-f") 'helm-find-files) ;; leave commented if ido is preferable
 ;; (global-set-key (kbd "M-i") 'helm-swoop)
 ;; (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 ;; (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 
-;; Comment tags settings
+;; comment tags settings
 (autoload 'comment-tags-mode "comment-tags-mode")
 (setq comment-tags-keymap-prefix (kbd "C-c t"))
 (with-eval-after-load "comment-tags"
@@ -581,20 +587,20 @@
         comment-tags-lighter nil))
 (add-hook 'prog-mode-hook 'comment-tags-mode)
 
-;; Auto conf mode for Dockerfile
+;; auto conf mode for Dockerfile
 (add-to-list 'auto-mode-alist '("Dockerfile" . conf-mode))
 
-;; Custom emacs-nw conf file 2 emacs lisp mode
+;; custom emacs-nw conf file 2 emacs lisp mode
 (add-to-list 'auto-mode-alist '("\\.emacs-nw\\'" . emacs-lisp-mode))
 
-;; Spell checking settings
+;; spell checking settings
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 ;; (dolist (hook '(text-mode-hook))
 ;; (add-hook hook (lambda () (flyspell-mode 1))))
 ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
 ;; (add-hook hook (lambda () (flyspell-mode -1))))
 
-;; Multiple cursors settings
+;; multiple cursors settings
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -611,7 +617,7 @@
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-;; Rainbow delimiters hook
+;; rainbow delimiters hook
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;; EMMS: The Emacs Multimedia System
@@ -626,7 +632,7 @@
                   ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
     "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
 
-;; Some custom useful keybindings
+;; some custom useful keybindings
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "C-h") 'delete-backward-char)
@@ -654,9 +660,13 @@
 (global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
 (global-set-key (kbd "s-u p") 'unfill-paragraph)
 
-;; FUNCTIONS defun below
 
-;; Create empty buffer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  FUNCTIONS defun below  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; create empty buffer
 (defun xah-new-empty-buffer ()
   "Open a new empty buffer."
   (interactive)
@@ -666,7 +676,7 @@
     (setq buffer-offer-save t)))
 
 ;; ansi-term line and char modes
-;; In the line mode ansi term buffer acts more like a normal text-buffer
+;; in the line mode ansi term buffer acts more like a normal text-buffer
 (require 'term)
 (defun jnm/term-toggle-mode ()
   "Toggles term between line mode and char mode"
@@ -691,7 +701,7 @@
       (kill-line))))
 (add-hook 'term-mode-hook 'my-term-mode-hook)
 
-;; Goto specified percent of buffer
+;; goto specified percent of buffer
 (defun goto-percent (percent)
   "Goto PERCENT of buffer."
   (interactive "nGoto percent: ")
@@ -718,14 +728,14 @@
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
-;; Kill matching buffers with no ask
+;; kill matching buffers with no ask
 (defun kill-matching-buffers-just-do-it ()
   "Kill buffers whose names match REGEXP, without asking."
   (interactive)
   (cl-letf (((symbol-function 'kill-buffer-ask) #'kill-buffer))
     (call-interactively #'kill-matching-buffers)))
 
-;; Sudo edit file or reload current buffer with sudo (set to C-x C-r)
+;; sudo edit file or reload current buffer with sudo (set to C-x C-r)
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.
 
@@ -738,14 +748,14 @@ buffer is not visiting a file."
                          (ido-read-file-name "Find file (as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-;; Another one sudo find file func
+;; another one sudo find file func
 (defun sudo-find-file (file-name)
   "Like find file, but opens the file as root."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
 
-;; As it says...
+;; as it says...
 (defun delete-file-and-buffer ()
   "Kills current buffer and deletes file it is visiting."
   (interactive)
@@ -759,7 +769,7 @@ buffer is not visiting a file."
               (message "Deleted file %s" filename)
               (kill-buffer)))))))
 
-;; This code from http://emacro.sourceforge.net/ gives a vi-like way of moving over parenthesis groups. I bind it to C-%, from vi heritage
+;; this code from http://emacro.sourceforge.net/ gives a vi-like way of moving over parenthesis groups. I bind it to C-%, from vi heritage
 (defun goto-match-paren (arg)
   "Go to the matching parenthesis if on parenthesis, otherwise insert %.
 vi style of % jumping to matching brace."
@@ -768,7 +778,7 @@ vi style of % jumping to matching brace."
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
-;; This modification of the above code works when the point is either right before or right after a parenthesis character, and also works with shift-selection
+;; this modification of the above code works when the point is either right before or right after a parenthesis character, and also works with shift-selection
 (defun forward-or-backward-sexp (&optional arg)
   "Go to the matching parenthesis character if one is adjacent to point."
   (interactive "^p")
@@ -778,7 +788,7 @@ vi style of % jumping to matching brace."
         ((looking-at "\\s)") (forward-char) (backward-sexp arg))
         ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
 
-;; Load all elisp files from specified dir
+;; load all elisp files from specified dir
 (defun my-load-all-in-directory (dir)
   "`load' all elisp libraries in directory DIR which are not already loaded."
   (interactive "D")
@@ -792,7 +802,7 @@ vi style of % jumping to matching brace."
 
 (my-load-all-in-directory "~/.emacs.d/lisp/")
 
-;; Kill lines matching by regex
+;; kill lines matching by regex
 (defun kill-matching-lines (regexp &optional rstart rend interactive)
   "Kill lines containing matches for REGEXP.
 
@@ -813,10 +823,10 @@ even beep.)"
                      (or rend (point-max))))
       (kill-buffer)))
   (unless (and buffer-read-only kill-read-only-ok)
-    ;; Delete lines or make the "Buffer is read-only" error.
+    ;; delete lines or make the "Buffer is read-only" error.
     (flush-lines regexp rstart rend interactive)))
 
-;; Kill by regex matching buffers filenames
+;; kill by regex matching buffers filenames
 (defun yba-kill-buffers-regexp (regexp)
   "Kill buffers related to a file, whose filename match against the regexp."
   (interactive "sRegexp? ")
@@ -842,23 +852,23 @@ will be killed."
   (interactive)
   (dolist (buf (buffer-list))
     (let ((filename (buffer-file-name buf)))
-      ;; Revert only buffers containing files, which are not modified;
-      ;; do not try to revert non-file buffers like *Messages*.
+      ;; revert only buffers containing files, which are not modified
+      ;; do not try to revert non-file buffers like *Messages*
       (when (and filename
                  (not (buffer-modified-p buf)))
         (if (file-readable-p filename)
-            ;; If the file exists and is readable, revert the buffer.
+            ;; if the file exists and is readable, revert the buffer
             (with-current-buffer buf
               (revert-buffer :ignore-auto :noconfirm :preserve-modes))
-          ;; Otherwise, kill the buffer.
-          (let (kill-buffer-query-functions) ; No query done when killing buffer
+          ;; otherwise, kill the buffer
+          (let (kill-buffer-query-functions) ; no query done when killing buffer
             (kill-buffer buf)
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
   (message "Finished reverting buffers containing unmodified files."))
 
-;; Emacs 25+ does not use defadvice anymore.
-;; Should be used without ido (if configured)
-;; Type C-x C-f C-f file:line
+;; emacs 25+ does not use defadvice anymore.
+;; should be used without ido (if configured)
+;; type C-x C-f C-f file:line
 (defun find-file--line-number (orig-fun filename &optional wildcards)
   "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
   (save-match-data
@@ -885,7 +895,7 @@ will be killed."
   ;; (switch-to-prev-buffer)
   (message "Killed buffers from group %s" group-name))
 
-;; Launch and restart Emacs with Elisp
+;; launch and restart emacs with elisp
 (defun launch-separate-emacs-in-terminal ()
   (suspend-emacs "fg ; emacs -nw"))
 
@@ -896,7 +906,7 @@ will be killed."
 
 (defun restart-emacs ()
   (interactive)
-  ;; We need the new emacs to be spawned after all kill-emacs-hooks
+  ;; we need the new emacs to be spawned after all kill-emacs-hooks
   ;; have been processed and there is nothing interesting left
   (let ((kill-emacs-hook (append kill-emacs-hook
                                  (list
@@ -906,11 +916,11 @@ will be killed."
     (save-buffers-kill-emacs)))
 
 ;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
-;; After usage spaces can be removed with Query replace
+;; after usage spaces can be removed with Query replace
 (defun unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
   (interactive (progn (barf-if-buffer-read-only) '(t)))
   (let ((fill-column (point-max))
-        ;; This would override `fill-column' if it's an integer.
+        ;; this would override `fill-column' if it's an integer.
         (emacs-lisp-docstring-fill-column t))
     (fill-paragraph nil region)))

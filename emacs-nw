@@ -1,4 +1,4 @@
-;; Emacs no window minimal configuration
+;; emacs no window minimal configuration
 
 ;; OS X and Win modifier keys bindings
 (cond
@@ -13,7 +13,7 @@
   (setq w32-lwindow-modifier 'super)
   (setq w32-rwindow-modifier 'super)))
 
-;; Nightmare mode (disables arrow keys)
+;; nightmare mode (disables arrow keys)
 (global-unset-key (kbd "<left>"))
 (global-unset-key (kbd "<right>"))
 (global-unset-key (kbd "<up>"))
@@ -27,19 +27,19 @@
 (global-unset-key (kbd "<M-up>"))
 (global-unset-key (kbd "<M-down>"))
 
-;; Resize splitted windows binds
+;; resize splitted windows binds
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
 (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
 
-;; Enable mouse in no-window mode
+;; enable mouse in no-window mode
 (require 'mouse)
 (xterm-mouse-mode t)
 
-(column-number-mode 1) ;; Show cursor position within line
+(column-number-mode 1) ;; show cursor position within line
 
-;; Ido mode settings
+;; ido mode settings
 (require 'ido)
 (ido-mode t)
 (icomplete-mode t)
@@ -49,12 +49,12 @@
 (setq ido-file-extensions-order '(".org" ".txt" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
 
-;; Imenu autocomplete
+;; imenu autocomplete
 (require 'imenu)
 (setq imenu-auto-rescan      t) ;; auto update list of elisp functions
 (setq imenu-use-popup-menu nil) ;; imenu dialogs only in mini-buffer
 
-;; Linum mode
+;; linum mode
 (require 'linum)
 (add-hook 'nlinum-mode-hook
           (lambda ()
@@ -63,7 +63,7 @@
                            (count-lines (point-min) (point-max)))))))
 (global-linum-mode)
 
-;; CPerl mode settings
+;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-indent-level 4
       cperl-close-paren-offset -4
@@ -79,13 +79,13 @@
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
 
-;; Show trailing whitespace
+;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
-;; Bindings
+;; bindings
 (global-set-key (kbd "M-/") 'comment-line)
 (global-set-key (kbd "C-M-/") 'comment-region)
 (global-set-key (kbd "C-M-?") 'uncomment-region)
 
-;; Auto conf mode for Dockerfile
+;; auto conf mode for Dockerfile
 (add-to-list 'auto-mode-alist '("Dockerfile" . conf-mode))
