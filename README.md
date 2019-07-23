@@ -128,3 +128,9 @@ texlive-full
 ``` bash
 apt install emms vorbis-tools
 ```
+
+### Daemon mode
+
+See daemon/README.txt instructions to install emacs as daemon.
+
+Available commands to manage daemon with emacsclient are listed in vim2emacs.html doc.

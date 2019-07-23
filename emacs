@@ -147,6 +147,8 @@
                         (mode . mhtml-mode)
                         (mode . csharp-mode)
                         (mode . lua-mode)
+                        (mode . xml-mode)
+                        (mode . nxml-mode)
                         (mode . swift-mode)
                         (mode . objc-mode)
                         (mode . scala-mode)
@@ -924,3 +926,10 @@ will be killed."
         ;; this would override `fill-column' if it's an integer.
         (emacs-lisp-docstring-fill-column t))
     (fill-paragraph nil region)))
+
+;; define function to shutdown emacs server instance
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server"
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs))
