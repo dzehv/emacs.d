@@ -634,6 +634,16 @@
                   ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
     "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
 
+;; sr-speedbar
+(when (require 'sr-speedbar nil t)
+  (setq speedbar-use-images nil)
+  (make-face 'speedbar-face)
+  (set-face-font 'speedbar-face "Menlo-13")
+  (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
+  (with-eval-after-load "speedbar"
+    (autoload 'sr-speedbar-toggle "sr-speedbar" nil t)
+    (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)))
+
 ;; some custom useful keybindings
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)
