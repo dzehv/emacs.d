@@ -202,6 +202,7 @@
                          (mode . inferior-emacs-lisp-mode)
                          (mode . ediff-mode)
                          (mode . ediff-meta-mode)
+                         (mode . speedbar-mode)
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
@@ -644,6 +645,19 @@
     (autoload 'sr-speedbar-toggle "sr-speedbar" nil t)
     (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)))
 
+;; folding
+(require 'hideshow)
+;; (load-library "hideshow")
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'cperl-mode-hook      'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
+(add-hook 'python-mode-hook     'hs-minor-mode)
+(add-hook 'go-mode-hook         'hs-minor-mode)
+
 ;; some custom useful keybindings
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)
@@ -671,6 +685,12 @@
 (global-set-key (kbd "s-R a") 'revert-all-file-buffers)
 (global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
 (global-set-key (kbd "s-u p") 'unfill-paragraph)
+;; hideshow binds
+(global-set-key (kbd "<f9>") 'hs-toggle-hiding)
+(global-set-key (kbd "C-<f9>") 'hs-hide-all)
+(global-set-key (kbd "C-S-<f9>") 'hs-show-all)
+(global-set-key (kbd "C-+") 'toggle-hiding)
+(global-set-key (kbd "C-\\") 'toggle-selective-display)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -943,3 +963,21 @@ will be killed."
   (interactive)
   (save-some-buffers)
   (kill-emacs))
+
+;; hideshow universal code folding
+(defun toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))
+
+;; hideshow toggle
+(defun toggle-hiding (column)
+  (interactive "P")
+  (if hs-minor-mode
+      (if (condition-case nil
+              (hs-toggle-hiding)
+            (error t))
+          (hs-show-all))
+    (toggle-selective-display column)))
