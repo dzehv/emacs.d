@@ -690,7 +690,7 @@
 (global-set-key (kbd "C-<f9>") 'hs-hide-all)
 (global-set-key (kbd "C-S-<f9>") 'hs-show-all)
 (global-set-key (kbd "C-+") 'toggle-hiding)
-(global-set-key (kbd "C-\\") 'toggle-selective-display)
+(global-set-key (kbd "C-|") 'toggle-selective-display)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
