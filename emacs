@@ -363,14 +363,14 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-;; tramp bindings
-(cond
- ((eq system-type 'darwin)
-  (global-set-key (kbd "s-\S-c") (lambda () (interactive) 'tramp-cleanup-all-connections))
-  (global-set-key (kbd "s-\S-l") (lambda () (interactive) 'tramp-cleanup-this-connection)))
- (t
-  (global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
-  (global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)))
+;; tramp bindings (old)
+;; (cond
+ ;; ((eq system-type 'darwin)
+  ;; (global-set-key (kbd "s-\S-c") (lambda () (interactive) 'tramp-cleanup-all-connections))
+  ;; (global-set-key (kbd "s-\S-l") (lambda () (interactive) 'tramp-cleanup-this-connection)))
+ ;; (t
+  ;; (global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
+  ;; (global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)))
 
 ;; ido mode settings
 (require 'ido)
@@ -666,6 +666,9 @@
 (global-set-key (kbd "M-/") 'comment-line)
 (global-set-key (kbd "C-M-/") 'comment-region)
 (global-set-key (kbd "C-M-?") 'uncomment-region)
+;; tramp
+(global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
+(global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
 (global-set-key (kbd "s-j") 'json-reformat-region)
@@ -816,7 +819,7 @@ vi style of % jumping to matching brace."
   (interactive "^p")
   (cond ((looking-at "\\s(") (forward-sexp arg))
         ((looking-back "\\s)" 1) (backward-sexp arg))
-        ;; Now, try to succeed from inside of a bracket
+        ;; now, try to succeed from inside of a bracket
         ((looking-at "\\s)") (forward-char) (backward-sexp arg))
         ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
 
