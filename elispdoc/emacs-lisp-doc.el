@@ -75,7 +75,9 @@
 ;; a -- see var val (evaluate)
 ;; 'a -- just symbol 'a'
 
-(setq a 18) ;; set new value for a
+(setq a 18) ;; set new (quoted first arg) value for a
+;; to use single 'set' expr will be:
+(set 'a 18) ;; a is not quoted and used as symbol
 
 ;; let (define local variable)
 (let ((x 3))
