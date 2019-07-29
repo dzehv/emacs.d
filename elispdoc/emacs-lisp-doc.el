@@ -4,6 +4,10 @@
 ;; emacs lisp -- one of lisp dialect for emacs to process text
 ;; all expressions can be executes with C-x C-e (eval) as region
 
+
+
+;; Emacs Lisp debugging
+
 ;; There are a number of ways to execute (evaluate, in Lisp lingo) an Emacs Lisp form:
 
 ;; If you want it evaluated every time you run Emacs, put it in a file named .emacs in your home directory. This is known as “your .emacs file,” and contains all of your personal customizations.
@@ -16,11 +20,53 @@
 ;; e.g
 (print "Hello!") ;; <-- C-x C-e before comment
 
-;; conventions and coding style
+;; to execute strings with C-j we need to activate: M-x lisp-interaction-mode
+;; buffer *scratch* is activated with List Interaction major mode by default
+(print "Hello!") ;; <-- C-j in Lisp Interaction
+;; to execute elisp file as script, we also can interpret it with: emacs --script <file.el>
+
+;; litable.el (can be found on github) plugin implements immediate eval result while typing elisp code in buffer
+;; *Backtrace* buffer is called automatically on errors
+;; we can add breakpoints in code to enter debugger, as following
+
+(let ((a 10))
+  (while (> a 0)
+    (debug) ;; breakpoint - stop eval here and enter debugger
+    (message (int-to-string a))
+    (setq a (1- a))))
+;; while breakpoint is activated in *Backtrace* buffer we can play with it
+;; e - evaluate in *Backtrace* buf, c - continue
+;; there will be 10 breakpoints because of while loop
+;; d - step into (trace by commands)
+
+;; another one method to call breakpoint on enry with
+;; M-x debug-on-entry -- <FUNC_NAME> <RET>
+
+;; M-x eval-defun (C-M-x) - Evaluate the top-level form containing point, or after point
+;; as (M-x eval-defun) there is (M-x edebug-defun) debugger
+;; when called on region and then executed by C-x C-e
+;; ? - see keybindings of edebug
+;; <SPC> - next step
+;; i - step into
+;; f - step forward
+;; e - eval
+;; b - set breakpoint
+;; g - go till breakpoint
+
+
+
+;; Elisp REPL
+
+;; M-x ielm
+;; M-x eshell -- is also a REPL and can eval elisp expressions as terminal commands
+
+;; Conventions and coding style
 
 (defvar *some-global-var* 1) ;; global vars should have names begin from '*'
 
-;; Data types
+
+
+;; Elisp data types
 
 ;; t -- true
 ;; nil, '() -- false
@@ -45,7 +91,7 @@
 [1 2 3] ;; array ( element access spped O(const) )
 
 ;; point -- where cursor is places in buffer (obj)
-;; mark -- C-<SPACE> is set to mark beginnig of region (select operation)
+;; mark -- C-<SPC> is set to mark beginnig of region (select operation)
 ;; region -- selected area obj
 ;; buffer -- emacs universal objects container (displayed content)
 
@@ -65,6 +111,10 @@
 (defun my-fun2 ()
   (interactive) ;; make fun callable by M-x
   (message "Hello!"))
+
+(defun my-fun3 (name)
+  (interactive "sType your name: ") ;; callable with string arg
+  (message "Hello, %s!" name))
 
 ;; if statement
 (if (>= 2 1)
@@ -101,11 +151,13 @@
     (message "Hello!") ;; see *Messages* buffer
     (message "else"))) ;; than "else" will appear in minibuf, log in *Messages*
 
-;; cycle e.g. returns nil, prints 0 - 9
+;; loop e.g. returns nil, prints 0 - 9
 (let ((i 0))
   (while (< i 10)
     (message (number-to-string i))
     (setq i (1+ i))))
+
+
 
 ;; Some functions
 
@@ -131,6 +183,8 @@
     (setq *cur-style-num* (1+ *cur-style-num*))))
 
 (global-set-key (kbd "<f9>") 'stylize-list)
+
+
 
 ;; Core Elisp
 
@@ -207,7 +261,9 @@
 ;; "foo bar" "baz"
 ;; "foo bar baz"
 
-;; Buffers modes
+
+
+;; Buffer modes
 
 ;; Global mode                       global-map      (global-set-key)
 ;; Major-mode (only one for buffer)  local-map       ()
@@ -241,3 +297,11 @@
                   "\n"))))) ;; third -- separator
 
 ;; now we can bind it to modes as with my-keybindings function to web-mode-hook
+
+
+
+;; Libs
+
+(add-to-list 'load-path "~/.emacs.d/lisp/") ;; add path to search lisp files there (load-path ~ @INC for Perl)
+;; e.g. we have file '~/.emacs.d/lisp/test.el'
+;; after adding to list we can call (require 'test)

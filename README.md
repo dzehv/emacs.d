@@ -111,6 +111,10 @@ M-: (require 'shr)
 M-x shr-render-buffer
 ```
 
+### Emacs Lisp documentaion and examples
+
+See elispdoc/emacs-lisp-doc.el
+
 ### To compile .tex files, install
 
 Basic:
