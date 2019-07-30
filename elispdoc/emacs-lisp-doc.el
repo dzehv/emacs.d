@@ -75,6 +75,8 @@
 ;; a?, ?b, ?\n -- characters
 ;; "abc" -- strings
 ;; 'abc -- symbol
+;; #'abc -- 'abc equivalent, is preferred when (abc) is a function...
+;; ...as it documents the fact that it is intended to be funcalled. (funcall abc ...)
 
 (cons 1 2) ;; cons pair/point pair
 (cons 1 (cons 2 (cons 3 nil))) ;; create list from cons pairs
