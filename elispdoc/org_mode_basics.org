@@ -1,0 +1,64 @@
+#+STARTUP: showall
+
+* Visibility cycling
+** Tab -- show current
+** S-tab -- show all children
+** C-u C-u C-u Tab -- show all including drawers
+** Startup options
+   #+STARTUP: overview
+   #+STARTUP: content
+   #+STARTUP: showall
+   #+STARTUP: showeverything
+
+* Editting
+** M-Ret -- add element on the same level
+** M-S-Ret -- insert TODO element
+** M-Right -- demote current element
+*** M-S-Right -- deomote current subtree
+** M-Left -- promote current element
+*** M-S-Left -- promote current subtree
+** M-S-Up -- move current tree up
+** M-S-Down -- move current tree down
+** C-c C-x C-w -- kill current subtree
+** C-c C-x M-w -- copy current subtree
+** C-c C-x C-y -- yank subtree
+
+* Plain lists
+** Use M-Ret to add list item
+** Ordered list:
+   1. First
+   2. Second
+   3. Third
+** Unordered lists
+   * abc
+   * efg
+** List with checkboxes (M-S-Ret)
+   * [ ] First element
+   * [X] Second element (C-c C-c -- toggle checkbox state)
+   * [X] Third element
+
+* More devices
+** C-c C-z -- time-stamped drawer
+   - Note taken on [2013-09-02 Mon 23:54] \\
+     My note here
+   [fn:2]
+** C-c C-x f -- footnote[fn:1]
+
+* ToDo functionality
+** C-c C-t -- rotate TODO state
+** S-Left, S-Right -- rotate TODO state
+** S-M-Ret -- insert new TODO note
+** (setq org-todo-keywords'((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+
+* Org export to
+** C-c C-e -- export to format
+e.g. C-c C-e h-h -- to html file
+     C-c C-e l-p -- to pdf file
+     C-c C-e l-l -- to LaTeX file
+
+
+* Footnotes
+
+[fn:1] The footnote.
+
+[fn:2] Second footnote.

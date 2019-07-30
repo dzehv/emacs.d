@@ -1,0 +1,112 @@
+#+TITLE: Python programming example
+#+AUTHOR: D.Bushenko
+#+DATE: 02.09.2013
+#+EMAIL: d.bushenko@gmail.com
+#+DESCRIPTION: Demonstration of org-mode
+#+KEYWORDS: org-mode, python
+#+LANGUAGE: en
+
+* Org-mode formatting utilities
+** HTML tags
+
+#+HTML: My email: <b>d.bushenko@gmail.com</b>
+
+#+BEGIN_HTML
+<h3>02.09.2013</h3>
+#+END_HTML
+
+** Images and links
+
+#+CAPTION: Python Tutorial
+#+ATTR_HTML: title="Python!" style="float:left;"
+[[file:python-logo.gif]]
+
+This link will point to org-mode home site: [[http://orgmode.org]]
+#+ATTR_HTML: title="The Org-mode homepage" style="color:red;"
+[[http://orgmode.org]]
+
+* Accessing Values in Tuples:
+
+  To access values in tuple, use the square brackets for slicing along with the index or indices to obtain value available at that index. Following is a simple example:
+
+  #+begin_src python :tangle yes
+#!/usr/bin/python
+tup1 = ('physics', 'chemistry', 1997, 2000);
+tup2 = (1, 2, 3, 4, 5, 6, 7 );
+
+print "tup1[0]: ", tup1[0]
+print "tup2[1:5]: ", tup2[1:5]
+  #+end_src
+
+  When the above code is executed, it produces the following result:
+
+  #+begin_src shell :tangle no
+tup1[0]:  physics
+tup2[1:5]:  [2, 3, 4, 5]
+  #+end_src
+
+* Updating Tuples:
+
+  Tuples are immutable which means you cannot update them or change values of tuple elements. But we able to take portions of an existing tuples to create a new tuples as follows. Following is a simple example:
+
+  #+begin_src python :tangle yes
+tup1 = (12, 34.56);
+tup2 = ('abc', 'xyz');
+
+# Following action is not valid for tuples
+# tup1[0] = 100;
+
+# So let's create a new tuple as follows
+tup3 = tup1 + tup2;
+print tup3;
+  #+end_src
+
+  When the above code is executed, it produces the following result:
+
+  #+begin_src python :tangle yes
+  (12, 34.56, 'abc', 'xyz')
+  #+end_src
+
+* Delete Tuple Elements:
+
+  Removing individual tuple elements is not possible. There is, of course, nothing wrong with putting together another tuple with the undesired elements discarded.
+
+  To explicitly remove an entire tuple, just use the del statement. Following is a simple example:
+
+  #+begin_src python :tangle yes
+  tup = ('physics', 'chemistry', 1997, 2000);
+
+  print tup;
+  del tup;
+  print "After deleting tup : "
+  print tup;
+  #+end_src
+
+  This will produce following result. Note an exception raised, this is because after del tup tuple does not exist any more:
+
+  #+begin_src shell :tangle no
+  ('physics', 'chemistry', 1997, 2000)
+  After deleting tup :
+  Traceback (most recent call last):
+  File "test.py", line 9, in <module>
+  print tup;
+  NameError: name 'tup' is not defined
+  #+end_src
+
+* Basic Tuples Operations:
+
+  Tuples respond to the + and * operators much like strings; they mean concatenation and repetition here too, except that the result is a new tuple, not a string.
+
+  In fact, tuples respond to all of the general sequence operations we used on strings in the prior chapter :
+
+  #+CAPTION: This is a table with lines around and between cells
+  |------------------------------+------------------------------+---------------|
+  | Python Expression            | Results                      | Description   |
+  |------------------------------+------------------------------+---------------|
+  | len((1, 2, 3))               | 3                            | Length        |
+  | (1, 2, 3) + (4, 5, 6)        | (1, 2, 3, 4, 5, 6)           | Concatenation |
+  | ['Hi!'] * 4                  | ('Hi!', 'Hi!', 'Hi!', 'Hi!') | Repetition    |
+  | 3 in (1, 2, 3)               | True                         | Membership    |
+  | for x in (1, 2, 3): print x, | 1 2 3                        | Iteration     |
+  |------------------------------+------------------------------+---------------|
+

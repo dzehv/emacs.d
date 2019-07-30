@@ -276,6 +276,8 @@
         (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "MOVED(m)" "CANCELED(c)")))
 
+;; syntax fontify for literate programming
+(setq org-src-fontify-natively 't)
 ;; org capture at point
 (defun org-capture-at-point ()
   "Insert an org capture template at point."
