@@ -986,3 +986,15 @@ will be killed."
             (error t))
           (hs-show-all))
     (toggle-selective-display column)))
+
+;; cargo cult adaptation of event-apply-control-modifier
+;; adopt to use query-replace functions bindings on mac os
+;; now, you can type Control-x @ Shift-5 Shift-5, emacs will see C-x @ % %,
+;; interpret it as C-M-%, and run finally query-replace-regexp
+(defun event-apply-control-meta-modifiers (ignore-prompt)
+  (vector
+   (event-apply-modifier
+    (event-apply-modifier (read-event)
+                          'control 26 "C-")
+    'meta 27 "M-")))
+(define-key function-key-map (kbd "C-x @ %") 'event-apply-control-meta-modifiers)
