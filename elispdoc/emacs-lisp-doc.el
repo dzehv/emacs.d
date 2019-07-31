@@ -307,3 +307,84 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/") ;; add path to search lisp files there (load-path ~ @INC for Perl)
 ;; e.g. we have file '~/.emacs.d/lisp/test.el'
 ;; after adding to list we can call (require 'test)
+
+
+;; Macroses, classes, CEDET package
+(defmacro macro1 (name)
+  name)
+
+(defmacro macro2 (name)
+  '(name))
+
+(defmacro macro3 (name)
+  `(,name))
+
+;; #123456789012345678901234567890123456789012345678901234567890
+;; SVCLFOWLER         10101MS0120050313.........................
+;; SVCLHOHPE          10201DX0320050315........................
+;; SVCLTWO           x10301MRP220050329..............................
+;; USGE10301TWO          x50214..7050329...............................
+
+;; mapping SVCL dsl.ServiceCall
+;;   4-18: CustomerName
+;;   19-23: CustomerID
+;;   24-27 : CallTypeCode
+;;   28-35 : DateOfCallString
+
+;; mapping  USGE dsl.Usage
+;;   4-8 : CustomerID
+;;   9-22: CustomerName
+;;   30-30: Cycle
+;;   31-36: ReadDate
+
+(defclass ServiceCall ()
+  ((Code :initarg :Code :initform "SVCL")
+   (CustomerName :initarg :CustomerName)
+   (CustomerID :initarg :CustomerID)
+   (CallTypeCode :initarg :CallTypeCode)
+   (DateOfCallString :initarg :DateOfCallString)))
+
+(defmethod parse-line-for-class ((obj ServiceCall) line)
+  (oset obj CustomerName (substring line 4 18))
+  (oset obj CustomerID (substring line 19 23))
+  (oset obj CallTypeCode (substring line 24 27))
+  (oset obj DateOfCallString (substring line 28 35)))
+
+(defmacro defmappings (class-name code &rest body)
+  `(progn
+     (defclass ,class-name ()
+       ,(let ((res (list (list 'Code :initarg :Code :initform code))))
+          (dolist (elem body)
+            (setq res (cons (list (nth 2 elem)
+                                  :initarg
+                                  (make-symbol (concat ":" (symbol-name (nth 2 elem)))))
+                            res)))
+          res))
+
+     (defmethod parse-line-for-class ((obj ,class-name) line)
+       ,@(let ((res nil))
+           (dolist (elem body)
+             (setq res (cons (list 'oset 'obj (nth 2 elem)
+                                   (list 'substring 'line (nth 0 elem) (nth 1 elem)))
+                             res)))
+           res))))
+
+(defmappings ServiceCall "SVCL"
+  (4 18 CustomerName)
+  (19 23 CustomerID)
+  (24 27 CallTypeCode)
+  (28 35 DateOfCallString))
+
+(defmappings Usage "USGE"
+  (4 8 CustomerID)
+  (9 22 CustomerName)
+  (30 31 Cycle)
+  (32 36 ReadDate))
+
+(let ((line "USGE123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890")
+      (o nil))
+  (cond
+   ((string= "SVCL" (substring line 0 4)) (setq o (ServiceCall "1")))
+   ((string= "USGE" (substring line 0 4)) (setq o (Usage "2"))))
+  (parse-line-for-class o line)
+  o)
