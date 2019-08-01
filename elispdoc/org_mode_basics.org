@@ -41,7 +41,7 @@
 ** C-c C-z -- time-stamped drawer
    - Note taken on [2013-09-02 Mon 23:54] \\
      My note here
-   [fn:2]
+   [fn:2] -- C-c C-o jump to note or file/http link
 ** C-c C-x f -- footnote[fn:1]
 
 * ToDo functionality

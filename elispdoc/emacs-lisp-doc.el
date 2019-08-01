@@ -78,6 +78,9 @@
 ;; #'abc -- 'abc equivalent, is preferred when (abc) is a function...
 ;; ...as it documents the fact that it is intended to be funcalled. (funcall abc ...)
 
+;; func arguments list
+;; (defun my-fun (a b &optional c d &rest e)) ; mandatory, optional, rest of args in list
+
 (cons 1 2) ;; cons pair/point pair
 (cons 1 (cons 2 (cons 3 nil))) ;; create list from cons pairs
 '(1 2 3) ;; list
@@ -310,6 +313,8 @@
 
 
 ;; Macroses, classes, CEDET package
+
+;; marcoses -- compile time functions, which are replace like C define or constants
 (defmacro macro1 (name)
   name)
 
@@ -318,6 +323,26 @@
 
 (defmacro macro3 (name)
   `(,name))
+
+(defmacro macro4 (name)
+  `(,@name))
+
+;; see what macro replaces
+(macroexpand '(macro2 123)) ;; returns -- (macro2 123)
+(macroexpand '(macro3 123)) ;; returns -- (123)
+(macroexpand '(macro4 123)) ;; returns -- 123
+
+;; define vars example with macro
+(defmacro macro5 (&rest body)
+  (let ((res nil))
+    (dolist (elem body)
+      (setq res (cons (list 'setq (nth 1 elem) (nth 0 elem))
+                      res)))
+    `(progn ,@res)))
+
+(macro5 (1 a) (2 b)) ;; -- defvars with macro5
+a ;; -- 1
+b ;; -- 2
 
 ;; #123456789012345678901234567890123456789012345678901234567890
 ;; SVCLFOWLER         10101MS0120050313.........................
