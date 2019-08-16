@@ -641,6 +641,8 @@
 (when (require 'sr-speedbar nil t)
   (setq speedbar-use-images nil)
   (make-face 'speedbar-face)
+  (custom-set-variables
+   '(speedbar-show-unknown-files t))
   (set-face-font 'speedbar-face "Menlo-13")
   (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
   (with-eval-after-load "speedbar"
