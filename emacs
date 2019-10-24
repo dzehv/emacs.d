@@ -534,7 +534,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))))
+    (jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts)))
+ '(speedbar-show-unknown-files t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -670,9 +671,11 @@
 (global-set-key (kbd "M-/") 'comment-line)
 (global-set-key (kbd "C-M-/") 'comment-region)
 (global-set-key (kbd "C-M-?") 'uncomment-region)
+
 ;; tramp
 (global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
 (global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)
+
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
 (global-set-key (kbd "s-j") 'json-reformat-region)
@@ -692,12 +695,16 @@
 (global-set-key (kbd "s-R a") 'revert-all-file-buffers)
 (global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
 (global-set-key (kbd "s-u p") 'unfill-paragraph)
+
 ;; hideshow binds
 (global-set-key (kbd "<f9>") 'hs-toggle-hiding)
 (global-set-key (kbd "C-<f9>") 'hs-hide-all)
 (global-set-key (kbd "C-S-<f9>") 'hs-show-all)
 (global-set-key (kbd "C-+") 'toggle-hiding)
 (global-set-key (kbd "C-|") 'toggle-selective-display)
+
+;; trim whitespaces bind
+(global-set-key (kbd "s-t w") 'trim-buffer-whitespaces)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1009,3 +1016,14 @@ will be killed."
    (event-apply-modifier (read-event)
                          'meta 27 "M-")))
 (define-key function-key-map (kbd "C-x @ %") 'event-apply-meta-modifiers)
+
+;; trim whitespaces in whole buffer
+(defun trim-buffer-whitespaces ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "^ +$" nil t)
+      (replace-match ""))
+    (goto-char (point-min))
+    (while (re-search-forward " +$" nil t)
+      (replace-match ""))))
