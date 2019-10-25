@@ -705,6 +705,7 @@
 
 ;; trim whitespaces bind
 (global-set-key (kbd "s-t w") 'trim-buffer-whitespaces)
+(global-set-key (kbd "s-t r") 'trim-region-whitespaces)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1017,13 +1018,20 @@ will be killed."
                          'meta 27 "M-")))
 (define-key function-key-map (kbd "C-x @ %") 'event-apply-meta-modifiers)
 
-;; trim whitespaces in whole buffer
+;; trim whitespaces functions
 (defun trim-buffer-whitespaces ()
+  "Trim whitespaces in whole buffer"
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (while (re-search-forward "^ +$" nil t)
+    (while (re-search-forward "^[ \s\t\r\n]+$" nil t)
       (replace-match ""))
     (goto-char (point-min))
-    (while (re-search-forward " +$" nil t)
+    (while (re-search-forward "[ \s\t\r\n]+$" nil t)
       (replace-match ""))))
+
+(defun trim-region-whitespaces (begin end)
+  "Trim whitespaces in region"
+  (interactive "r")
+  (if (region-active-p)
+      (replace-regexp "[ \s\t\r\n]+$" "" nil begin end)))
