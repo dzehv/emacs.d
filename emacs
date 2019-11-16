@@ -29,7 +29,7 @@
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (setq load-path
         (append
-         (let ((load-path (copy-sequence load-path))) ;; Shadow
+         (let ((load-path (copy-sequence load-path))) ;; shadow
            (append
             (copy-sequence (normal-top-level-add-to-load-path '(".")))
             (normal-top-level-add-subdirs-to-load-path)))
@@ -707,6 +707,8 @@
 (global-set-key (kbd "s-t w") 'trim-buffer-whitespaces)
 (global-set-key (kbd "s-t r") 'trim-region-whitespaces)
 
+;; file operations
+(global-set-key (kbd "S-s-m f") 'move-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  FUNCTIONS defun below  ;;
@@ -1035,3 +1037,25 @@ will be killed."
   (interactive "r")
   (if (region-active-p)
       (replace-regexp "[ \s\t\r\n]+$" "" nil begin end)))
+
+;; move current buffer's file to new location
+(defun move-file (new-location)
+  "Write this file to NEW-LOCATION, and delete the old one."
+  (interactive (list (expand-file-name
+                      (if buffer-file-name
+                          (read-file-name "Move file to: ")
+                        (read-file-name "Move file to: "
+                                        default-directory
+                                        (expand-file-name (file-name-nondirectory (buffer-name))
+                                                          default-directory))))))
+  (when (file-exists-p new-location)
+    (delete-file new-location))
+  (let ((old-location (expand-file-name (buffer-file-name))))
+    (message "Old file is %s and new file is %s"
+             old-location
+             new-location)
+    (write-file new-location t)
+    (when (and old-location
+               (file-exists-p new-location)
+               (not (string-equal old-location new-location)))
+      (delete-file old-location))))
