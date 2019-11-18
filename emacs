@@ -681,7 +681,9 @@
 (global-set-key (kbd "s-j") 'json-reformat-region)
 (global-set-key (kbd "s-g") 'goto-percent)
 (global-set-key (kbd "s-b m") 'rename-file-and-buffer)
+(global-unset-key (kbd "s-k"))
 (global-set-key (kbd "s-k m") 'kill-matching-buffers-just-do-it)
+(global-unset-key (kbd "s-d"))
 (global-set-key (kbd "s-d u") 'dos2unix)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
@@ -689,11 +691,14 @@
 (global-set-key (kbd "C-c D") 'delete-file-and-buffer)
 (global-set-key (kbd "C-%") 'goto-match-paren)
 (global-set-key (kbd "C-x %") 'forward-or-backward-sexp)
+(global-unset-key (kbd "s-w"))
 (global-set-key (kbd "s-w d") 'wdired-change-to-wdired-mode)
 (global-set-key (kbd "s-k l") 'kill-matching-lines)
 (global-set-key (kbd "s-k r") 'yba-kill-buffers-regexp)
 (global-set-key (kbd "s-R a") 'revert-all-file-buffers)
+(global-unset-key (kbd "s-c"))
 (global-set-key (kbd "s-c g") 'close-ibuffer-filtered-group)
+(global-unset-key (kbd "s-u"))
 (global-set-key (kbd "s-u p") 'unfill-paragraph)
 
 ;; hideshow binds
@@ -704,6 +709,7 @@
 (global-set-key (kbd "C-|") 'toggle-selective-display)
 
 ;; trim whitespaces bind
+(global-unset-key (kbd "s-t"))
 (global-set-key (kbd "s-t w") 'trim-buffer-whitespaces)
 (global-set-key (kbd "s-t r") 'trim-region-whitespaces)
 
