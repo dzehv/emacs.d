@@ -203,6 +203,7 @@
                          (mode . ediff-mode)
                          (mode . ediff-meta-mode)
                          (mode . speedbar-mode)
+                         (mode . special-mode)
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
