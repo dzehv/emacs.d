@@ -1066,3 +1066,12 @@ will be killed."
                (file-exists-p new-location)
                (not (string-equal old-location new-location)))
       (delete-file old-location))))
+
+
+(defun disable-all-themes ()
+  "disable all active themes."
+  (dolist (i custom-enabled-themes)
+    (disable-theme i)))
+
+(defadvice load-theme (before disable-themes-first activate)
+  (disable-all-themes))
