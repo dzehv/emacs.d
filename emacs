@@ -97,8 +97,19 @@
 
 ;; frame colors
 ;; (add-to-list 'default-frame-alist '(foreground-color . "white"))
-(add-to-list 'default-frame-alist '(background-color . "white smoke"))
+;; (add-to-list 'default-frame-alist '(background-color . "white smoke"))
 ;; (add-to-list 'default-frame-alist '(cursor-color . "coral"))
+
+;; snippet allows you to conveniently add all its subfolders inside "~/.emacs.d/themes/" to the theme load path
+(let ((basedir "~/.emacs.d/themes/"))
+  (dolist (f (directory-files basedir))
+    (if (and (not (or (equal f ".") (equal f "..")))
+             (file-directory-p (concat basedir f)))
+        (add-to-list 'custom-theme-load-path (concat basedir f)))))
+
+;; load custom theme
+(load-theme 'dark-green t t)
+(enable-theme 'dark-green)
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -533,6 +544,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" default)))
  '(package-selected-packages
    (quote
     (jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts)))

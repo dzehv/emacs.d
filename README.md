@@ -18,6 +18,12 @@ cp -r lisp/ ~/.emacs.d/
 cp -r fonts ~/.fonts
 ```
 
+### Copy custom themes folder
+
+``` bash
+cp -r themes ~/.emacs.d/
+```
+
 ### Copy emacsclient wrapper script for local emacs-server usage
 
 ``` bash
