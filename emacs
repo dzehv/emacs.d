@@ -603,7 +603,7 @@
           ("NOTE" . ,(list :weight 'bold :foreground "#1FDA9A"))
           ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
   (setq comment-tags-comment-start-only t
-        comment-tags-require-colon t
+        comment-tags-require-colon nil
         comment-tags-case-sensitive t
         comment-tags-show-faces t
         comment-tags-lighter nil))
