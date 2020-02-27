@@ -695,6 +695,7 @@
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
 (global-set-key (kbd "s-j") 'json-reformat-region)
+(global-set-key (kbd "s-M-j") 'json-to-single-line)
 (global-set-key (kbd "s-g") 'goto-percent)
 (global-set-key (kbd "s-b m") 'rename-file-and-buffer)
 (global-unset-key (kbd "s-k"))
@@ -1090,3 +1091,16 @@ will be killed."
 
 (defadvice load-theme (before disable-themes-first activate)
   (disable-all-themes))
+
+;; does json reformat back (unindent)
+(defun json-to-single-line (beg end)
+  "Collapse prettified json in region between BEG and END to a single line"
+  (interactive "r")
+  (if (use-region-p)
+      (save-excursion
+        (save-restriction
+          (narrow-to-region beg end)
+          (goto-char (point-min))
+          (while (re-search-forward "\\s-+\\|\n" nil t)
+            (replace-match ""))))
+    (print "This function operates on a region")))
