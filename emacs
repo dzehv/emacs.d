@@ -205,6 +205,7 @@
                          (name . "^\\*Backtrace\\*$")
                          (name . "^\\*ediff-diff\\*$")
                          (name . "^\\*ediff-errors\\*$")
+                         (name . "^\\*comment-tags\\*$")
                          (mode . emacs-lisp-mode)
                          (mode . package-menu-mode)
                          (mode . compilation-mode)
@@ -380,12 +381,12 @@
 
 ;; tramp bindings (old)
 ;; (cond
- ;; ((eq system-type 'darwin)
-  ;; (global-set-key (kbd "s-\S-c") (lambda () (interactive) 'tramp-cleanup-all-connections))
-  ;; (global-set-key (kbd "s-\S-l") (lambda () (interactive) 'tramp-cleanup-this-connection)))
- ;; (t
-  ;; (global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
-  ;; (global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)))
+;; ((eq system-type 'darwin)
+;; (global-set-key (kbd "s-\S-c") (lambda () (interactive) 'tramp-cleanup-all-connections))
+;; (global-set-key (kbd "s-\S-l") (lambda () (interactive) 'tramp-cleanup-this-connection)))
+;; (t
+;; (global-set-key (kbd "s-\S-c") 'tramp-cleanup-all-connections)
+;; (global-set-key (kbd "s-\S-l") 'tramp-cleanup-this-connection)))
 
 ;; ido mode settings
 (require 'ido)
@@ -587,7 +588,7 @@
 ;; (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 ;; (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 
-;; comment tags settings
+;; comment tags settings (see also ~/.emacs.d/lisp/comment-tags.el to add custom tags)
 (autoload 'comment-tags-mode "comment-tags-mode")
 (setq comment-tags-keymap-prefix (kbd "C-c t"))
 (with-eval-after-load "comment-tags"
@@ -596,6 +597,7 @@
           ("TBD" . ,(list :weight 'bold :foreground "#28ABE3"))
           ("FIXME" . ,(list :weight 'bold :foreground "#DB3340"))
           ("BUG" . ,(list :weight 'bold :foreground "#DB3340"))
+          ("DEBUG" . ,(list :weight 'bold :foreground "#AB0BE2"))
           ("HACK" . ,(list :weight 'bold :foreground "#E8B71A"))
           ("KLUDGE" . ,(list :weight 'bold :foreground "#E8B71A"))
           ("XXX" . ,(list :weight 'bold :foreground "#F7EAC8"))
@@ -603,7 +605,7 @@
           ("NOTE" . ,(list :weight 'bold :foreground "#1FDA9A"))
           ("DONE" . ,(list :weight 'bold :foreground "#1FDA9A"))))
   (setq comment-tags-comment-start-only t
-        comment-tags-require-colon nil
+        comment-tags-require-colon nil ;; e.g. TODO:
         comment-tags-case-sensitive t
         comment-tags-show-faces t
         comment-tags-lighter nil))
@@ -616,7 +618,7 @@
 (add-to-list 'auto-mode-alist '("\\.emacs-nw\\'" . emacs-lisp-mode))
 
 ;; spell checking settings
-(add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
+;; (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 ;; (dolist (hook '(text-mode-hook))
 ;; (add-hook hook (lambda () (flyspell-mode 1))))
 ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))

@@ -59,6 +59,7 @@
     "TBD"
     "FIXME"
     "BUG"
+    "DEBUG"
     "HACK"
     "KLUDGE"
     "XXX"
@@ -102,6 +103,7 @@
     ("TBD" . ,(list :inherit 'warning :weight 'bold))
     ("FIXME" . ,(list :inherit 'error :weight 'bold))
     ("BUG" . ,(list :inherit 'error :weight 'bold))
+    ("DEBUG" . ,(list :inherit 'error :weight 'bold))
     ("HACK" . ,(list :inherit 'warning))
     ("KLUDGE" . ,(list :inherit 'warning))
     ("XXX" . ,(list :inherit 'underline :weight 'bold))
