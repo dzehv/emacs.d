@@ -662,7 +662,7 @@
   (make-face 'speedbar-face)
   (custom-set-variables
    '(speedbar-show-unknown-files t))
-  (set-face-font 'speedbar-face "Menlo-13")
+  (set-face-font 'speedbar-face "Menlo-16")
   (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
   (with-eval-after-load "speedbar"
     (autoload 'sr-speedbar-toggle "sr-speedbar" nil t)
