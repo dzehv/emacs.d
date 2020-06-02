@@ -183,6 +183,7 @@
                        (mode . org-agenda-mode)
                        (mode . org-mode)))
                ("conf" (or
+                        (name . "\\.env$")
                         (mode . conf-mode)
                         (mode . conf-unix-mode)
                         (mode . conf-space-mode)))
@@ -207,6 +208,7 @@
                          (name . "^\\*ediff-errors\\*$")
                          (name . "^\\*comment-tags\\*$")
                          (mode . emacs-lisp-mode)
+                         (mode . scheme-mode)
                          (mode . package-menu-mode)
                          (mode . compilation-mode)
                          (mode . messages-buffer-mode)
@@ -611,11 +613,13 @@
         comment-tags-lighter nil))
 (add-hook 'prog-mode-hook 'comment-tags-mode)
 
-;; auto conf mode for Dockerfile
-(add-to-list 'auto-mode-alist '("Dockerfile" . conf-mode))
-
-;; custom emacs-nw conf file 2 emacs lisp mode
-(add-to-list 'auto-mode-alist '("\\.emacs-nw\\'" . emacs-lisp-mode))
+;; auto modes
+(setq filemodes
+      '(("Dockerfile" . conf-mode)
+        ("\\.env\\'" . conf-mode)
+        ("\\.emacs-nw\\'" . emacs-lisp-mode)))
+(dolist (fmode filemodes)
+  (add-to-list 'auto-mode-alist fmode))
 
 ;; spell checking settings
 ;; (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
