@@ -553,7 +553,7 @@
     ("be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" default)))
  '(package-selected-packages
    (quote
-    (jedi-direx jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts)))
+    (docker-tramp jedi-direx jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete php-mode yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts)))
  '(speedbar-show-unknown-files t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -1110,3 +1110,16 @@ will be killed."
           (while (re-search-forward "\\s-+\\|\n" nil t)
             (replace-match ""))))
     (print "This function operates on a region")))
+
+;; docker-tramp with autocomplete containers names
+(defadvice tramp-completion-handle-file-name-all-completions
+    (around dotemacs-completion-docker activate)
+  "(tramp-completion-handle-file-name-all-completions \"\" \"/docker:\" returns
+    a list of active Docker container names, followed by colons."
+  (if (equal (ad-get-arg 1) "/docker:")
+      (let* ((dockernames-raw (shell-command-to-string "docker ps | awk '$NF != \"NAMES\" { print $NF \":\" }'"))
+             (dockernames (cl-remove-if-not
+                           #'(lambda (dockerline) (string-match ":$" dockerline))
+                           (split-string dockernames-raw "\n"))))
+        (setq ad-return-value dockernames))
+    ad-do-it))
