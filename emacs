@@ -182,6 +182,9 @@
                        (name . "\\*Org")
                        (mode . org-agenda-mode)
                        (mode . org-mode)))
+               ("make" (or
+                        (mode . makefile-bsdmake-mode)
+                        (mode . makefile-mode)))
                ("conf" (or
                         (name . "\\.env$")
                         (mode . conf-mode)
