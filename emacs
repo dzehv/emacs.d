@@ -185,6 +185,8 @@
                ("make" (or
                         (mode . makefile-bsdmake-mode)
                         (mode . makefile-mode)))
+               ("docker" (or
+                          (mode . dockerfile-mode)))
                ("conf" (or
                         (name . "\\.env$")
                         (mode . conf-mode)
@@ -554,7 +556,7 @@
  '(custom-safe-themes
    '("be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" default))
  '(package-selected-packages
-   '(php-mode docker-tramp jedi-direx jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
+   '(dockerfile-mode php-mode docker-tramp jedi-direx jedi go-autocomplete rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
  '(speedbar-show-unknown-files t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -616,11 +618,14 @@
 
 ;; auto modes
 (setq filemodes
-      '(("Dockerfile" . conf-mode)
-        ("\\.env\\'" . conf-mode)
+      '(("\\.env\\'" . conf-mode)
         ("\\.emacs-nw\\'" . emacs-lisp-mode)))
 (dolist (fmode filemodes)
   (add-to-list 'auto-mode-alist fmode))
+
+;; dockerfile
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 ;; spell checking settings
 ;; (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
