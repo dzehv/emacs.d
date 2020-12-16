@@ -189,7 +189,6 @@
                ("docker" (or
                           (mode . dockerfile-mode)))
                ("conf" (or
-                        (name . "\\.env$")
                         (mode . conf-mode)
                         (mode . conf-unix-mode)
                         (mode . conf-space-mode)))
@@ -629,7 +628,7 @@
 
 ;; auto modes
 (setq filemodes
-      '(("\\.env\\'" . conf-mode)
+      '(("\\.env*" . conf-mode)
         ("\\.emacs-nw\\'" . emacs-lisp-mode)))
 (dolist (fmode filemodes)
   (add-to-list 'auto-mode-alist fmode))
