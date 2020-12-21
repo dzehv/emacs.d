@@ -718,6 +718,7 @@
 (global-set-key (kbd "s-.") 'xah-new-empty-buffer)
 (global-set-key (kbd "s-j") 'json-reformat-region)
 (global-set-key (kbd "s-M-j") 'json-to-single-line)
+(global-set-key (kbd "s-M-t") 'text-to-single-line)
 (global-set-key (kbd "s-g") 'goto-percent)
 (global-set-key (kbd "s-b m") 'rename-file-and-buffer)
 (global-unset-key (kbd "s-k"))
@@ -1125,6 +1126,19 @@ will be killed."
           (goto-char (point-min))
           (while (re-search-forward "\\s-+\\|\n" nil t)
             (replace-match ""))))
+    (print "This function operates on a region")))
+
+;; same for any text, but saving one space
+(defun text-to-single-line (beg end)
+  "Collapse prettified json in region between BEG and END to a single line"
+  (interactive "r")
+  (if (use-region-p)
+      (save-excursion
+        (save-restriction
+          (narrow-to-region beg end)
+          (goto-char (point-min))
+          (while (re-search-forward "\\s-+\\|\n|\t|\r" nil t)
+            (replace-match " "))))
     (print "This function operates on a region")))
 
 ;; docker-tramp with autocomplete containers names
