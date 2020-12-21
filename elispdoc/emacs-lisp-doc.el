@@ -413,3 +413,7 @@ b ;; -- 2
    ((string= "USGE" (substring line 0 4)) (setq o (Usage "2"))))
   (parse-line-for-class o line)
   o)
+
+;; lib files deps
+(require 'loadhist)
+(file-dependents (feature-file 'cl))
