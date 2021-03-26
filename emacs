@@ -62,8 +62,8 @@
                (goto-char (point-max))))))
 
 ;; auto install lib
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/auto-install/"))
+;; (when (require 'auto-install nil t)
+  ;; (setq auto-install-directory "~/.emacs.d/auto-install/"))
 
 ;; OS X and Win modifier keys bindings
 (cond
@@ -101,15 +101,15 @@
 ;; (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
 ;; snippet allows you to conveniently add all its subfolders inside "~/.emacs.d/themes/" to the theme load path
-(let ((basedir "~/.emacs.d/themes/"))
-  (dolist (f (directory-files basedir))
-    (if (and (not (or (equal f ".") (equal f "..")))
-             (file-directory-p (concat basedir f)))
-        (add-to-list 'custom-theme-load-path (concat basedir f)))))
+;; (let ((basedir "~/.emacs.d/themes/"))
+  ;; (dolist (f (directory-files basedir))
+    ;; (if (and (not (or (equal f ".") (equal f "..")))
+             ;; (file-directory-p (concat basedir f)))
+        ;; (add-to-list 'custom-theme-load-path (concat basedir f)))))
 
 ;; load custom theme
-(load-theme 'dark-green t t)
-(enable-theme 'dark-green)
+;; (load-theme 'dark-green t t)
+;; (enable-theme 'dark-green)
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -500,19 +500,19 @@
     (package-install package)))
 
 ;; auto complete mode
-(add-hook 'cperl-mode-hook
-          (lambda ()
-            (when (require 'auto-complete nil t) ; no error whatever auto-complete.el is not installed.
-              (auto-complete-mode t)
-              (make-variable-buffer-local 'ac-sources)
-              (setq ac-sources
-                    '(ac-source-perl-completion)))))
+;; (add-hook 'cperl-mode-hook
+          ;; (lambda ()
+            ;; (when (require 'auto-complete nil t) ; no error whatever auto-complete.el is not installed.
+              ;; (auto-complete-mode t)
+              ;; (make-variable-buffer-local 'ac-sources)
+              ;; (setq ac-sources
+                    ;; '(ac-source-perl-completion)))))
 
 ;; cperl advanced auto complete
-(add-hook 'cperl-mode-hook
-          (lambda()
-            (when (require 'perl-completion nil t)
-              (perl-completion-mode t))))
+;; (add-hook 'cperl-mode-hook
+          ;; (lambda()
+            ;; (when (require 'perl-completion nil t)
+              ;; (perl-completion-mode t))))
 
 ;; groovy settings
 (add-hook 'groovy-mode-hook
@@ -677,16 +677,16 @@
     "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
 
 ;; sr-speedbar
-(when (require 'sr-speedbar nil t)
-  (setq speedbar-use-images nil)
-  (make-face 'speedbar-face)
-  (custom-set-variables
-   '(speedbar-show-unknown-files t))
-  (set-face-font 'speedbar-face "Menlo-16")
-  (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
-  (with-eval-after-load "speedbar"
-    (autoload 'sr-speedbar-toggle "sr-speedbar" nil t)
-    (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)))
+;; (when (require 'sr-speedbar nil t)
+  ;; (setq speedbar-use-images nil)
+  ;; (make-face 'speedbar-face)
+  ;; (custom-set-variables
+   ;; '(speedbar-show-unknown-files t))
+  ;; (set-face-font 'speedbar-face "Menlo-16")
+  ;; (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
+  ;; (with-eval-after-load "speedbar"
+    ;; (autoload 'sr-speedbar-toggle "sr-speedbar" nil t)
+    ;; (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)))
 
 ;; folding
 (require 'hideshow)
