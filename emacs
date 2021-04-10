@@ -629,6 +629,7 @@
 ;; auto modes
 (setq filemodes
       '(("\\.env*" . conf-mode)
+        ("\\.rc" . conf-mode)
         ("\\.emacs-nw\\'" . emacs-lisp-mode)))
 (dolist (fmode filemodes)
   (add-to-list 'auto-mode-alist fmode))
