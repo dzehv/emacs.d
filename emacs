@@ -201,6 +201,7 @@
                          (name . "^\\.emacs-nw$")
                          (name . "^\\.emacs\\.el$")
                          (name . "^\\*GNU Emacs\\*$")
+                         (name . "^\\*Edit Formulas\\*$")
                          (name . "^\\*WoMan-Log\\*$")
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")
@@ -403,7 +404,7 @@
 (ido-everywhere t)
 (setq ido-vitrual-buffers t)
 (setq ido-enable-flex-matching t)
-(setq ido-file-extensions-order '(".org" ".txt" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
+(setq ido-file-extensions-order '(".org" ".txt" ".go" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
 
 ;; iswitch
