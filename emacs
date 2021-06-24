@@ -436,7 +436,7 @@
       cperl-extra-newline-before-brace nil
       ;; cperl-invalid-face nil
       ;; cperl-invalid-face (quote off)
-      cperl-merge-trailing-else nil)
+      cperl-merge-trailing-else t)
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
