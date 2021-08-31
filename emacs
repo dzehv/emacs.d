@@ -252,7 +252,7 @@
                         (mode . calc-mode)
                         (mode . calculator-mode)
                         (mode . calc-trail-mode)))
-               ("latex" (or
+               ("TeX" (or
                          (name . "\\.tex$")
                          (name . "\\.cls$")
                          (name . "\\.clo$")
@@ -260,7 +260,12 @@
                          (name . "\\.bst$")
                          (name . "\\.bbx$")
                          (name . "\\.cbx$")
+                         (mode . tex-mode)
                          (mode . latex-mode)
+                         (mode . bibtex-mode)
+                         (mode . plain-tex-mode)
+                         (mode . doctex-mode)
+                         (mode . slitex-mode)
                          (mode . tex-shell)))
                ("gnus" (or
                         (mode . message-mode)
