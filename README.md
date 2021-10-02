@@ -35,6 +35,12 @@ or
 cp emacsclient/emacsclient_local.pl /usr/local/bin/ec
 ```
 
+Then we can set emacsclient wrapper as VISUAL (optional):
+
+``` bash
+export VISUAL=ec
+```
+
 ### Copy emacsclient wrapper script for remote emacs-server usage by SSH (edit script with ssh credentials)
 ```
 cp emacsclient/emacsclient_remote.sh /usr/local/bin/ec
