@@ -213,6 +213,7 @@
                          (name . "^\\*ediff-diff\\*$")
                          (name . "^\\*ediff-errors\\*$")
                          (name . "^\\*comment-tags\\*$")
+                         (mode . command-history-mode)
                          (mode . emacs-lisp-mode)
                          (mode . inferior-emacs-lisp-mode)
                          (mode . emacs-lisp-compilation-mode)
