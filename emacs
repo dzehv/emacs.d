@@ -213,6 +213,7 @@
                          (name . "^\\*ediff-diff\\*$")
                          (name . "^\\*ediff-errors\\*$")
                          (name . "^\\*comment-tags\\*$")
+                         (name . "^\\*Gofmt Errors\\*$")
                          (mode . command-history-mode)
                          (mode . emacs-lisp-mode)
                          (mode . inferior-emacs-lisp-mode)
@@ -463,7 +464,7 @@
 ;; (add-hook 'protobuf-mode-hook
 ;; (lambda () (c-add-style "my-style" my-protobuf-style t)))
 
-;; go fmt settings
+;; golang fmt settings
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
@@ -542,10 +543,12 @@
           (function (lambda ()
                       (setq indent-tabs-mode nil
                             tab-width 4))))
+(add-hook 'python-mode-hook 'jedi:ac-setup)
+
+(setq jedi:complete-on-dot t)
+(add-to-list 'auto-mode-alist '("\\.jython\\'" . python-mode))
 (setq python-indent-guess-indent-offset t)
 (setq python-indent-guess-indent-offset-verbose nil)
-(add-to-list 'auto-mode-alist '("\\.jython\\'" . python-mode))
-(add-hook 'python-mode-hook 'jedi:ac-setup)
 (setq-default py-shell-name "ipython"
               python-shell-interpreter "ipython"
               py-which-bufname "IPython"
