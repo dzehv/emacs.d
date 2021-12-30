@@ -224,6 +224,7 @@
                          (mode . messages-buffer-mode)
                          (mode . lisp-interaction-mode)
                          (mode . debugger-mode)
+                         (mode . Buffer-menu-mode)
                          (mode . ediff-mode)
                          (mode . ediff-meta-mode)
                          (mode . speedbar-mode)
@@ -448,6 +449,7 @@
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
 
+;; TODO: add advanced go-autocomplete
 ;; golang mode settings
 ;; (defun auto-complete-for-go ()
   ;; (auto-complete-mode 1))
