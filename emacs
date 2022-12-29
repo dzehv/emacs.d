@@ -658,11 +658,11 @@
 ;; (add-hook hook (lambda () (flyspell-mode -1))))
 
 ;; multiple cursors settings
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; (require 'multiple-cursors)
+;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Markdown mode settings
 (autoload 'markdown-mode "markdown-mode"
