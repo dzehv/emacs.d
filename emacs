@@ -61,10 +61,6 @@
              (with-current-buffer " *load*"
                (goto-char (point-max))))))
 
-;; auto install lib
-;; (when (require 'auto-install nil t)
-  ;; (setq auto-install-directory "~/.emacs.d/auto-install/"))
-
 ;; OS X and Win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
@@ -488,13 +484,10 @@
 
 ;; list the packages to install
 (setq package-list '(
-                     ;; helm
-                     ;; helm-swoop
                      auto-complete
-                     ;; go-autocomplete
                      json-reformat
                      magit
-                     multiple-cursors
+                     ;; multiple-cursors
                      rainbow-delimiters
                      jedi
                      markdown-mode))
@@ -508,21 +501,6 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-
-;; auto complete mode
-;; (add-hook 'cperl-mode-hook
-          ;; (lambda ()
-            ;; (when (require 'auto-complete nil t) ; no error whatever auto-complete.el is not installed.
-              ;; (auto-complete-mode t)
-              ;; (make-variable-buffer-local 'ac-sources)
-              ;; (setq ac-sources
-                    ;; '(ac-source-perl-completion)))))
-
-;; cperl advanced auto complete
-;; (add-hook 'cperl-mode-hook
-          ;; (lambda()
-            ;; (when (require 'perl-completion nil t)
-              ;; (perl-completion-mode t))))
 
 ;; groovy settings
 (add-hook 'groovy-mode-hook
@@ -578,7 +556,7 @@
  '(custom-safe-themes
    '("be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" default))
  '(package-selected-packages
-   '(protobuf-mode dockerfile-mode php-mode docker-tramp jedi-direx jedi rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree multiple-cursors kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
+   '(protobuf-mode dockerfile-mode php-mode docker-tramp jedi-direx jedi rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
  '(speedbar-show-unknown-files t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -593,27 +571,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
-
-;; helm bindings (Helm disabled becase of low productivity of helm-swoop on large files)
-;; (require 'helm)
-;; (require 'helm-config)
-;; (require 'helm-swoop)
-
-;; (with-eval-after-load 'helm
-;; (define-key helm-map (kbd "C-c p") 'ignore)
-;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-;; (define-key helm-find-files-map (kbd "C-<backspace>") 'helm-find-files-up-one-level)
-;; (define-key helm-map (kbd "C-z")  'helm-select-action))
-
-;; (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-;; (global-set-key (kbd "C-x r b") 'helm-bookmarks)
-;; (global-set-key (kbd "C-x m") 'helm-M-x)
-;; (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-;; (global-set-key (kbd "C-x C-f") 'helm-find-files) ;; leave commented if ido is preferable
-;; (global-set-key (kbd "M-i") 'helm-swoop)
-;; (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-;; (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 
 ;; comment tags settings (see also ~/.emacs.d/lisp/comment-tags.el to add custom tags)
 (autoload 'comment-tags-mode "comment-tags-mode")
@@ -650,13 +607,6 @@
 (require 'dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
-;; spell checking settings
-;; (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
-;; (dolist (hook '(text-mode-hook))
-;; (add-hook hook (lambda () (flyspell-mode 1))))
-;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-;; (add-hook hook (lambda () (flyspell-mode -1))))
-
 ;; multiple cursors settings
 ;; (require 'multiple-cursors)
 ;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -688,18 +638,6 @@
                   ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
                   ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
     "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
-
-;; sr-speedbar
-;; (when (require 'sr-speedbar nil t)
-  ;; (setq speedbar-use-images nil)
-  ;; (make-face 'speedbar-face)
-  ;; (custom-set-variables
-   ;; '(speedbar-show-unknown-files t))
-  ;; (set-face-font 'speedbar-face "Menlo-16")
-  ;; (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
-  ;; (with-eval-after-load "speedbar"
-    ;; (autoload 'sr-speedbar-toggle "sr-speedbar" nil t)
-    ;; (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)))
 
 ;; folding
 (require 'hideshow)
