@@ -91,6 +91,9 @@
 ;; display the name of the current buffer in the title bar
 (setq frame-title-format "Emacs: %b")
 
+;; line numbers instead of deprecated linum
+(global-display-line-numbers-mode)
+
 ;; frame colors
 ;; (add-to-list 'default-frame-alist '(foreground-color . "white"))
 ;; (add-to-list 'default-frame-alist '(background-color . "white smoke"))
@@ -282,7 +285,6 @@
             (ibuffer-switch-to-saved-filter-groups "default")))
 
 ;; org mode settings
-(require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -303,16 +305,6 @@
         (sequence "FEEDBACK(e)" "VERIFY(v)" "|" "DELEGATED(g)")
         (sequence "|" "MOVED(m)" "CANCELED(c)")))
 
-;; syntax fontify for literate programming
-(setq org-src-fontify-natively 't)
-;; org capture at point
-(defun org-capture-at-point ()
-  "Insert an org capture template at point."
-  (interactive)
-  (org-capture 0))
-
-(global-set-key (kbd "\C-cc") #'org-capture-at-point)
-
 ;; org capture templates
 (setq org-capture-templates
       '(("t" "TODO" entry (file "~/.emacs.d/org/work.org")
@@ -331,6 +323,17 @@
          "* %? %^G\n%U" :empty-lines 0)
         ("j" "Journal" entry (file+datetree "~/.emacs.d/org/home.org")
          "* %? %^G\nEntered on %U\n")))
+
+;; org capture at point
+(defun org-capture-at-point ()
+  "Insert an org capture template at point."
+  (interactive)
+  (org-capture 0))
+
+(global-set-key (kbd "\C-cc") #'org-capture-at-point)
+
+;; syntax fontify for literate programming
+(setq org-src-fontify-natively 't)
 
 ;; shortcut to capture entry
 (define-key global-map "\C-ct"
@@ -411,23 +414,11 @@
 (setq ido-file-extensions-order '(".org" ".txt" ".go" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
 
-;; iswitch
-;; (iswitchb-mode 1)
-
 ;; imenu autocomplete
 (require 'imenu)
 (setq imenu-auto-rescan      t) ;; auto update list of elisp functions
 (setq imenu-use-popup-menu nil) ;; imenu dialogs only in mini-buffer
-;;(global-set-key (kbd "<f6>") 'imenu) ;; call imenu by F6
-
-;; linum mode
-(require 'linum)
-(add-hook 'nlinum-mode-hook
-          (lambda ()
-            (setq nlinum--width
-                  (length (number-to-string
-                           (count-lines (point-min) (point-max)))))))
-(global-linum-mode)
+;; (global-set-key (kbd "<f6>") 'imenu) ;; call imenu by F6
 
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
@@ -444,23 +435,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
-
-;; TODO: add advanced go-autocomplete
-;; golang mode settings
-;; (defun auto-complete-for-go ()
-  ;; (auto-complete-mode 1))
-;; (add-hook 'go-mode-hook 'auto-complete-for-go)
-;; (with-eval-after-load 'go-mode
-  ;; (require 'go-autocomplete))
-
-;; protobuf mode settings
-;; (require 'protobuf-mode)
-;; (defconst my-protobuf-style
-  ;; '((c-basic-offset . 4)
-    ;; (indent-tabs-mode . nil)))
-
-;; (add-hook 'protobuf-mode-hook
-;; (lambda () (c-add-style "my-style" my-protobuf-style t)))
 
 ;; golang fmt settings
 (add-hook 'go-mode-hook
@@ -487,7 +461,6 @@
                      auto-complete
                      json-reformat
                      magit
-                     ;; multiple-cursors
                      rainbow-delimiters
                      jedi
                      markdown-mode))
@@ -606,13 +579,6 @@
 ;; dockerfile
 (require 'dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-
-;; multiple cursors settings
-;; (require 'multiple-cursors)
-;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Markdown mode settings
 (autoload 'markdown-mode "markdown-mode"
