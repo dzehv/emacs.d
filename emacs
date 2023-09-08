@@ -146,6 +146,7 @@
                         (mode . java-mode)
                         (mode . groovy-mode)
                         (mode . js-mode)
+                        (mode . js-json-mode)
                         (mode . lisp-mode)
                         (mode . rainbow-mode)
                         (mode . python-mode)
