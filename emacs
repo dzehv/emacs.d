@@ -24,7 +24,7 @@
       kept-new-versions 20   ; how many of the newest versions to keep
       kept-old-versions 5)   ; and how many of the old
 
-;; path for emacs lisp librares to load
+;; path for emacs lisp libraries to load
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (setq load-path
@@ -465,6 +465,7 @@
                      rainbow-delimiters
                      jedi
                      markdown-mode))
+
 ;; activate installed packages
 (package-initialize)
 ;; fetch the list of packages available
@@ -522,6 +523,10 @@
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 
+;; arduino mode
+(setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
+(autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -530,7 +535,7 @@
  '(custom-safe-themes
    '("be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" default))
  '(package-selected-packages
-   '(protobuf-mode dockerfile-mode php-mode docker-tramp jedi-direx jedi rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
+   '(arduino-mode protobuf-mode dockerfile-mode php-mode docker-tramp jedi-direx jedi rainbow-delimiters markdown-mode magit rust-mode lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
  '(speedbar-show-unknown-files t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
