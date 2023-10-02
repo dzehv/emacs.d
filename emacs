@@ -177,6 +177,7 @@
                         (mode . yaml-mode)
                         (mode . perl-mode)
                         (mode . protobuf-mode)
+                        (mode . arduino-mode)
                         (mode . cperl-mode)))
                ("org" (or
                        (name . "\\.org$")
