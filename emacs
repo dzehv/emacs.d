@@ -6,16 +6,6 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
-;; separate emacs graphical and terminal mode configurations template
-;; (if (display-graphic-p)
-;;     (progn
-;;     ;; if graphic
-;;       (your)
-;;       (code))
-;;     ;; else (optional)
-;;     (your)
-;;     (code))
-
 ;; backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
@@ -24,16 +14,17 @@
       kept-new-versions 20   ; how many of the newest versions to keep
       kept-old-versions 5)   ; and how many of the old
 
+;; NOTE: libs loaded with #'my-load-all-in-directory
 ;; path for emacs lisp libraries to load
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(let ((default-directory  "~/.emacs.d/lisp/"))
-  (setq load-path
-        (append
-         (let ((load-path (copy-sequence load-path))) ;; shadow
-           (append
-            (copy-sequence (normal-top-level-add-to-load-path '(".")))
-            (normal-top-level-add-subdirs-to-load-path)))
-         load-path)))
+;; (add-to-list 'load-path "~/.emacs.d/lisp/")
+;; (let ((default-directory  "~/.emacs.d/lisp/"))
+  ;; (setq load-path
+        ;; (append
+         ;; (let ((load-path (copy-sequence load-path))) ;; shadow
+           ;; (append
+            ;; (copy-sequence (normal-top-level-add-to-load-path '(".")))
+            ;; (normal-top-level-add-subdirs-to-load-path)))
+         ;; load-path)))
 
 ;; run server mode only for GUI session
 ;; no window mode should be used for local operations with $EDITOR
@@ -64,12 +55,12 @@
 ;; OS X and Win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
-  ; (setq mac-pass-command-to-system nil) ; disable OS commands by modifier keys
-  ; (set-keyboard-coding-system nil)
-  (setq mac-command-modifier 'meta)    ; sets the Command key to Meta
-  (setq mac-control-modifier 'control) ; sets the Control key to Control
-  (setq ns-function-modifier 'hyper)   ; set Mac's Fn key to Hyper
-  (setq mac-option-modifier 'super))   ; sets the Option key to Super
+  ;; (setq mac-pass-command-to-system nil) ;; disable OS commands by modifier keys
+  ;; (set-keyboard-coding-system nil)
+  (setq mac-command-modifier 'meta)    ;; sets the Command key to Meta
+  (setq mac-control-modifier 'control) ;; sets the Control key to Control
+  (setq ns-function-modifier 'hyper)   ;; set Mac's Fn key to Hyper
+  (setq mac-option-modifier 'super))   ;; sets the Option key to Super
  ((eq system-type 'windows-nt)
   (setq w32-pass-lwindow-to-system nil)
   (setq w32-pass-rwindow-to-system nil)
@@ -510,6 +501,7 @@
               py-which-bufname "IPython"
               python-shell-interpreter-args "-i")
 
+;; defadvice is deprecated since Emacs 25
 ;; py epc con <N> buffers hack
 (defadvice epc:make-procbuf (around foo activate)
   ad-do-it
@@ -785,7 +777,7 @@ buffer is not visiting a file."
               (vc-delete-file filename)
             (progn
               (delete-file filename)
-              (message "Deleted file %s" filename)
+              (message "Deleted file: %s" filename)
               (kill-buffer)))))))
 
 ;; this code from http://emacro.sourceforge.net/ gives a vi-like way of moving over parenthesis groups. I bind it to C-%, from vi heritage
@@ -819,6 +811,7 @@ vi style of % jumping to matching brace."
           (load library nil t)
           (push library libraries-loaded))))))
 
+;; load lisp libs from specified dir
 (my-load-all-in-directory "~/.emacs.d/lisp/")
 
 ;; kill lines matching by regex
@@ -885,7 +878,6 @@ will be killed."
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
   (message "Finished reverting buffers containing unmodified files."))
 
-;; emacs 25+ does not use defadvice anymore.
 ;; should be used without ido (if configured)
 ;; type C-x C-f C-f file:line
 (defun find-file--line-number (orig-fun filename &optional wildcards)

@@ -1,10 +1,8 @@
-;; About Emacs lisp
+;; Notes about Emacs lisp
 
 ;; lisp -- List processing language
 ;; emacs lisp -- one of lisp dialect for emacs to process text
-;; all expressions can be executes with C-x C-e (eval) as region
-
-
+;; all expressions can be executed with C-x C-e (eval-last-sexp)
 
 ;; Emacs Lisp debugging
 
@@ -53,7 +51,9 @@
 ;; b - set breakpoint
 ;; g - go till breakpoint
 
-
+;; defun - keyword to define new function
+;; defadvice - cleaner method than redefining the whole function (deprecated)
+;; better to use advice-add (see Advising Emacs Lisp Functions)
 
 ;; Elisp REPL
 
