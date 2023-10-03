@@ -642,7 +642,7 @@
 (global-unset-key (kbd "s-d"))
 (global-set-key (kbd "s-d u") 'dos2unix)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch)
 (global-set-key (kbd "C-x C-r") 'sudo-edit)
 (global-set-key (kbd "C-c D") 'delete-file-and-buffer)
 (global-set-key (kbd "C-%") 'goto-match-paren)
