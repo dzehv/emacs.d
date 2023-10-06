@@ -206,6 +206,7 @@
                          (name . "^\\*ediff-errors\\*$")
                          (name . "^\\*comment-tags\\*$")
                          (name . "^\\*Gofmt Errors\\*$")
+                         (name . "^\\*Shell Command Output\\*$")
                          (mode . command-history-mode)
                          (mode . emacs-lisp-mode)
                          (mode . inferior-emacs-lisp-mode)

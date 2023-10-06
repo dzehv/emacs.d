@@ -9,7 +9,7 @@
 * Org-mode formatting utilities
 ** HTML tags
 
-#+HTML: My email: <b>d.bushenko@gmail.com</b>
+  #+HTML: My email: <b>d.bushenko@gmail.com</b>
 
 #+BEGIN_HTML
 <h3>02.09.2013</h3>
@@ -17,12 +17,12 @@
 
 ** Images and links
 
-#+CAPTION: Python Tutorial
-#+ATTR_HTML: title="Python!" style="float:left;"
+  #+CAPTION: Python Tutorial
+  #+ATTR_HTML: title="Python!" style="float:left;"
 [[file:python-logo.gif]]
 
 This link will point to org-mode home site: [[http://orgmode.org]]
-#+ATTR_HTML: title="The Org-mode homepage" style="color:red;"
+  #+ATTR_HTML: title="The Org-mode homepage" style="color:red;"
 [[http://orgmode.org]]
 
 * Accessing Values in Tuples:
@@ -109,4 +109,3 @@ print tup3;
   | 3 in (1, 2, 3)               | True                         | Membership    |
   | for x in (1, 2, 3): print x, | 1 2 3                        | Iteration     |
   |------------------------------+------------------------------+---------------|
-
