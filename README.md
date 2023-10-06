@@ -139,6 +139,26 @@ With extras:
 texlive-full
 ```
 
+### Create etags (e.g. for own *.el files)
+
+Inside the specific libs directory:
+
+``` bash
+etags *.el
+```
+
+Or via Emacs (shell cmd exec):
+
+``` bash
+M-! etags  *.el
+```
+
+etags help:
+
+``` bash
+etags --help
+```
+
 ### EMMS: The Emacs Multimedia System
 
 ``` bash
