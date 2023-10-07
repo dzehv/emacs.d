@@ -8,6 +8,9 @@
 ;; 'symbol - quote and use symbol as it is (do not eval)
 ;; #'function - same quoting, but for functions
 
+;; - comments
+;;; - no indentation comments
+
 ;; basic operations
 (+ 2 2)
 fill-column
@@ -333,3 +336,74 @@ end of paragraph."
           (skip-chars-backward " \t\n")
         (goto-char par-end)))
     (setq arg (1- arg))))
+
+
+;; (global-set-key "\C-c=" 'count-words-region)
+;; Final version: while
+(defun count-words-region (beginning end)
+  "Reports the number of words in the area.
+A word is a text in which, although we have one character included in
+the composition of the word is followed by at least one character not included in the words.
+The current buffer syntax table defines what these should be
+symbols."
+  (interactive "r")
+  (message "Counting words in the region")
+  (save-excursion
+    (goto-char beginning)
+    (let ((count 0))
+      (while (and (< (point) end))
+        (re-search-forward "\\w+\\W*" end t)
+        (setq count (1+ count)))
+      (cond ((zerop count)
+             (message
+              "Region has no words."))
+            ((= 1 count)
+             (message
+              "Region has 1 word."))
+            ((and (< 1 count) (> 5 count))
+	         (message
+              "Region has %d words." count))
+            (t
+             (message
+              "Region has %d words." count))))))
+
+
+;; recursive version
+(defun count-words-region-recursive (beginning end)
+  "Prints the number of words in the area.
+A word is considered to be text in which at least one character is included in
+the composition of the word is followed by at least one character not included in the words.
+The current buffer syntax table defines what these should be
+symbols."
+  (interactive "r")
+  ;; 1. Preparations.
+  (message "Counting words in region ... ")
+  (save-excursion
+    (goto-char beginning)
+    ;; 2. Count words.
+    (let ((count (recursive-count-words end)))
+      ;; 3. View results.
+      (cond
+       ((zerop count)
+	(message
+	 "Region has no words."))
+       ((= 1 count)
+	(message
+	 "Region has 1 word."))
+       ((and (< 1 count) (> 5 count))
+	(message
+	 "Region has %d words." count))
+       (t
+	(message
+	 "Region has %d words." count))))))
+
+;; recursive count func helper
+(defun recursive-count-words (region-end)
+  "Documentation..."
+  ;; 1. recursive check
+  (if (and (< (point) region-end)
+           (re-search-forward "\\w+\\W*" region-end t))
+      ;; 2. then-part: recurisve call
+      (1+ (recursive-count-words region-end))
+    ;; 3. else-part
+    0))

@@ -80,7 +80,7 @@
 ;; (global-hl-line-mode 1) ; highlight current line
 
 ;; display the name of the current buffer in the title bar
-(setq frame-title-format "Emacs: %b")
+(setq frame-title-format "GNU Emacs: %b")
 
 ;; line numbers instead of deprecated linum
 (global-display-line-numbers-mode)
