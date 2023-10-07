@@ -29,6 +29,7 @@
 ;; run server mode only for GUI session
 ;; no window mode should be used for local operations with $EDITOR
 (if (display-graphic-p)
+    ;; then
     (progn
       (require 'server)
       (setq server-name "server" ; name of the server
@@ -41,10 +42,10 @@
       (setq confirm-kill-emacs 'yes-or-no-p))
   ;; else
   ;; allow all sorts of modified function keys and other odd keys when running emacs with the -nw option
-  (when (string-match "^xterm" (getenv "TERM"))
-    (require 'xterm-extras)
-    (xterm-extra-keys))
-  ;; load minimal emacs configuration for nw mode
+  ;; (when (string-match "^xterm" (getenv "TERM"))
+    ;; (require 'xterm-extras)
+    ;; (xterm-extra-keys))
+  ;; load min emacs configuration for no window (-nw) mode
   (setq emacs-nw-conf "~/.emacs-nw")
   (if (file-exists-p emacs-nw-conf)
       (progn (load-file emacs-nw-conf)
@@ -972,6 +973,7 @@ will be killed."
     (event-apply-modifier (read-event)
                           'control 26 "C-")
     'meta 27 "M-")))
+
 (define-key function-key-map (kbd "C-x @ &") 'event-apply-control-meta-modifiers)
 
 ;; same, but apply only M- modifier
@@ -981,6 +983,7 @@ will be killed."
   (vector
    (event-apply-modifier (read-event)
                          'meta 27 "M-")))
+
 (define-key function-key-map (kbd "C-x @ %") 'event-apply-meta-modifiers)
 
 ;; trim whitespaces functions

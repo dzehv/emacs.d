@@ -54,14 +54,8 @@
 (setq imenu-auto-rescan      t) ;; auto update list of elisp functions
 (setq imenu-use-popup-menu nil) ;; imenu dialogs only in mini-buffer
 
-;; linum mode
-(require 'linum)
-(add-hook 'nlinum-mode-hook
-          (lambda ()
-            (setq nlinum--width
-                  (length (number-to-string
-                           (count-lines (point-min) (point-max)))))))
-(global-linum-mode)
+;; line-numbers-mode instead of linum
+(global-display-line-numbers-mode)
 
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
