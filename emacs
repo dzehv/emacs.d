@@ -594,6 +594,14 @@
 ;; rainbow delimiters hook
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
+;; aliases
+(defalias 'qr 'query-replace)
+(defalias 'qrr 'query-replace-regexp)
+(defalias 'ru (lambda ()
+                "Use the russian-computer input method."
+                (interactive)
+                (set-input-method 'russian-computer)))
+
 ;; EMMS: The Emacs Multimedia System
 ;; https://wikemacs.org/wiki/Media_player
 (when (require 'emms-setup nil t)
