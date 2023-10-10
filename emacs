@@ -237,6 +237,7 @@
                          (name . "^magit[-:]")))
                ("help" (or
                         (mode . Info-mode)
+                        (mode . apropos-mode)
                         (mode . help-mode)))
                ("planner" (or
                            (name . "^\\*Calendar\\*$")

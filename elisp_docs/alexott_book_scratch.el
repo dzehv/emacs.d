@@ -37,9 +37,22 @@ numlist ;; (1 2 3 4)
 (setcdr numlist '(6 7 8))
 numlist ;; (5 6 7 8)
 
+(min 3 4 6 5 7 3)
+(max 3 4 6 5 7 3)
+
+;; apply args to func in different forms
+(apply 'max 3 4 7 3 '(4 8 5))
+;; or just like this
+(apply 'max '(4 8 5))
+
+(sort '(4 8 21 17 33 7 21 7) '<)
+
 ;; define variable with documentation
 ;; instead of set/q assigns only if new var was not defined yet
 (defvar new-test-var 10 "Var documentation string.")
+
+;; non-interactive funcs usage
+(insert-rectangle '("first" "second" "third"))
 
 
 (defun multiply-by-seven (number)
@@ -407,3 +420,243 @@ symbols."
       (1+ (recursive-count-words region-end))
     ;; 3. else-part
     0))
+
+
+;; Count words project
+(defun count-words-in-defun ()
+  "Returns the number of Lisp words and characters in a function."
+  (beginning-of-defun)
+  (let ((count 0)
+        (end (save-excursion (end-of-defun) (point))))
+    (while
+        (and (< (point) end)
+             (re-search-forward
+              "\\(\\w\\|\\s_\\)+[^ \t\n]*[ \t\n]*"
+              end t))
+      (setq count (1+ count)))
+    count))
+
+
+;; Interactive wrapper for count-words-in-defun
+(defun count-words-defun ()
+  "Number of Lisp words and symbols in a function definition."
+  (interactive)
+  (message
+   "Counting Lisp words and symbols in the function definition...")
+  (let ((count (count-words-in-defun)))
+    (cond
+     ((zerop count)
+      (message
+	   "Area contains NO words."))
+     ((= 1 count)
+      (message
+	   "Area contains 1 word."))
+     ((or (< 1 count) (> 5 count))
+      (message
+	   "Area contains %d words." count))
+     (t
+      (message
+	   "Area contains %d words." count)))))
+
+
+;; Count func lengths in file
+(defun lengths-list-file (filename)
+  "Returns a list of function lengths contained in FILE.
+The returned list is a list of numbers.
+Each number is the number of words or Lisp characters
+in one function definition."
+  (message "Analyzing '%s' ... " filename)
+  (save-excursion
+    (let ((buffer (find-file-noselect filename))
+          (lengths-list))
+      (set-buffer buffer)
+      (setq buffer-read-only t)
+      (widen)
+      (goto-char (point-min))
+      (while (re-search-forward "^.defun" nil t)
+        (setq lengths-list
+              (cons (count-words-in-defun) lengths-list)))
+      (kill-buffer buffer)
+      lengths-list)))
+
+;; open file and count defun words
+(lengths-list-file "./emacs-lisp-doc.el")
+
+;; For list of files (based on while)
+(defun lengths-list-many-files (list-of-files)
+  "Возвращает список длин функций в LIST-OF-FILES."
+  (let (lengths-list)
+    ;; true-false check
+    (while list-of-files
+      (setq lengths-list
+            (append
+             lengths-list
+             ;; generate defun list length
+             (lengths-list-file
+              (expand-file-name (car list-of-files)))))
+      ;; shifting list
+      (setq list-of-files (cdr list-of-files)))
+    ;; return result: the value of a list of function lengths.
+    lengths-list))
+
+(lengths-list-many-files '("./emacs-lisp-doc.el"))
+
+;; Recursive version
+(defun recursive-lengths-list-many-files (list-of-files)
+  "Returns a list of function lengths from LIST-OF-FILES."
+  (if list-of-files ; recursive check
+      (append
+       (lengths-list-file
+        (expand-file-name (car list-of-files)))
+       (recursive-lengths-list-many-files
+        (cdr list-of-files)))))
+
+;; usage immediately together with sorting
+(defvar sorted-lengths (sort
+ (recursive-lengths-list-many-files
+  '("./emacs-lisp-doc.el"
+    "./org_mode_basics.org"))
+ '<))
+
+;; see amount of elisp files in dir, using full path
+(length
+ (directory-files "../lisp" t "\\.el$"))
+
+;; list for further chart
+(defvar top-of-ranges
+ '(10  20  30  40  50
+   60  70  80  90 100
+  110 120 130 140 150
+  160 170 180 190 200
+  210 220 230 240 250
+  260 270 280 290 300)
+ "List specifying ranges for 'defuns-per-range'.")
+
+
+(defun defuns-per-range (sorted-lengths top-of-ranges)
+  "Number of functions in SORTED-LENGTHS in each range TOP-OF-RANGES."
+  (let ((top-of-range (car top-of-ranges))
+        (number-within-range 0)
+        defuns-per-range-list)
+    ;; External loop.
+    (while top-of-ranges
+      ;; Internal loop.
+      (while (and
+              ;; numeric value to check is required.
+              (car sorted-lengths)
+              (< (car sorted-lengths) top-of-range))
+        ;; Find the number of functions whose length falls within the current range.
+        (setq number-within-range (1+ number-within-range))
+        (setq sorted-lengths (cdr sorted-lengths)))
+      ;; Exit internal loop, we're still inside external.
+      (setq defuns-per-range-list
+            (cons number-within-range defuns-per-range-list))
+      (setq number-within-range 0) ; reset counter
+      ;; Let's move on to the next range.
+      (setq top-of-ranges (cdr top-of-ranges))
+      ;; Set the next upper limit of the range.
+      (setq top-of-range (car top-of-ranges)))
+    ;; Exit the outer loop and count the number of functions whose length is greater
+    ;; the boundary of the largest range from top-of-range.
+    (setq defuns-per-range-list
+          (cons
+           (length sorted-lengths)
+           defuns-per-range-list))
+    ;; Return a list, where each number is the number of functions whose length
+    ;; ranges from smallest to largest.
+    (nreverse defuns-per-range-list)))
+
+(defuns-per-range sorted-lengths top-of-ranges)
+
+;; example of calculation height value from given list
+(setq max-graph-height (apply 'max numbers-list))
+
+;; variables for positioning chars
+(defvar graph-symbol "*"
+  "A string used as a character in a graphic, usually an asterisk.")
+
+(defvar graph-blank " "
+  "The string used as space in a graphic is usually a space.
+graph-blank must be the same length as graph-symbol.")
+
+;; .
+(defun column-of-graph (max-graph-height actual-height)
+  "Returns a list of MAX-GRAPH-HEIGHT strings;
+ACTUAL-HEIGHT determines the number of graph-symbols.
+graph-symbol are contiguous entries at the end of the list.
+The list will be inserted as a single column graph.
+Strings are either graph-blank or graph-symbol."
+  (let ((insert-list nil)
+        (number-of-top-blanks
+         (- max-graph-height actual-height)))
+    ;; Fill in graph-symbols.
+    (while (> actual-height 0)
+      (setq insert-list (cons graph-symbol insert-list))
+      (setq actual-height (1- actual-height)))
+    ;; Fill out graph-blanks.
+    (while (> number-of-top-blanks 0)
+      (setq insert-list (cons graph-blank insert-list))
+      (setq number-of-top-blanks
+            (1- number-of-top-blanks)))
+    ;; return the complete list.
+    insert-list))
+
+;; usage: including step by step evaluating previous expressions
+(column-of-graph 6 3)
+
+;; And finally print the chart
+(defun graph-body-print (numbers-list)
+  "Produces a bar graph based on NUMBERS-LIST.
+The list of numbers consists of the values along the Y axis."
+  (let ((height (apply 'max numbers-list))
+        (symbol-width (length graph-blank))
+        from-position)
+
+    (while numbers-list
+      (setq from-position (point))
+      (insert-rectangle
+       (column-of-graph height (car numbers-list)))
+      (goto-char from-position)
+      (forward-char symbol-width)
+      ;; Display column by column.
+      (sit-for 0)
+      (setq numbers-list (cdr numbers-list)))
+    ;; Place label points along the X axis.
+    (forward-line height)
+    (insert "\n")
+    ))
+
+;; usage, or with M-:
+(graph-body-print '(1 2 3 4 6 4 3 5 7 6 5 2 3))
+
+
+;; Recursive versions
+(defun recursive-graph-body-print (numbers-list)
+  "Outputs a graph from a list of numbers NUMBERS-LIST.
+A list of numbers consists of the Y axis values."
+  (let ((height (apply 'max numbers-list))
+        (symbol-width (length graph-blank))
+        from-position)
+    (recursive-graph-body-print-internal
+     numbers-list
+     height
+     symbol-width)))
+
+
+(defun recursive-graph-body-print-internal
+    (numbers-list height symbol-width)
+  "Prints the chart.
+Used inside the recursive-graph-body-print function."
+  (if numbers-list
+      (progn
+        (setq from-position (point))
+        (insert-rectangle
+         (column-of-graph height (car numbers-list)))
+        (goto-char from-position)
+        (forward-char symbol-width)
+        (sit-for 0) ; Displays the graph column by column.
+        (recursive-graph-body-print-internal
+         (cdr numbers-list) height symbol-width))))
+
+;; evaluate this
+(recursive-graph-body-print '(3 2 5 6 7 5 3 4 6 4 3 2 1))
