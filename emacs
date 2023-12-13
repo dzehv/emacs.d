@@ -441,6 +441,13 @@
             (setq standard-indent 4)
             (setq indent-tabs-mode nil)))
 
+;; Rust settings
+(add-hook 'rust-mode-hook
+          (lambda () (setq indent-tabs-mode nil)
+            (prettify-symbols-mode)
+            (setq rust-format-on-save t)))
+
+
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
