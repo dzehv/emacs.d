@@ -444,7 +444,7 @@
 ;; Rust settings
 (add-hook 'rust-mode-hook
           (lambda () (setq indent-tabs-mode nil)
-            (prettify-symbols-mode)
+            ;; (prettify-symbols-mode)
             (setq rust-format-on-save t)))
 
 
