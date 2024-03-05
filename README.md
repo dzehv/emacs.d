@@ -42,8 +42,26 @@ export VISUAL=ec
 ```
 
 ### Copy emacsclient wrapper script for remote emacs-server usage by SSH (edit script with ssh credentials)
+
 ```
 cp emacsclient/emacsclient_remote.sh /usr/local/bin/ec
+```
+
+### Add OS X icon to launchpad
+
+e.g. using emacs-mac port from railwaycat/emacsmacport homebrew formula:
+
+Install:
+
+``` bash
+brew tap railwaycat/emacsmacport
+brew install emacs-mac
+```
+
+Link app:
+
+``` bash
+ln -s /opt/homebrew/opt/emacs-mac/Emacs.app Applications/
 ```
 
 ### Gnus email settings example
