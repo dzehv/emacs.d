@@ -61,7 +61,7 @@ brew install emacs-mac
 Link app:
 
 ``` bash
-ln -s /opt/homebrew/opt/emacs-mac/Emacs.app Applications/
+ln -s /opt/homebrew/opt/emacs-mac/Emacs.app ~/Applications
 ```
 
 ### Gnus email settings example
