@@ -416,6 +416,18 @@
 (setq imenu-use-popup-menu nil) ;; imenu dialogs only in mini-buffer
 ;; (global-set-key (kbd "<f6>") 'imenu) ;; call imenu by F6
 
+;; c mode settings
+(defun my-c-mode-hook ()
+  ;; set k&r style
+  (setq c-default-style '((c-mode . "k&r")
+                          (c++-mode . "k&r")
+                          (objc-mode . "k&r")))
+  ;; indent with 4 spaces
+  (setq c-basic-offset 4)
+  ;; line style commenting
+  (c-toggle-comment-style))
+(add-hook 'c-mode-hook 'my-c-mode-hook)
+
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-indent-level 4
