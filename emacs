@@ -408,6 +408,8 @@
 (setq ido-vitrual-buffers t)
 (setq ido-enable-flex-matching t)
 (setq ido-file-extensions-order '(".org" ".txt" ".go" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
+
+;; auto complete everywhere
 (eval-after-load 'auto-complete '(global-auto-complete-mode t))
 
 ;; imenu autocomplete
