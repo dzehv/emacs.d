@@ -410,7 +410,9 @@
 (setq ido-file-extensions-order '(".org" ".txt" ".go" ".py" ".pl" ".pm" ".cfg" ".cnf" ".conf"))
 
 ;; auto complete everywhere
-(eval-after-load 'auto-complete '(global-auto-complete-mode t))
+;; (eval-after-load 'auto-complete '(global-auto-complete-mode t))
+(require 'auto-complete)
+(global-auto-complete-mode t)
 
 ;; imenu autocomplete
 (require 'imenu)
@@ -510,7 +512,6 @@
 ;; groovy settings
 (add-hook 'groovy-mode-hook
           (lambda()
-            ;; (auto-complete t)
             (setq tab-width 4)))
 
 ;; yaml
