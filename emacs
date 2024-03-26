@@ -103,7 +103,7 @@
 ;; (enable-theme 'dark-green)
 
 ;; ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer) ;; replace list-buffers
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 (setq ibuffer-show-empty-filter-groups nil)
 (setq ibuffer-expert t)
@@ -119,8 +119,8 @@
 
 ;; ibuffer: modify the default ibuffer-formats
 (setq ibuffer-formats
-      '((mark modified read-only " "
-              (name 18 18 :left :elide)
+      '((mark modified read-only locked " "
+              (name 30 30 :left :elide)
               " "
               (size-h 9 -1 :right)
               " "
