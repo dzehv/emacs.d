@@ -68,9 +68,19 @@
 (scroll-bar-mode   -1) ;; Disable scroll-line
 (blink-cursor-mode -1) ;; Disable cursor flashing
 (setq use-dialog-box nil) ;; No graphic dialogs and windows
-(setq redisplay-dont-pause t)  ;; Better buffer renrering
+(setq redisplay-dont-pause t) ;; Better buffer renrering
 (setq ring-bell-function 'ignore) ;; Disable sound signals
 (column-number-mode 1) ;; Show cursor position within line
+
+;; turn on hl-line
+;; (global-hl-line-mode 1)
+;; set any color as the background face of the current line
+;; (set-face-background 'hl-line "#3e4446")
+;; to keep syntax highlighting in the current line
+;; (set-face-foreground 'highlight nil)
+
+;; hilight parent brackets
+(show-paren-mode 1)
 
 ;; OS X and Win modifier keys bindings
 (cond
@@ -95,9 +105,6 @@
 ;; set font if emacs running in daemon mode
 ;; (add-to-list 'default-frame-alist
 ;; (cons 'font "Menlo:pixelsize=16"))
-
-;; navigation
-;; (global-hl-line-mode 1) ; highlight current line
 
 ;; display the name of the current buffer in the title bar
 (setq frame-title-format "GNU Emacs: %b")
@@ -582,9 +589,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; hilight parent brackets
-(show-paren-mode 1)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
