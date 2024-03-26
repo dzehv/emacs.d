@@ -457,7 +457,17 @@
             (setq standard-indent 4)
             (setq indent-tabs-mode nil)))
 
-;; Treesitter
+;; Rust settings
+;; (use-package rust-mode
+  ;; :init
+  ;; (setq rust-mode-treesitter-derive t))
+
+(add-hook 'rust-mode-hook
+          (lambda () (setq indent-tabs-mode nil)
+            ;; (prettify-symbols-mode)
+            (setq rust-format-on-save t)))
+
+;; Treesitter addidional settings
 ;; (use-package treesit-auto
   ;; :custom
   ;; (treesit-auto-install 'prompt)
@@ -466,17 +476,6 @@
   ;; (global-treesit-auto-mode))
 
 ;; (setq treesit-auto-langs '(python rust go))
-
-;; Rust settings
-;; (use-package rust-mode
-  ;; :init
-  ;; (setq rust-mode-treesitter-derive t))
-
-;; (add-hook 'rust-mode-hook
-          ;; (lambda () (setq indent-tabs-mode nil)
-            ;; (prettify-symbols-mode)
-            ;; (setq rust-format-on-save t)))
-
 
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
@@ -567,7 +566,7 @@
  '(custom-safe-themes
    '("be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" "b4fd44f653c69fb95d3f34f071b223ae705bb691fb9abaf2ffca3351e92aa374" "9a3c51c59edfefd53e5de64c9da248c24b628d4e78cc808611abd15b3e58858f" default))
  '(package-selected-packages
-   '(arduino-mode protobuf-mode php-mode docker-tramp jedi-direx jedi rainbow-delimiters markdown-mode magit lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
+   '(rust-mode dockerfile-mode arduino-mode protobuf-mode php-mode docker-tramp jedi-direx jedi rainbow-delimiters markdown-mode magit lua-mode json-reformat javap-mode auto-complete yaml-mode tt-mode tabbar spacegray-theme perl-completion nlinum neotree kolon-mode json-mode groovy-mode goto-last-change go-mode ensime edts))
  '(speedbar-show-unknown-files t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -615,8 +614,8 @@
   (add-to-list 'auto-mode-alist fmode))
 
 ;; dockerfile
-;; (require 'dockerfile-mode)
-;; (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 ;; Markdown mode settings
 (autoload 'markdown-mode "markdown-mode"
