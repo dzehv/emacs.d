@@ -53,6 +53,25 @@
              (with-current-buffer " *load*"
                (goto-char (point-max))))))
 
+;; display datetime at status bar
+(setq display-time-day-and-date t
+      display-time-24hr-format t
+      ;; display-time-format "%I:%M:%S"
+      display-time-format "%a %d %b %Y %H:%M:%S %Z"
+      display-time-interval 1)
+(display-time)
+
+;; disable GUI components
+(tooltip-mode      -1)
+(menu-bar-mode     -1) ;; Disable graphical menu
+(tool-bar-mode     -1) ;; disable tool-bar
+(scroll-bar-mode   -1) ;; Disable scroll-line
+(blink-cursor-mode -1) ;; Disable cursor flashing
+(setq use-dialog-box nil) ;; No graphic dialogs and windows
+(setq redisplay-dont-pause t)  ;; Better buffer renrering
+(setq ring-bell-function 'ignore) ;; Disable sound signals
+(column-number-mode 1) ;; Show cursor position within line
+
 ;; OS X and Win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
@@ -333,18 +352,7 @@
 
 ;; shortcut to capture entry
 (define-key global-map "\C-ct"
-  (lambda () (interactive) (org-capture nil "t")))
-
-;; disable GUI components
-(tooltip-mode      -1)
-(menu-bar-mode     -1) ;; Disable graphical menu
-(tool-bar-mode     -1) ;; disable tool-bar
-(scroll-bar-mode   -1) ;; Disable scroll-line
-(blink-cursor-mode -1) ;; Disable cursor flashing
-(setq use-dialog-box nil) ;; No graphic dialogs and windows
-(setq redisplay-dont-pause t)  ;; Better buffer renrering
-(setq ring-bell-function 'ignore) ;; Disable sound signals
-(column-number-mode 1) ;; Show cursor position within line
+            (lambda () (interactive) (org-capture nil "t")))
 
 ;; disable Git backend to speed up sshfs file load among other things
 ;; bypass tramp vc-registered errors (hangings on remote volume editing)
