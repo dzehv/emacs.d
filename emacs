@@ -435,6 +435,13 @@
 (setq imenu-use-popup-menu nil) ;; imenu dialogs only in mini-buffer
 ;; (global-set-key (kbd "<f6>") 'imenu) ;; call imenu by F6
 
+;; global indent settings
+(setq whitespace-line 0)
+(setq tab-width 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq-default c-basic-offset 4)
+
 ;; c mode settings
 (defun my-c-mode-hook ()
   ;; set k&r style
@@ -443,8 +450,8 @@
                           (objc-mode . "k&r")))
   ;; indent with 4 spaces
   (setq c-basic-offset 4)
-  ;; line style commenting
-  (c-toggle-comment-style))
+  ;; line style commenting (cc minor modes)
+  (c-toggle-comment-style)) ; switch to line style instead of block style (C-c C-k)
 (add-hook 'c-mode-hook 'my-c-mode-hook)
 
 ;; cperl mode settings
@@ -561,13 +568,6 @@
   (with-current-buffer ad-return-value
     (rename-buffer (concat " " (buffer-name)))
     (setq ad-return-value (buffer-name))))
-
-;; tidy settings
-(setq whitespace-line 0)
-(setq tab-width 4)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq-default c-basic-offset 4)
 
 ;; arduino mode
 (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
