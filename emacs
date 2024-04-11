@@ -442,17 +442,40 @@
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 
-;; c mode settings
-(defun my-c-mode-hook ()
-  ;; set k&r style
-  (setq c-default-style '((c-mode . "k&r")
-                          (c++-mode . "k&r")
-                          (objc-mode . "k&r")))
-  ;; indent with 4 spaces
-  (setq c-basic-offset 4)
-  ;; line style commenting (cc minor modes)
-  (c-toggle-comment-style)) ; switch to line style instead of block style (C-c C-k)
-(add-hook 'c-mode-hook 'my-c-mode-hook)
+;; c mode settings (k&r + kernel styles)
+(defun c-lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+         (column (c-langelem-2nd-pos c-syntactic-element))
+         (offset (- (1+ column) anchor))
+         (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            ;; add kernel style
+            (c-add-style
+             "linux-tabs-only"
+             '("linux" (c-offsets-alist
+                        (arglist-cont-nonempty
+                         c-lineup-gcc-asm-reg
+                         c-lineup-arglist-tabs-only))))))
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            ;; set k&r style
+            (setq c-default-style '((c-mode . "k&r")
+                                    (c++-mode . "k&r")
+                                    (objc-mode . "k&r")))
+            ;; indent with tabs and show them as 8 chars
+            (setq indent-tabs-mode t)
+            (setq show-trailing-whitespace t)
+            (setq tab-width 8)
+            (setq c-basic-offset 8)
+            ;; line style commenting (cc minor modes)
+            ;; switch to line style instead of block style (C-c C-k)
+            (c-toggle-comment-style)))
 
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
