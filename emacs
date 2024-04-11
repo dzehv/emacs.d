@@ -493,14 +493,14 @@
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
 
-;; golang fmt settings
+;; golang indent settings
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
             (setq-default)
-            (setq tab-width 4)
-            (setq standard-indent 4)
-            (setq indent-tabs-mode nil)))
+            (setq tab-width 8)
+            (setq standard-indent 8)
+            (setq indent-tabs-mode t)))
 
 ;; Rust settings
 ;; (use-package rust-mode
