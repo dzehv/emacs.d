@@ -437,10 +437,9 @@
 
 ;; global indent settings
 (setq whitespace-line 0)
-(setq tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq-default c-basic-offset 4)
+(setq-default tab-width 8)
+(setq-default c-basic-offset 8)
 
 ;; c mode settings (k&r + kernel styles)
 (defun c-lineup-arglist-tabs-only (ignored)
