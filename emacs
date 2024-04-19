@@ -473,6 +473,8 @@
             (setq tab-width 8)
             (setq c-basic-offset 8)
             (c-set-offset 'comment-intro 0) ;; align comments
+            ;; no untabify with spaces while using backspace
+            (setq backward-delete-char-untabify-method nil)
             ;; line style commenting (cc minor modes)
             ;; switch to line style instead of block style (C-c C-k)
             (c-toggle-comment-style)))
