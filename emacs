@@ -485,10 +485,10 @@
             (setq backward-delete-char-untabify-method nil)
             ;; (setq align-indent-before-aligning t)
             ;; indent first, then completion
-            (setq c-tab-always-indent 'complete)
+            ;; (setq c-tab-always-indent 'complete)
             ;; only tab-to-tab-stop using tab (reduces smart indent functionality)
-            (define-key c-mode-base-map (kbd "<tab>") 'tab-to-tab-stop)
-            (define-key c-mode-base-map [tab] 'tab-to-tab-stop)
+            ;; (define-key c-mode-base-map (kbd "<tab>") 'tab-to-tab-stop)
+            ;; (define-key c-mode-base-map [tab] 'tab-to-tab-stop)
             ;; line style commenting (cc minor modes)
             ;; switch to line style instead of block style (C-c C-k)
             (c-toggle-comment-style)))
