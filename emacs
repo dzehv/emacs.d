@@ -440,6 +440,14 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
 (setq-default c-basic-offset 8)
+;; make tab key always call a indent command
+(setq-default tab-always-indent t)
+;; make tab key call indent command or insert tab character, depending on cursor position
+;; (setq-default tab-always-indent nil)
+;; make tab key do indent first then completion
+;; (setq-default tab-always-indent 'complete)
+;; show trailing whitespace
+(setq-default show-trailing-whitespace t)
 
 ;; c mode settings (k&r + kernel styles)
 (defun c-lineup-arglist-tabs-only (ignored)
@@ -475,6 +483,12 @@
             (c-set-offset 'comment-intro 0) ;; align comments
             ;; no untabify with spaces while using backspace
             (setq backward-delete-char-untabify-method nil)
+            ;; (setq align-indent-before-aligning t)
+            ;; indent first, then completion
+            (setq c-tab-always-indent 'complete)
+            ;; only tab-to-tab-stop using tab (reduces smart indent functionality)
+            (define-key c-mode-base-map (kbd "<tab>") 'tab-to-tab-stop)
+            (define-key c-mode-base-map [tab] 'tab-to-tab-stop)
             ;; line style commenting (cc minor modes)
             ;; switch to line style instead of block style (C-c C-k)
             (c-toggle-comment-style)))
@@ -523,9 +537,6 @@
   ;; (global-treesit-auto-mode))
 
 ;; (setq treesit-auto-langs '(python rust go))
-
-;; show trailing whitespace
-(setq-default show-trailing-whitespace t)
 
 ;; packages repo settings
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
