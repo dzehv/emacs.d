@@ -439,10 +439,10 @@
 ;; global indent settings
 (setq whitespace-line 0)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 8)
-(setq-default c-basic-offset 8)
+(setq-default tab-width 4)
+(setq-default c-basic-offset 4)
 ;; make tab key always call a indent command
-(setq-default tab-always-indent t)
+;; (setq-default tab-always-indent t)
 ;; make tab key call indent command or insert tab character, depending on cursor position
 ;; (setq-default tab-always-indent nil)
 ;; make tab key do indent first then completion
