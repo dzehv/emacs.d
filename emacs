@@ -462,7 +462,7 @@
 
 (add-hook 'c-mode-common-hook
           (lambda ()
-            ;; add kernel style
+            ;; add linux kernel style
             (c-add-style
              "linux-tabs-only"
              '("linux" (c-offsets-alist
@@ -472,10 +472,9 @@
 
 (add-hook 'c-mode-hook
           (lambda ()
-            ;; set k&r style
-            (setq c-default-style '((c-mode . "k&r")
-                                    (c++-mode . "k&r")
-                                    (objc-mode . "k&r")))
+            (setq c-default-style '((c-mode . "linux")
+                                    (c++-mode . "linux")
+                                    (objc-mode . "linux")))
             ;; indent with tabs and show them as 8 chars
             (setq indent-tabs-mode t)
             (setq show-trailing-whitespace t)
