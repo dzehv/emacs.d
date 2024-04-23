@@ -161,6 +161,7 @@
                         (mode . c-mode)
                         (mode . c++-mode)
                         (mode . go-mode)
+                        (mode . go-dot-mod-mode)
                         (mode . java-mode)
                         (mode . groovy-mode)
                         (mode . js-mode)
