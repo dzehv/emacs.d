@@ -450,6 +450,30 @@
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
+;; makefile mode settings
+(defun my-makefile-indent-line ()
+  (save-excursion
+    (forward-line 0)
+    (cond
+     ;; keep TABs
+     ((looking-at "\t")
+      t)
+     ;; indent continuation lines
+     ((and (not (bobp))
+           (= (char-before (1- (point))) ?\\))
+      (delete-horizontal-space)
+      (indent-to 8))
+     ;; delete all other leading whitespace
+     ((looking-at "\\s-+")
+      (replace-match "")))))
+
+(add-hook 'makefile-mode-hook
+          (lambda ()
+            (setq-local indent-line-function 'my-makefile-indent-line)
+            (setq indent-tabs-mode t)
+            (setq show-trailing-whitespace t)
+            (setq tab-width 8)))
+
 ;; c mode settings (k&r + kernel styles)
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces"
