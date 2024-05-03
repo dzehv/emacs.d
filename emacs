@@ -440,7 +440,7 @@
 (setq whitespace-line 0)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default c-basic-offset 4)
+(setq-default c-basic-offset tab-width)
 ;; make tab key always call a indent command
 ;; (setq-default tab-always-indent t)
 ;; make tab key call indent command or insert tab character, depending on cursor position
@@ -503,13 +503,18 @@
             (setq indent-tabs-mode t)
             (setq show-trailing-whitespace t)
             (setq tab-width 8)
-            (setq c-basic-offset 8)
+            (setq c-basic-offset tab-width)
             (c-set-offset 'comment-intro 0) ;; align comments
             ;; no untabify with spaces while using backspace
             (setq backward-delete-char-untabify-method nil)
             ;; (setq align-indent-before-aligning t)
             ;; indent first, then completion
             ;; (setq c-tab-always-indent 'complete)
+            ;; (setq electric-indent-inhibit t)
+            ;; (setq c-indent-line tab-width)
+            ;; (setq c-indent-region tab-width)
+            ;; always insert tab char (reduces smart indent functionality)
+            ;; (setq indent-line-function 'insert-tab)
             ;; only tab-to-tab-stop using tab (reduces smart indent functionality)
             ;; (define-key c-mode-base-map (kbd "<tab>") 'tab-to-tab-stop)
             ;; (define-key c-mode-base-map [tab] 'tab-to-tab-stop)
