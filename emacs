@@ -450,7 +450,7 @@
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
-;; makefile mode settings
+;; makefile mode settings (not used)
 (defun my-makefile-indent-line ()
   (save-excursion
     (forward-line 0)
@@ -469,7 +469,7 @@
 
 (add-hook 'makefile-mode-hook
           (lambda ()
-            (setq-local indent-line-function 'my-makefile-indent-line)
+            ;; (setq-local indent-line-function 'my-makefile-indent-line)
             (setq indent-tabs-mode t)
             (setq show-trailing-whitespace t)
             (setq tab-width 8)))
