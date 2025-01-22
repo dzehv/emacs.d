@@ -524,16 +524,21 @@
 
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
-(setq cperl-indent-level 4
-      cperl-close-paren-offset -4
-      cperl-continued-statement-offset 4
-      cperl-indent-parens-as-block t
-      cperl-tab-always-indent t
-      cperl-indent-subs-specially nil
-      cperl-extra-newline-before-brace nil
-      ;; cperl-invalid-face nil
-      ;; cperl-invalid-face (quote off)
-      cperl-merge-trailing-else t)
+(add-hook 'cperl-mode-hook
+          (lambda()
+            (setq indent-tabs-mode t
+                  tab-width 8
+                  standard-indent 8
+                  cperl-indent-level 8
+                  cperl-close-paren-offset -8
+                  cperl-continued-statement-offset 8
+                  cperl-indent-parens-as-block t
+                  cperl-tab-always-indent t
+                  cperl-indent-subs-specially nil
+                  cperl-extra-newline-before-brace nil
+                  ;; cperl-invalid-face nil
+                  ;; cperl-invalid-face (quote off)
+                  cperl-merge-trailing-else t)))
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
