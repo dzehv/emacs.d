@@ -68,7 +68,7 @@
 (scroll-bar-mode   -1) ;; Disable scroll-line
 (blink-cursor-mode -1) ;; Disable cursor flashing
 (setq use-dialog-box nil) ;; No graphic dialogs and windows
-(setq redisplay-dont-pause t) ;; Better buffer renrering
+(setq redisplay-dont-pause t) ;; Better buffer rendering
 (setq ring-bell-function 'ignore) ;; Disable sound signals
 (column-number-mode 1) ;; Show cursor position within line
 
