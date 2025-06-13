@@ -97,10 +97,13 @@
   (setq w32-lwindow-modifier 'super)
   (setq w32-rwindow-modifier 'super)))
 
+;; set font size
+(set-face-attribute 'default nil :font "Monaco-16")
+
 ;; set font
 ;; (set-frame-font "Menlo:pixelsize=16")
-(when (member "Menlo" (font-family-list))
-  (set-face-attribute 'default nil :font "Menlo:pixelsize=16"))
+;; (when (member "Menlo" (font-family-list))
+  ;; (set-face-attribute 'default nil :font "Menlo:pixelsize=16"))
 
 ;; set font if emacs running in daemon mode
 ;; (add-to-list 'default-frame-alist
