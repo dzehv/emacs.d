@@ -525,6 +525,15 @@
             ;; switch to line style instead of block style (C-c C-k)
             (c-toggle-comment-style)))
 
+;; and c++ mode settings
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode t)
+            (setq show-trailing-whitespace t)
+            (setq tab-width 8)
+            (setq c-basic-offset tab-width)
+            ))
+
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (add-hook 'cperl-mode-hook
