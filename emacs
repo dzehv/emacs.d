@@ -532,7 +532,7 @@
             (setq show-trailing-whitespace t)
             (setq tab-width 8)
             (setq c-basic-offset tab-width)
-            ))
+            (setq backward-delete-char-untabify-method nil)))
 
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
