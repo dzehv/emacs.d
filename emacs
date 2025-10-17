@@ -316,7 +316,7 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cb" 'org-iswitchb)
-(setq org-startup-truncated t) ; no lines wrap
+(setq org-startup-truncated t) ;; no lines wrap
 (setq org-agenda-files (list "~/.emacs.d/org/work.org"
                              "~/.emacs.d/org/home.org"))
 (setq org-log-done t)
@@ -731,18 +731,21 @@
                 "Use the russian-computer input method."
                 (interactive)
                 (set-input-method 'russian-computer)))
+(defalias 'ukr (lambda ()
+                "Use the ukrainian-computer input method."
+                (interactive)
+                (set-input-method 'ukrainian-computer)))
 
 ;; EMMS: The Emacs Multimedia System
 ;; https://wikemacs.org/wiki/Media_player
-(when (require 'emms-setup nil t)
-  (emms-all)
-  (emms-default-players)
-
-  (define-emms-simple-player mplayer '(file url)
-    (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
-                  ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
-                  ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-    "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
+;; (when (require 'emms-setup nil t)
+  ;; (emms-all)
+  ;; (emms-default-players)
+  ;; (define-emms-simple-player mplayer '(file url)
+    ;; (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+                  ;; ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
+                  ;; ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
+    ;; "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen"))
 
 ;; folding
 (require 'hideshow)
@@ -941,7 +944,7 @@ vi style of % jumping to matching brace."
 
 ;; load all elisp files from specified dir
 (defun my-load-all-in-directory (dir)
-  "`load' all elisp libraries in directory DIR which are not already loaded."
+  "'load' all elisp libraries in directory DIR which are not already loaded."
   (interactive "D")
   (let ((libraries-loaded (mapcar #'file-name-sans-extension
                                   (delq nil (mapcar #'car load-history)))))
@@ -958,16 +961,16 @@ vi style of % jumping to matching brace."
 (defun kill-matching-lines (regexp &optional rstart rend interactive)
   "Kill lines containing matches for REGEXP.
 
-See `flush-lines' or `keep-lines' for behavior of this command.
+See 'flush-lines' or 'keep-lines' for behavior of this command.
 
 If the buffer is read-only, Emacs will beep and refrain from deleting
-the line, but put the line in the kill ring anyway.  This means that
+the line, but put the line in the kill ring anyway. This means that
 you can use this command to copy text from a read-only buffer.
-\(If the variable `kill-read-only-ok' is non-nil, then this won't
+\(If the variable 'kill-read-only-ok' is non-nil, then this won't
 even beep.)"
   (interactive
    (keep-lines-read-args "Kill lines containing match for regexp"))
-  (let ((buffer-file-name nil)) ;; HACK for `clone-buffer'
+  (let ((buffer-file-name nil)) ;; HACK for 'clone-buffer'
     (with-current-buffer (clone-buffer nil nil)
       (let ((inhibit-read-only t))
         (keep-lines regexp rstart rend interactive)
