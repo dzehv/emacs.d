@@ -64,6 +64,12 @@ Link app:
 ln -s /opt/homebrew/opt/emacs-mac/Emacs.app ~/Applications
 ```
 
+Link emacsclient for Mac OS installation from dmg:
+
+``` bash
+ln -s /Applications/Emacs.app/Contents/MacOS/bin/emacsclient /usr/local/bin/emacsclient
+```
+
 ### Gnus email settings example
 
 ``` bash
