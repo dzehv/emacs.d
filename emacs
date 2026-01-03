@@ -87,10 +87,12 @@
  ((eq system-type 'darwin)
   ;; (setq mac-pass-command-to-system nil) ;; disable OS commands by modifier keys
   ;; (set-keyboard-coding-system nil)
-  (setq mac-command-modifier 'meta)    ;; sets the Command key to Meta
-  (setq mac-control-modifier 'control) ;; sets the Control key to Control
-  (setq ns-function-modifier 'hyper)   ;; set Mac's Fn key to Hyper
-  (setq mac-option-modifier 'super))   ;; sets the Option key to Super
+  (setq mac-command-modifier 'meta)        ;; sets the Command key to Meta (or 'ns-command-modifier)
+  (setq mac-right-command-modifier 'super) ;; right Command — disable interception, let it work as a Mac system key (or ns-...)
+  (global-set-key (kbd "s-h") 'ns-do-hide-emacs) ;; hide emacs
+  (setq mac-control-modifier 'control)   ;; sets the Control key to Control
+  (setq ns-function-modifier 'hyper)     ;; set Mac's Fn key to Hyper
+  (setq mac-option-modifier 'super))     ;; sets the Option key to Super
  ((eq system-type 'windows-nt)
   (setq w32-pass-lwindow-to-system nil)
   (setq w32-pass-rwindow-to-system nil)
