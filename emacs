@@ -255,6 +255,7 @@
                          (mode . ediff-meta-mode)
                          (mode . speedbar-mode)
                          (mode . special-mode)
+                         (mode . Custom-mode)
                          (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ;; ("erc" (mode . erc-mode))
