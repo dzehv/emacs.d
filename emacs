@@ -557,6 +557,19 @@
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
+(add-hook 'cperl-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-t") 'my-perltidy)))
+
+;; run perltidy on the current region or buffer
+(defun my-perltidy ()
+  "Run perltidy on the current region or buffer."
+  (interactive)
+  (let ((orig-point (point)))
+    (unless (mark) (mark-defun))
+    (shell-command-on-region (point-min) (point-max) "perltidy -q" nil t)
+    (goto-char orig-point)
+    (message "perltidy executed")))
 
 ;; golang indent settings
 (add-hook 'go-mode-hook
