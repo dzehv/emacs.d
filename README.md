@@ -194,3 +194,25 @@ apt install emms vorbis-tools
 See daemon/README.txt instructions to install emacs as daemon.
 
 Available commands to manage daemon with emacsclient are listed in vim2emacs.html doc.
+
+## Troubleshooting
+
+### After broken updates (major versions e.g. 29-30)
+
+Clean native-comp cache:
+
+``` bash
+rm -rf ~/.emacs.d/eln-cache
+```
+
+### Stability > speed
+
+``` elisp
+(setq native-comp-jit-compilation nil)
+```
+
+Or launch:
+
+``` bash
+emacs --no-native-comp
+```
