@@ -51,7 +51,7 @@ cp emacsclient/emacsclient_remote.sh /usr/local/bin/ec
 
 e.g. using emacs-mac port from railwaycat/emacsmacport homebrew formula:
 
-Install:
+Install (emacs-mac):
 
 ``` bash
 brew tap railwaycat/emacsmacport
@@ -62,6 +62,20 @@ Link app:
 
 ``` bash
 ln -s /opt/homebrew/opt/emacs-mac/Emacs.app ~/Applications
+```
+
+Install emacs-plus: more vanilla emacs version:
+
+``` bash
+$ brew tap d12frosted/emacs-plus
+
+# Pre-built binaries (fast, ~1 min)
+$ brew install --cask emacs-plus-app          # latest stable
+$ brew install --cask emacs-plus-app@master   # nightly from master
+
+# Build from source (customizable, ~30 min)
+$ brew install emacs-plus        [options]    # latest stable
+$ brew install emacs-plus@master [options]    # from master
 ```
 
 Link emacsclient for Mac OS installation from dmg:

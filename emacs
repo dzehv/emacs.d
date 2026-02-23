@@ -72,6 +72,26 @@
 (setq ring-bell-function 'ignore) ;; Disable sound signals
 (column-number-mode 1) ;; Show cursor position within line
 
+;; -----------------------------------------------------------------------------
+;; unbreakable macos shortcuts (overriding minor mode)
+;; -----------------------------------------------------------------------------
+
+;; 1. create a specific keymap for our absolute shortcuts
+(defvar my-mac-override-map (make-sparse-keymap))
+
+;; 2. bind left command + h (which emacs sees as m-h) to hide application
+(define-key my-mac-override-map (kbd "M-h") 'ns-do-hide-emacs)
+
+;; 3. define a global minor mode that enforces this keymap above all others
+(define-minor-mode my-mac-override-mode
+  "a minor mode to force mac-specific keybindings to override major modes."
+  :global t
+  :init-value t
+  :keymap my-mac-override-map)
+
+;; ensure it's turned on
+(my-mac-override-mode 1)
+
 ;; turn on hl-line
 ;; (global-hl-line-mode 1)
 ;; set any color as the background face of the current line
@@ -82,22 +102,50 @@
 ;; hilight parent brackets
 (show-paren-mode 1)
 
-;; OS X and Win modifier keys bindings
+;; os x and win modifier keys bindings
 (cond
  ((eq system-type 'darwin)
-  ;; (setq mac-pass-command-to-system nil) ;; disable OS commands by modifier keys
-  ;; (set-keyboard-coding-system nil)
-  (setq mac-command-modifier 'meta)        ;; sets the Command key to Meta (or 'ns-command-modifier)
-  (setq mac-right-command-modifier 'super) ;; right Command — disable interception, let it work as a Mac system key (or ns-...)
-  (global-set-key (kbd "s-h") 'ns-do-hide-emacs) ;; hide emacs
-  (setq mac-control-modifier 'control)   ;; sets the Control key to Control
-  (setq ns-function-modifier 'hyper)     ;; set Mac's Fn key to Hyper
-  (setq mac-option-modifier 'super))     ;; sets the Option key to Super
+  ;; set left command to meta
+  (setq mac-command-modifier 'meta)
+  ;; set right command to super
+  (setq mac-right-command-modifier 'super)
+  ;; set option to super
+  (setq mac-option-modifier 'super)
+  ;; set control to control
+  (setq mac-control-modifier 'control)
+  ;; set fn key to hyper
+  (setq ns-function-modifier 'hyper)
+  ;; hide emacs using left command + h
+  ;; since left command is meta, we bind M-h
+  (global-set-key (kbd "M-h") 'ns-do-hide-emacs))
  ((eq system-type 'windows-nt)
+  ;; windows modifier keys setup
   (setq w32-pass-lwindow-to-system nil)
   (setq w32-pass-rwindow-to-system nil)
   (setq w32-lwindow-modifier 'super)
   (setq w32-rwindow-modifier 'super)))
+
+;; automatic day/night theme switching (pure vanilla fix)
+(when (boundp 'ns-system-appearance-change-functions)
+  (add-hook 'ns-system-appearance-change-functions
+            (lambda (appearance)
+              ;; 1. disable any active themes
+              (mapc #'disable-theme custom-enabled-themes)
+
+              ;; 2. explicitly set the default canvas and inform the engine
+              (pcase appearance
+                ('light
+                 ;; explicit white background, black text
+                 (set-face-attribute 'default nil :background "white" :foreground "black")
+                 (setq frame-background-mode 'light))
+                ('dark
+                 ;; explicit black background, white text (like a raw terminal)
+                 (set-face-attribute 'default nil :background "black" :foreground "white")
+                 (setq frame-background-mode 'dark)))
+
+              ;; 3. force emacs to recalculate syntax colors (comments, keywords)
+              ;; so they remain readable on the new background
+              (mapc #'frame-set-background-mode (frame-list)))))
 
 ;; set font size
 (set-face-attribute 'default nil :font "Monaco-16")
