@@ -3,7 +3,8 @@
 ### Create source folder and copy config file
 
 ``` bash
-mkdir ~/.emacs.d && cp emacs ~/.emacs
+mkdir ~/.emacs.d
+cp init.el ~/.emacs.d/init.el
 ```
 
 ### Copy elisp libs dir
@@ -108,7 +109,7 @@ echo export EDITOR=\"emacs -nw\" >> [~/.[bash|zsh]rc | ~/.profile]
 
 ### Minimal configuration for no-window usage
 ``` bash
-cp emacs-nw ~/.emacs-nw
+cp init-nw.el ~/.emacs.d/init-nw.el
 ```
 
 ### Install to update-alternatives for editor
@@ -137,10 +138,10 @@ sudo update-alternatives --config editor
 
 ### Launch with min conf
 ``` bash
-emacs -nw -l ~/.emacs-nw
+emacs -nw -l ~/.emacs.d/init-nw.el
 ```
 
-It can be used both configurations. emacs-nw will not use whole configuration if ~/.emacs-nw exists
+It can be used both configurations. init-nw.el will not use whole configuration if ~/.emacs.d/init-nw.el exists
 
 ### Python mode additional settings
 

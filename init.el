@@ -46,12 +46,17 @@
     ;; (require 'xterm-extras)
     ;; (xterm-extra-keys))
   ;; load min emacs configuration for no window (-nw) mode
-  (setq emacs-nw-conf "~/.emacs-nw")
+  (setq emacs-nw-conf "~/.init-nw.el")
   (if (file-exists-p emacs-nw-conf)
       (progn (load-file emacs-nw-conf)
-             ;; don't init other configuration of this file if ~/.emacs-nw exists
+             ;; don't init other configuration of this file if ~/.init-nw.el exists
              (with-current-buffer " *load*"
                (goto-char (point-max))))))
+
+;; separate custom file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;; display datetime at status bar
 (setq display-time-day-and-date t
@@ -273,6 +278,8 @@
                          (name . "^\\.emacs$")
                          (name . "^\\.emacs-nw$")
                          (name . "^\\.emacs\\.el$")
+                         (name . "^\\.init\\.el$")
+                         (name . "^\\.init-nw\\.el$")
                          (name . "^\\*GNU Emacs\\*$")
                          (name . "^\\*Edit Formulas\\*$")
                          (name . "^\\*WoMan-Log\\*$")
