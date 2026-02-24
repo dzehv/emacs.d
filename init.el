@@ -19,20 +19,20 @@
 
 ;; backup settings (keep working directories clean)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
-      backup-by-copying t    ; don't delink hardlinks
-      version-control t      ; use version numbers on backups
-      delete-old-versions t  ; automatically delete excess backups
-      kept-new-versions 20   ; how many of the newest versions to keep
-      kept-old-versions 5)   ; and how many of the old
+      backup-by-copying t    ;; don't delink hardlinks
+      version-control t      ;; use version numbers on backups
+      delete-old-versions t  ;; automatically delete excess backups
+      kept-new-versions 20   ;; how many of the newest versions to keep
+      kept-old-versions 5)   ;; and how many of the old
 
 ;; run server mode for gui session unconditionally
 (require 'server)
-(setq server-name "server" ; name of the server
-      server-host "localhost" ; server ip
+(setq server-name "server" ;; name of the server
+      server-host "localhost" ;; server ip
       server-socket-dir "~/.emacs.d/server"
       server-use-tcp nil
       server-port 9999)
-(server-start) ; comment out when using 'emacs --daemon'
+(server-start) ;; comment out when using 'emacs --daemon'
 
 ;; confirm exit
 (setq confirm-kill-emacs 'yes-or-no-p)
@@ -323,6 +323,21 @@
 ;; block 4: programming languages (the toolbox)
 ;; -----------------------------------------------------------------------------
 
+;; asynchronous auto-formatting on save
+(use-package apheleia
+  :ensure t
+  :config
+  ;; ensures emacs environment matches your shell (crucial for macos)
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize))
+
+  (apheleia-global-mode +1)
+
+  ;; explicit mapping for go-ts-mode if it is not picked up automatically
+  (setf (alist-get 'go-ts-mode apheleia-mode-alist) 'gofmt))
+
 ;; automatic installation of tree-sitter grammars
 (use-package treesit-auto
   :custom
@@ -335,7 +350,6 @@
 (use-package go-ts-mode
   :mode "\\.go\\'"
   :config
-  (add-hook 'before-save-hook 'gofmt-before-save)
   (setq-default tab-width 8 standard-indent 8)
   (setq indent-tabs-mode t))
 
@@ -531,10 +545,10 @@
 (defun my-term-mode-hook ()
   (define-key term-raw-map (kbd "C-y") 'term-paste)
   (define-key term-raw-map (kbd "C-k")
-    (lambda ()
-      (interactive)
-      (term-send-raw-string "\C-k")
-      (kill-line))))
+              (lambda ()
+                (interactive)
+                (term-send-raw-string "\C-k")
+                (kill-line))))
 (add-hook 'term-mode-hook 'my-term-mode-hook)
 
 ;; goto specified percent of buffer
