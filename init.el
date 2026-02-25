@@ -2,6 +2,12 @@
 ;; block 1: core & system initialization
 ;; -----------------------------------------------------------------------------
 
+;; temporary increase garbage collection threshold for faster startup
+(setq gc-cons-threshold (* 50 1024 1024))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 2 1024 1024))))
+
 ;; package archives & use-package bootstrap
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -354,15 +360,24 @@
   (setq-default tab-width 8 standard-indent 8)
   (setq indent-tabs-mode t)
 
-  ;; manual font-lock levels for tree-sitter
-  (setq treesit-font-lock-level 4)
+  ;; highlighting levels: 4 is max, but let's stick to 3 or 4
+  ;; to match classic feel
+  (setq go-ts-mode-font-lock-level 4)
 
-  ;; define colors for function calls manually since we don't use themes
-  ;; this will make function calls orange/gold-ish, similar to classic logic
+  ;; classic theme restoration:
+  ;; link new tree-sitter faces to standard emacs font-lock faces
   (custom-set-faces
-   '(font-lock-function-call-face ((t (:foreground "LightBlue" :weight bold)))))
-  ;; '(font-lock-variable-name-face ((t (:foreground "Orange")))))
+   ;; function calls -> same as function definitions
+   '(font-lock-function-call-face ((t (:inherit font-lock-function-name-face))))
+   ;; variables -> standard variable color
+   '(font-lock-variable-name-face ((t (:inherit font-lock-variable-name-face))))
+   ;; constants and built-ins
+   '(font-lock-constant-face ((t (:inherit font-lock-constant-face))))
+   '(font-lock-builtin-face ((t (:inherit font-lock-builtin-face))))
+   ;; types and structures
+   '(font-lock-type-face ((t (:inherit font-lock-type-face)))))
 
+  ;; apply settings locally on mode activation
   (add-hook 'go-ts-mode-hook
             (lambda ()
               (setq-local treesit-font-lock-level 4)
