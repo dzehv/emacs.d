@@ -72,7 +72,9 @@
 
 ;; modern emacs 30 ui features
 (global-display-line-numbers-mode 1) ;; native fast line numbers
-(fido-vertical-mode 1)               ;; modern built-in vertical completion
+;; (fido-vertical-mode 1)               ;; modern built-in vertical completion
+(fido-mode 1)                        ;; horizontal completion (ido-style)
+(setq icomplete-prospects-height 1)  ;; force single line in minibuffer
 (savehist-mode 1)                    ;; remember minibuffer history
 (recentf-mode 1)                     ;; remember recently opened files
 
