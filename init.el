@@ -8,6 +8,14 @@
           (lambda ()
             (setq gc-cons-threshold (* 2 1024 1024))))
 
+;; ensure emacs environment matches your shell (crucial for macos)
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :demand t ;; load immediately to provide PATH for other packages
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; package archives & use-package bootstrap
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -332,56 +340,21 @@
 ;; asynchronous auto-formatting on save
 (use-package apheleia
   :ensure t
+  :defer 1
   :config
-  ;; ensures emacs environment matches your shell (crucial for macos)
-  (use-package exec-path-from-shell
-    :ensure t
-    :config
-    (exec-path-from-shell-initialize))
+  (apheleia-global-mode +1))
 
-  (apheleia-global-mode +1)
-
-  ;; explicit mapping for go-ts-mode if it is not picked up automatically
-  (setf (alist-get 'go-ts-mode apheleia-mode-alist) 'gofmt))
-
-;; automatic installation of tree-sitter grammars
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 'prompt) ;; prompt to install grammar on opening new file types
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-
-;; modern go setup using built-in tree-sitter mode
-(use-package go-ts-mode
+;; classic go-mode (rock solid, no hangs, perfect highlighting)
+(use-package go-mode
+  :ensure t
   :mode "\\.go\\'"
   :config
-  ;; formatting is handled by apheleia
   (setq-default tab-width 8 standard-indent 8)
   (setq indent-tabs-mode t)
-
-  ;; highlighting levels: 4 is max, but let's stick to 3 or 4
-  ;; to match classic feel
-  (setq go-ts-mode-font-lock-level 4)
-
-  ;; classic theme restoration:
-  ;; link new tree-sitter faces to standard emacs font-lock faces
-  (custom-set-faces
-   ;; function calls -> same as function definitions
-   '(font-lock-function-call-face ((t (:inherit font-lock-function-name-face))))
-   ;; variables -> standard variable color
-   '(font-lock-variable-name-face ((t (:inherit font-lock-variable-name-face))))
-   ;; constants and built-ins
-   '(font-lock-constant-face ((t (:inherit font-lock-constant-face))))
-   '(font-lock-builtin-face ((t (:inherit font-lock-builtin-face))))
-   ;; types and structures
-   '(font-lock-type-face ((t (:inherit font-lock-type-face)))))
-
-  ;; apply settings locally on mode activation
-  (add-hook 'go-ts-mode-hook
-            (lambda ()
-              (setq-local treesit-font-lock-level 4)
-              (treesit-font-lock-recompute-features))))
+  ;; formatting is handled by apheleia
+  (add-hook 'go-mode-hook
+	    (lambda ()
+	      (setq-local tab-width 8))))
 
 ;; auto modes for system files
 (setq filemodes
