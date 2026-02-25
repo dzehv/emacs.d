@@ -150,6 +150,25 @@
 ;; block 3: editor behavior & global modes
 ;; -----------------------------------------------------------------------------
 
+;; company is a lightweight replacement for auto-complete
+(use-package company
+  :ensure t
+  :defer 0.5
+  :init
+  (global-company-mode 1)
+  :config
+  (setq company-minimum-prefix-length 2
+        company-idle-delay 0.1
+        company-tooltip-limit 10
+        company-tooltip-align-annotations t
+        company-require-match nil
+        company-global-modes '(not term-mode eshell-mode))
+
+  ;; search-as-you-type in the tooltip
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-selection))
+
 ;; mouse settings
 (require 'mouse)
 (xterm-mouse-mode t)
@@ -351,6 +370,11 @@
   :config
   (setq-default tab-width 8 standard-indent 8)
   (setq indent-tabs-mode t)
+
+  ;; LSP support via Eglot (built-in in Emacs 30)
+  ;; works via external 'gopls'
+  ;; (add-hook 'go-mode-hook 'eglot-ensure)
+
   ;; formatting is handled by apheleia
   (add-hook 'go-mode-hook
 	    (lambda ()
