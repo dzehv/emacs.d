@@ -350,8 +350,23 @@
 (use-package go-ts-mode
   :mode "\\.go\\'"
   :config
+  ;; formatting is handled by apheleia
   (setq-default tab-width 8 standard-indent 8)
-  (setq indent-tabs-mode t))
+  (setq indent-tabs-mode t)
+
+  ;; manual font-lock levels for tree-sitter
+  (setq treesit-font-lock-level 4)
+
+  ;; define colors for function calls manually since we don't use themes
+  ;; this will make function calls orange/gold-ish, similar to classic logic
+  (custom-set-faces
+   '(font-lock-function-call-face ((t (:foreground "LightBlue" :weight bold)))))
+  ;; '(font-lock-variable-name-face ((t (:foreground "Orange")))))
+
+  (add-hook 'go-ts-mode-hook
+            (lambda ()
+              (setq-local treesit-font-lock-level 4)
+              (treesit-font-lock-recompute-features))))
 
 ;; auto modes for system files
 (setq filemodes
