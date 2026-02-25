@@ -150,6 +150,9 @@
 ;; block 3: editor behavior & global modes
 ;; -----------------------------------------------------------------------------
 
+;; disable built-in version control (vc) completely for maximum speed
+(setq vc-handled-backends nil)
+
 ;; company is a lightweight replacement for auto-complete
 (use-package company
   :ensure t
@@ -187,12 +190,6 @@
 (setq-default tab-width 4)
 (setq-default c-basic-offset tab-width)
 (setq-default show-trailing-whitespace t)
-
-;; disable tramp version control to avoid delays
-(setq vc-ignore-dir-regexp
-      (format "\\(%s\\)\\|\\(%s\\)"
-              vc-ignore-dir-regexp
-              tramp-file-name-regexp))
 
 ;; ibuffer basic settings
 (setq ibuffer-show-empty-filter-groups nil)
