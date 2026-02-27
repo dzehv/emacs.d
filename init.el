@@ -74,7 +74,7 @@
 (global-display-line-numbers-mode 1) ;; native fast line numbers
 ;; (fido-vertical-mode 1)               ;; modern built-in vertical completion
 (fido-mode 1)                        ;; horizontal completion (ido-style)
-(setq icomplete-prospects-height 1)  ;; force single line in minibuffer
+;; (setq icomplete-prospects-height 1)  ;; force single line in minibuffer
 (savehist-mode 1)                    ;; remember minibuffer history
 (recentf-mode 1)                     ;; remember recently opened files
 
@@ -521,6 +521,25 @@
 ;; -----------------------------------------------------------------------------
 ;; block 5: custom functions (defuns)
 ;; -----------------------------------------------------------------------------
+
+;; -----------------------------------------------------------------------------
+;; fido-mode file/dir colorizer (emacs 30 compatible, zero dependencies)
+;; -----------------------------------------------------------------------------
+(defun my-fido-colorize-dirs (orig-fun string pred action)
+  "colorize directories in file completions using standard adaptive faces."
+  (let ((res (funcall orig-fun string pred action)))
+    ;; action 't' means we are requesting the full list of completions
+    (if (and (eq action t) (listp res))
+        (mapcar (lambda (candidate)
+                  (if (and (stringp candidate) (string-suffix-p "/" candidate))
+                      ;; font-lock-keyword-face is visible and theme-adaptive
+                      (propertize candidate 'face '(font-lock-keyword-face :weight bold))
+                    candidate))
+                res)
+      res)))
+
+;; intercept the actual modern file completion table
+(advice-add 'completion-file-name-table :around #'my-fido-colorize-dirs)
 
 ;; org capture at point
 (defun org-capture-at-point ()
