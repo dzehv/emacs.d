@@ -523,19 +523,23 @@
 ;; -----------------------------------------------------------------------------
 
 ;; -----------------------------------------------------------------------------
-;; fido-mode file/dir colorizer (emacs 30 compatible, zero dependencies)
+;; fido-mode file/dir colorizer & cleanup (emacs 30+, zero dependencies)
 ;; -----------------------------------------------------------------------------
 (defun my-fido-colorize-dirs (orig-fun string pred action)
-  "colorize directories in file completions using standard adaptive faces."
+  "Colorize directories and hide . and .. in file completions."
   (let ((res (funcall orig-fun string pred action)))
     ;; action 't' means we are requesting the full list of completions
     (if (and (eq action t) (listp res))
-        (mapcar (lambda (candidate)
-                  (if (and (stringp candidate) (string-suffix-p "/" candidate))
-                      ;; font-lock-keyword-face is visible and theme-adaptive
-                      (propertize candidate 'face '(font-lock-keyword-face :weight bold))
-                    candidate))
-                res)
+        (let (filtered-res)
+          (dolist (candidate res)
+            ;; filter out "." and ".." to keep the view clean (ido-style)
+            (unless (member candidate '("./" "../"))
+              (push (if (and (stringp candidate) (string-suffix-p "/" candidate))
+                        ;; colorize directories with theme-adaptive face
+                        (propertize candidate 'face '(font-lock-keyword-face :weight bold))
+                      candidate)
+                    filtered-res)))
+          (nreverse filtered-res))
       res)))
 
 ;; intercept the actual modern file completion table
