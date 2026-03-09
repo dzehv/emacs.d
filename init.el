@@ -479,9 +479,17 @@
                       (setq indent-tabs-mode nil
                             tab-width 4))))
 
-;; arduino mode
+;; arduino mode settings
 (use-package arduino-mode
-  :mode "\\.\\(pde\\|ino\\)$")
+  :mode "\\.\\(pde\\|ino\\)$"
+  :config
+  ;; silence native compiler warning about undefined function
+  (declare-function flycheck-arduino-setup "flycheck-arduino")
+
+  ;; safely initialize flycheck for c++ syntax in arduino sketches
+  (with-eval-after-load 'flycheck
+    (when (fboundp 'flycheck-arduino-setup)
+      (flycheck-arduino-setup))))
 
 ;; dockerfile mode
 (use-package dockerfile-mode
