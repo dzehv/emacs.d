@@ -253,7 +253,7 @@
                             (mode . lisp-interaction-mode) (mode . debugger-mode)
                             (mode . Buffer-menu-mode) (mode . ediff-mode)
                             (mode . ediff-meta-mode) (mode . speedbar-mode)
-                            (mode . special-mode) (mode . Custom-mode)
+                            (mode . special-mode) (mode . Custom-mode) (mode . edit-abbrevs-mode)
                             (mode . completion-list-mode)))
                ("dired" (mode . dired-mode))
                ("tramp" (name . "^\\*tramp"))
