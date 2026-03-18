@@ -251,7 +251,7 @@
                             (mode . scheme-mode) (mode . package-menu-mode)
                             (mode . compilation-mode) (mode . messages-buffer-mode)
                             (mode . lisp-interaction-mode) (mode . debugger-mode)
-                            (mode . Buffer-menu-mode) (mode . ediff-mode)
+                            (mode . Buffer-menu-mode) (mode . ediff-mode) (mode . native-comp-limple-mode)
                             (mode . ediff-meta-mode) (mode . speedbar-mode)
                             (mode . special-mode) (mode . Custom-mode) (mode . edit-abbrevs-mode)
                             (mode . completion-list-mode)))
