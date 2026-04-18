@@ -14,7 +14,8 @@
   :ensure t
   :demand t ;; load immediately to provide PATH for other packages
   :config
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GEMINI_API_KEY"))
 
 ;; package archives & use-package bootstrap
 (require 'package)
@@ -72,7 +73,7 @@
 
 ;; modern emacs 30 ui features
 (global-display-line-numbers-mode 1) ;; native fast line numbers
-;; (fido-vertical-mode 1)               ;; modern built-in vertical completion
+;; (fido-vertical-mode 1)              ;; modern built-in vertical completion
 (fido-mode 1)                        ;; horizontal completion (ido-style)
 ;; (setq icomplete-prospects-height 1)  ;; force single line in minibuffer
 (savehist-mode 1)                    ;; remember minibuffer history
@@ -351,6 +352,11 @@
         comment-tags-lighter nil))
 (add-hook 'prog-mode-hook 'comment-tags-mode)
 
+;; magit (the only git client you'll ever need)
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
+
 ;; -----------------------------------------------------------------------------
 ;; block 4: programming languages (the toolbox)
 ;; -----------------------------------------------------------------------------
@@ -376,8 +382,8 @@
 
   ;; formatting is handled by apheleia
   (add-hook 'go-mode-hook
-	    (lambda ()
-	      (setq-local tab-width 8))))
+            (lambda ()
+              (setq-local tab-width 8))))
 
 ;; auto modes for system files
 (setq filemodes
@@ -1004,3 +1010,97 @@
 
 ;; file operations
 (global-set-key (kbd "S-s-m f") 'move-file)
+
+;; -----------------------------------------------------------------------------
+;; block 7: ai assistant (gemini)
+;; -----------------------------------------------------------------------------
+
+(use-package gptel
+  :ensure t
+  :defer t
+  ;; bind request sending and settings menu
+  :bind (("C-c <return>" . gptel-send)
+         ("C-c g"        . gptel-menu))
+  :config
+  ;; use setq-default to ensure it sticks globally
+  (setq-default gptel-model 'gemini-1.5-flash)
+
+  ;; configure gemini backend with explicit models list
+  (setq gptel-backend
+        (gptel-make-gemini "Gemini"
+          :key (lambda () (getenv "GEMINI_API_KEY"))
+          :stream t
+          :models '(gemini-1.5-flash gemini-1.5-pro)))
+
+  ;; configure gemini backend, fetching key from env safely
+  (setq gptel-backend
+        (gptel-make-gemini "Gemini"
+          :key (lambda () (getenv "GEMINI_API_KEY"))
+          :stream t))
+
+  ;; magit commit integration (conventional commits)
+  ;; press C-c m in magit diff to generate message
+  (defun my-gptel-generate-commit-msg ()
+    "Generate a conventional commit message from the current diff."
+    (interactive)
+    (let ((diff-text (buffer-substring-no-properties (point-min) (point-max))))
+      (gptel-request
+	  (concat "analyze this diff and write a commit message using conventional commits format (feat, fix, refactor, etc.). return ONLY the commit text, without markdown or explanations:\n\n" diff-text)
+	:callback (lambda (response info)
+                    (if response
+			(with-current-buffer (get-buffer-create "*Gemini Commit*")
+                          (erase-buffer)
+                          (insert response)
+                          (switch-to-buffer-other-window (current-buffer)))
+                      (message "gemini failed to generate commit message."))))))
+
+  ;; bind to magit status mode map safely
+  (with-eval-after-load 'magit
+    (define-key magit-status-mode-map (kbd "C-c m") 'my-gptel-generate-commit-msg)))
+
+;; -----------------------------------------------------------------------------
+;; block 7: ai assistant (gemini 3 series)
+;; -----------------------------------------------------------------------------
+
+(use-package gptel
+  :ensure t
+  :defer t
+  ;; bind request sending and settings menu
+  :bind (("C-c <return>" . gptel-send)
+         ("C-c g"        . gptel-menu))
+  :config
+  ;; set gemini 3 flash as the primary workhorse
+  (setq-default gptel-model 'gemini-3-flash-preview)
+
+  ;; configure gemini backend with actual 2026 model ids
+  (setq gptel-backend
+        (gptel-make-gemini "Gemini"
+          :key (lambda () (getenv "GEMINI_API_KEY"))
+          :stream t
+          ;; use these specific ids to avoid 404
+          :models '(gemini-3-flash-preview
+                    gemini-3.1-flash-lite-preview
+                    gemini-3.1-pro-preview)))
+
+  ;; technical system prompt for clean output
+  (setq-default gptel-system-prompt
+                "you are a minimalist ai assistant. focus on go, perl and k8s. be concise, no fluff, raw code only.")
+
+  ;; magit commit integration (conventional commits)
+  (defun my-gptel-generate-commit-msg ()
+    "generate a conventional commit message from the current diff."
+    (interactive)
+    (let ((diff-text (buffer-substring-no-properties (point-min) (point-max))))
+      (gptel-request
+          (concat "analyze this diff and write a commit message using conventional commits format (feat, fix, refactor, etc.). return ONLY the commit text:\n\n" diff-text)
+        :callback (lambda (response info)
+                    (if response
+                        (with-current-buffer (get-buffer-create "*gemini commit*")
+                          (erase-buffer)
+                          (insert response)
+                          (switch-to-buffer-other-window (current-buffer)))
+                      (message "gemini failed to generate commit message."))))))
+
+  ;; bind to magit status mode map safely
+  (with-eval-after-load 'magit
+    (define-key magit-status-mode-map (kbd "C-c m") 'my-gptel-generate-commit-msg)))
