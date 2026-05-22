@@ -427,22 +427,22 @@
 ;; c++ mode settings
 (add-hook 'c++-mode-hook
           (lambda ()
-            (setq indent-tabs-mode t)
+            (setq indent-tabs-mode nil)
             (setq show-trailing-whitespace t)
-            (setq tab-width 8)
-            (setq c-basic-offset tab-width)
+            (setq tab-width 4)
+            (setq c-basic-offset 4)
             (setq backward-delete-char-untabify-method nil)))
 
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (add-hook 'cperl-mode-hook
           (lambda()
-            (setq indent-tabs-mode t
-                  tab-width 8
-                  standard-indent 8
-                  cperl-indent-level 8
-                  cperl-close-paren-offset -8
-                  cperl-continued-statement-offset 8
+            (setq indent-tabs-mode nil
+                  tab-width 4
+                  standard-indent 4
+                  cperl-indent-level 4
+                  cperl-close-paren-offset -4
+                  cperl-continued-statement-offset 4
                   cperl-indent-parens-as-block t
                   cperl-tab-always-indent t
                   cperl-indent-subs-specially nil
