@@ -432,7 +432,7 @@
 ;; cperl mode settings
 (defalias 'perl-mode 'cperl-mode)
 (add-hook 'cperl-mode-hook
-          (lambda()
+          (lambda ()
             (setq indent-tabs-mode nil
                   tab-width 4
                   standard-indent 4
@@ -443,13 +443,12 @@
                   cperl-tab-always-indent t
                   cperl-indent-subs-specially nil
                   cperl-extra-newline-before-brace nil
-                  cperl-merge-trailing-else t)))
+                  cperl-merge-trailing-else t
+                  apheleia-inhibit t)
+            (local-set-key (kbd "C-c C-t") 'my-perltidy)))
 
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (add-to-list 'auto-mode-alist '("\\.psgi$" . perl-mode))
-(add-hook 'cperl-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c C-t") 'my-perltidy)))
 
 ;; rust settings
 (use-package rust-mode
