@@ -15,7 +15,21 @@
   :demand t ;; load immediately to provide PATH for other packages
   :config
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GEMINI_API_KEY"))
+  (exec-path-from-shell-copy-env "GEMINI_API_KEY")
+  (exec-path-from-shell-copy-env "LIBRARY_PATH"))
+
+;; fix native-comp missing libemutls_w on macos with homebrew gcc
+(when (eq system-type 'darwin)
+  (let ((gcc-path (car (file-expand-wildcards "/opt/homebrew/opt/gcc/lib/gcc/current/gcc/*/*"))))
+    (when gcc-path
+      (setenv "LIBRARY_PATH" (concat (or (getenv "LIBRARY_PATH") "")
+                                     (if (getenv "LIBRARY_PATH") ":" "")
+                                     gcc-path))
+      ;; explicitly set options for both Emacs 28/29 and 30+ variants
+      (setq native-comp-driver-options (append (and (boundp 'native-comp-driver-options) native-comp-driver-options)
+                                               (list (concat "-L" gcc-path))))
+      (setq native-comp-compiler-options (append (and (boundp 'native-comp-compiler-options) native-comp-compiler-options)
+                                                 (list (concat "-L" gcc-path)))))))
 
 ;; package archives & use-package bootstrap
 (require 'package)
