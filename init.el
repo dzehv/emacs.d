@@ -54,17 +54,19 @@
       kept-new-versions 20   ;; how many of the newest versions to keep
       kept-old-versions 5)   ;; and how many of the old
 
-;; run server mode for gui session unconditionally
-(require 'server)
-(setq server-name "server" ;; name of the server
-      server-host "localhost" ;; server ip
-      server-socket-dir "~/.emacs.d/server"
-      server-use-tcp nil
-      server-port 9999)
-(server-start) ;; comment out when using 'emacs --daemon'
+;; run server mode for gui session only (avoid conflicts with emacs -nw)
+(when (display-graphic-p)
+  (require 'server)
+  (setq server-name "server" ;; name of the server
+        server-host "localhost" ;; server ip
+        server-socket-dir "~/.emacs.d/server"
+        server-use-tcp nil
+        server-port 9999)
+  (server-start))
 
-;; confirm exit
-(setq confirm-kill-emacs 'yes-or-no-p)
+;; confirm exit only in gui (unnecessary overhead in terminal mode)
+(when (display-graphic-p)
+  (setq confirm-kill-emacs 'yes-or-no-p))
 
 ;; separate custom file to isolate system-generated garbage
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -78,8 +80,9 @@
 ;; disable gui components (spartan mode)
 (tooltip-mode      -1)
 (menu-bar-mode     -1) ;; disable graphical menu
-(tool-bar-mode     -1) ;; disable tool-bar
-(scroll-bar-mode   -1) ;; disable scroll-line
+(when (display-graphic-p)
+  (tool-bar-mode     -1) ;; disable tool-bar
+  (scroll-bar-mode   -1)) ;; disable scroll-line
 (blink-cursor-mode -1) ;; disable cursor flashing
 (setq use-dialog-box nil) ;; no graphic dialogs and windows
 (setq redisplay-dont-pause t) ;; better buffer rendering
@@ -121,7 +124,9 @@
 
 ;; unbreakable macos shortcuts (overriding minor mode)
 (defvar my-mac-override-map (make-sparse-keymap))
-(define-key my-mac-override-map (kbd "M-h") 'ns-do-hide-emacs)
+(when (display-graphic-p)
+  ;; ns-do-hide-emacs is gui-only, not available in -nw
+  (define-key my-mac-override-map (kbd "M-h") 'ns-do-hide-emacs))
 (define-minor-mode my-mac-override-mode
   "a minor mode to force mac-specific keybindings to override major modes."
   :global t
