@@ -2,6 +2,9 @@
 ;; block 1: core & system initialization
 ;; -----------------------------------------------------------------------------
 
+;; no lexical warnings
+(setq warning-suppress-log-types '((files missing-lexbind-cookie)))
+
 ;; temporary increase garbage collection threshold for faster startup
 (setq gc-cons-threshold (* 50 1024 1024))
 (add-hook 'emacs-startup-hook
